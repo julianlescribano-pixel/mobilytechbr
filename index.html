@@ -638,6 +638,9 @@
         transform: translateY(0);
         animation: cleaningPulse 700ms ease;
       }
+      .cleaning-message.error {
+        color: #ff8d8d;
+      }
       @keyframes cleaningPulse {
         0% { transform: translateY(6px) scale(.98); }
         52% { transform: translateY(0) scale(1.02); }
@@ -758,7 +761,10 @@
           <p class="eyebrow">Limpeza de PCs</p>
           <h2 id="cleaning-title">Seu PC est&aacute; sujo ou esquentando demais?</h2>
           <p>N&atilde;o machuque mais seu PC. Fa&ccedil;a uma limpeza completa com troca de pasta t&eacute;rmica no processador e na placa de v&iacute;deo para manter tudo mais frio e confi&aacute;vel.</p>
-          <form class="cleaning-form" id="cleaning-form">
+          <form class="cleaning-form" id="cleaning-form" action="https://formspree.io/f/mnjrqypq" method="POST">
+            <input type="hidden" name="_subject" value="Pedido de limpeza - MobilyTechBR">
+            <input type="hidden" name="mensagem" value="Novo pedido de limpeza!">
+            <input type="hidden" name="servico" value="Limpeza completa + troca de pasta termica do processador e da placa de video.">
             <label>Nome<input name="nome" type="text" autocomplete="name" required></label>
             <label>Email<input name="email" type="email" autocomplete="email" required></label>
             <label>Telefone<input name="telefone" type="tel" autocomplete="tel" required></label>
@@ -937,6 +943,7 @@
       const cleaningSubmit = document.getElementById("cleaning-submit");
       const cleaningMessage = document.getElementById("cleaning-message");
       const cleaningInputs = cleaningForm ? Array.from(cleaningForm.querySelectorAll("input")) : [];
+      const cleaningEndpoint = "https://formspree.io/f/mnjrqypq";
 
       const updateCleaningSubmit = () => {
         if (!cleaningSubmit) return;
@@ -944,28 +951,41 @@
       };
 
       cleaningInputs.forEach((input) => input.addEventListener("input", updateCleaningSubmit));
-      cleaningForm?.addEventListener("submit", (event) => {
+      cleaningForm?.addEventListener("submit", async (event) => {
         event.preventDefault();
         updateCleaningSubmit();
         if (!cleaningSubmit || cleaningSubmit.disabled || !cleaningMessage) return;
 
-        const data = Object.fromEntries(new FormData(cleaningForm).entries());
-        const subject = "Pedido de limpeza - MobilyTechBR";
-        const body = [
-          "Novo pedido de limpeza!",
-          "",
-          `Nome: ${data.nome}`,
-          `Email: ${data.email}`,
-          `Telefone: ${data.telefone}`,
-          "",
-          "Servico: limpeza completa + troca de pasta termica do processador e da placa de video."
-        ].join("\n");
+        const formData = new FormData(cleaningForm);
+        formData.set("_subject", "Pedido de limpeza - MobilyTechBR");
+        formData.set("mensagem", "Novo pedido de limpeza!");
+        formData.set("servico", "Limpeza completa + troca de pasta termica do processador e da placa de video.");
 
-        cleaningMessage.textContent = "Voce recebera uma resposta no seu email em breve!";
+        cleaningSubmit.disabled = true;
+        cleaningSubmit.textContent = "Enviando...";
         cleaningMessage.classList.remove("show");
-        void cleaningMessage.offsetWidth;
-        cleaningMessage.classList.add("show");
-        window.location.href = `mailto:julian.l.escribano@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        cleaningMessage.classList.remove("error");
+
+        try {
+          const response = await fetch(cleaningEndpoint, {
+            method: "POST",
+            body: formData,
+            headers: { "Accept": "application/json" }
+          });
+
+          if (!response.ok) throw new Error("formspree");
+
+          cleaningForm.reset();
+          cleaningMessage.textContent = "Voce recebera uma resposta no seu email em breve!";
+        } catch (error) {
+          cleaningMessage.textContent = "Nao foi possivel enviar agora. Tente novamente em alguns instantes.";
+          cleaningMessage.classList.add("error");
+        } finally {
+          cleaningSubmit.textContent = "AGENDE J\u00c1!";
+          void cleaningMessage.offsetWidth;
+          cleaningMessage.classList.add("show");
+          updateCleaningSubmit();
+        }
       });
       updateCleaningSubmit();
     </script>
