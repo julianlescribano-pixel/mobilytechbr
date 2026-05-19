@@ -398,34 +398,90 @@
       .grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 16px;
+        gap: 42px 28px;
         align-items: stretch;
       }
       .card {
+        position: relative;
         display: flex;
         flex-direction: column;
         height: 100%;
         min-height: 100%;
-        overflow: hidden;
+        overflow: visible;
+        isolation: isolate;
         border: 1px solid var(--line);
         border-radius: 8px;
         background: linear-gradient(180deg, rgba(8, 28, 48, .96), rgba(7, 16, 27, .98));
         box-shadow: 0 16px 42px rgba(0, 0, 0, .22);
       }
       .photo {
+        position: relative;
         display: block;
-        aspect-ratio: 1 / 1;
-        overflow: hidden;
-        background: #05080d;
+        aspect-ratio: 1 / .95;
+        margin: 48px 16px 0;
+        overflow: visible;
+        border: 1px solid rgba(4, 183, 255, .42);
+        border-radius: 8px;
+        background:
+          radial-gradient(circle at 50% 14%, rgba(34, 240, 196, .18), transparent 36%),
+          radial-gradient(circle at 44% 88%, rgba(4, 183, 255, .22), transparent 44%),
+          linear-gradient(180deg, #071828, #02070e 78%);
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, .03),
+          0 22px 44px rgba(0, 0, 0, .24);
       }
-      .photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        transition: transform .22s ease;
+      .photo::before,
+      .photo::after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
       }
-      .card:hover .photo img { transform: scale(1.035); }
+      .photo::before {
+        inset: 0;
+        z-index: 0;
+        border-radius: inherit;
+        background:
+          linear-gradient(90deg, rgba(4, 183, 255, .12) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(34, 240, 196, .08) 1px, transparent 1px);
+        background-size: 34px 34px;
+        opacity: .28;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, .55), transparent 84%);
+      }
+      .photo::after {
+        left: 12%;
+        right: 12%;
+        bottom: 0;
+        z-index: 1;
+        height: 28%;
+        border-radius: 999px 999px 0 0;
+        background: radial-gradient(ellipse at center, rgba(4, 183, 255, .24), transparent 68%);
+        filter: blur(2px);
+      }
+      .product-cutout {
+        position: absolute;
+        left: 50%;
+        bottom: 2%;
+        z-index: 2;
+        width: 114%;
+        height: calc(100% + 56px);
+        object-fit: contain;
+        object-position: center bottom;
+        transform: translateX(-50%);
+        filter: drop-shadow(0 26px 28px rgba(0, 0, 0, .42));
+        transition: transform .22s ease, filter .22s ease;
+      }
+      .photo.portrait .product-cutout {
+        width: 108%;
+        height: calc(100% + 60px);
+        bottom: 0;
+      }
+      .photo.square .product-cutout {
+        width: 120%;
+      }
+      .card:hover .product-cutout {
+        transform: translateX(-50%) translateY(-8px) scale(1.018);
+        filter: drop-shadow(0 32px 32px rgba(0, 0, 0, .46));
+      }
       .body {
         display: flex;
         flex: 1;
@@ -797,6 +853,7 @@
           price: "R$ 4.000",
           badge: "Melhor performance",
           img: "./assets/ryzen-rx6650xt-manual.png",
+          cutout: "./assets/ryzen-rx6650xt-cutout.png",
           photo: "square",
           tags: ["Ryzen 5 3600X", "16GB DDR4", "RX 6650 XT 8GB", "SSD 480GB"],
           details: {
@@ -816,6 +873,7 @@
           old: "R$ 1.000",
           badge: "PC novo",
           img: "./assets/i7-gtx650-manual.png",
+          cutout: "./assets/i7-gtx650-cutout.png",
           photo: "portrait",
           tags: ["Intel Core i7", "8GB RAM", "GTX 650"],
           details: {
@@ -832,6 +890,7 @@
           price: "R$ 990",
           badge: "Com SSD",
           img: "./assets/i7-gtx550ti-manual.png",
+          cutout: "./assets/i7-gtx550ti-cutout.png",
           photo: "portrait",
           tags: ["Intel Core i7", "8GB RAM", "GTX 550 Ti", "SSD 240GB"],
           details: {
@@ -849,6 +908,7 @@
           old: "R$ 1.050",
           badge: "Promocao",
           img: "./assets/i5-gtx650-manual.png",
+          cutout: "./assets/i5-gtx650-cutout.png",
           photo: "portrait",
           tags: ["Intel Core i5", "8GB RAM", "GTX 650", "SSD 240GB"],
           details: {
@@ -866,6 +926,7 @@
           old: "R$ 1.000",
           badge: "Com SSD",
           img: "./assets/xeon-gtx550ti-manual.png",
+          cutout: "./assets/xeon-gtx550ti-cutout.png",
           photo: "square",
           tags: ["Xeon", "8GB RAM", "GTX 550 Ti", "SSD 240GB"],
           details: {
@@ -884,6 +945,7 @@
           old: "R$ 1.000",
           badge: "Facebook",
           img: "./assets/xeon-gtx650-manual.png",
+          cutout: "./assets/xeon-gtx650-cutout.png",
           photo: "square",
           tags: ["Xeon", "8GB RAM", "GTX 650", "SSD 240GB"],
           details: {
@@ -908,7 +970,7 @@
 
       document.getElementById("products").innerHTML = products.map((p) => `
         <article class="card">
-          <a class="photo ${p.photo}" href="${p.olx || p.fb}" target="_blank" rel="noreferrer"><img src="${p.img}" alt="${p.title}"></a>
+          <a class="photo ${p.photo}" href="${p.olx || p.fb}" target="_blank" rel="noreferrer"><img class="product-cutout" src="${p.cutout || p.img}" alt="${p.title}" loading="lazy"></a>
           <div class="body">
             <div class="topline"><span class="badge">${p.badge}</span><span class="price">${p.old ? `<s>${p.old}</s>` : ""}${p.price}</span></div>
             <h3>${p.title}</h3>
