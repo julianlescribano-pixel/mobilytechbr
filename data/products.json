@@ -1,0 +1,89 @@
+[
+  {
+    "id": "pc-gamer-ryzen-5-3600x",
+    "active": true,
+    "title": "PC Gamer Ryzen 5 3600X",
+    "price": "R$ 4.000",
+    "old": "",
+    "badge": "Melhor performance",
+    "image": "./assets/ryzen-rx6650xt-manual.png",
+    "cutout": "./assets/ryzen-rx6650xt-cutout.png",
+    "photo": "square",
+    "tags": [
+      "Ryzen 5 3600X",
+      "16GB DDR4",
+      "RX 6650 XT 8GB",
+      "SSD 480GB"
+    ],
+    "specs": {
+      "processor": "Ryzen 5 3600X",
+      "memory": "16GB DDR4",
+      "gpu": "RX 6650 XT 8GB",
+      "powerSupply": "",
+      "storage": "SSD 480GB"
+    },
+    "links": {
+      "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-amd-ryzen-5-3600x-16gb-ddr4-rx-6650-xt-8gb-ssd-480gb-1497594744?lis=ad_card_user_profile",
+      "facebook": "https://www.facebook.com/marketplace/item/832968043185090/?ref=marketplace_profile&referral_code=undefined&__tn__=!%3AD"
+    },
+    "featured": true
+  },
+  {
+    "id": "pc-gamer-xeon-gtx-550-ti",
+    "active": true,
+    "title": "PC Gamer Xeon GTX 550 Ti",
+    "price": "R$ 800",
+    "old": "",
+    "badge": "Sem armazenamento",
+    "image": "./assets/i5-gtx650-manual.png",
+    "cutout": "./assets/i5-gtx650-cutout.png",
+    "photo": "portrait",
+    "tags": [
+      "Xeon E3-1220V1",
+      "8GB RAM",
+      "GTX 550 Ti",
+      "Sem armazenamento"
+    ],
+    "specs": {
+      "processor": "Xeon E3-1220V1",
+      "memory": "8GB RAM",
+      "gpu": "GTX 550 Ti",
+      "powerSupply": "",
+      "storage": "Sem armazenamento"
+    },
+    "links": {
+      "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-i5-8gb-ram-gtx-650-ssd-240gb-perfeito-estado-1500196469?lis=ad_card_user_profile",
+      "facebook": ""
+    },
+    "featured": false
+  },
+  {
+    "id": "pc-gamer-xeon-gtx-650",
+    "active": true,
+    "title": "PC Gamer Xeon GTX 650",
+    "price": "R$ 800",
+    "old": "",
+    "badge": "Sem armazenamento",
+    "image": "./assets/xeon-gtx650-manual.png",
+    "cutout": "./assets/xeon-gtx650-cutout.png",
+    "photo": "square",
+    "tags": [
+      "Xeon E3-1220V1",
+      "8GB RAM",
+      "GTX 650",
+      "Sem armazenamento"
+    ],
+    "specs": {
+      "processor": "Xeon E3-1220V1",
+      "memory": "8GB RAM",
+      "gpu": "GTX 650",
+      "powerSupply": "",
+      "storage": "Sem armazenamento"
+    },
+    "links": {
+      "olx": "",
+      "facebook": "https://www.facebook.com/marketplace/item/26760481873564144/?ref=marketplace_profile&referral_code=undefined&__tn__=!%3AD"
+    },
+    "featured": false
+  }
+]

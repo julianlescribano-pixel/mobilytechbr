@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Painel MobilyTechBR</title>
+    <style>
+      :root {
+        --bg: #06101b;
+        --panel: rgba(8, 29, 48, .92);
+        --line: rgba(46, 196, 255, .28);
+        --text: #f5fbff;
+        --muted: #a7bdd0;
+        --cyan: #28c6ff;
+        --blue: #1267db;
+        --gold: #f2c85d;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 28px;
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at 18% 18%, rgba(40, 198, 255, .17), transparent 34%),
+          radial-gradient(circle at 80% 12%, rgba(242, 200, 93, .12), transparent 30%),
+          linear-gradient(135deg, #030912 0%, var(--bg) 46%, #02070d 100%);
+      }
+      main {
+        width: min(940px, 100%);
+        display: grid;
+        grid-template-columns: .9fr 1.1fr;
+        gap: 28px;
+        align-items: center;
+      }
+      .logo-wrap {
+        display: grid;
+        place-items: center;
+        padding: 34px;
+      }
+      .logo {
+        width: min(280px, 70vw);
+        border-radius: 999px;
+        filter: drop-shadow(0 18px 44px rgba(0, 0, 0, .4));
+      }
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: clamp(26px, 4vw, 42px);
+        background: linear-gradient(180deg, var(--panel), rgba(5, 14, 24, .96));
+        box-shadow: 0 24px 70px rgba(0, 0, 0, .35);
+      }
+      p.eyebrow {
+        margin: 0 0 10px;
+        color: var(--cyan);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(32px, 5vw, 54px);
+        line-height: 1;
+      }
+      p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.6;
+      }
+      ol {
+        margin: 24px 0;
+        padding-left: 20px;
+        color: var(--muted);
+        font-weight: 700;
+        line-height: 1.6;
+      }
+      li + li { margin-top: 8px; }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 26px;
+      }
+      a.button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 0 18px;
+        border-radius: 8px;
+        color: #03111b;
+        font-weight: 950;
+        text-decoration: none;
+        background: linear-gradient(135deg, var(--cyan), var(--blue));
+      }
+      a.button.secondary {
+        color: var(--text);
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, .05);
+      }
+      .note {
+        margin-top: 20px;
+        color: var(--gold);
+        font-size: 13px;
+      }
+      @media (max-width: 820px) {
+        main { grid-template-columns: 1fr; }
+        .logo-wrap { padding: 10px 20px 0; }
+        .logo { width: 190px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="logo-wrap">
+        <img class="logo" src="../assets/mobilytech-logo.png" alt="MobilyTechBR">
+      </div>
+      <section class="panel" aria-labelledby="title">
+        <p class="eyebrow">Painel de anuncios</p>
+        <h1 id="title">Atualizar PCs do site</h1>
+        <p>Esta pagina e a entrada segura para editar os anuncios sem alterar manualmente o HTML do site publico.</p>
+        <ol>
+          <li>Abra o Pages CMS e entre com sua conta do GitHub.</li>
+          <li>Escolha o repositorio <strong>mobilytechbr</strong>.</li>
+          <li>Edite a colecao <strong>Anuncios de PCs</strong>, envie fotos e salve.</li>
+        </ol>
+        <div class="actions">
+          <a class="button" href="https://app.pagescms.org/" target="_blank" rel="noreferrer">Abrir Pages CMS</a>
+          <a class="button secondary" href="../">Voltar para o site</a>
+        </div>
+        <p class="note">Nunca cole senha ou token do GitHub em paginas desconhecidas. Use apenas o login oficial do GitHub dentro do Pages CMS.</p>
+      </section>
+    </main>
+  </body>
+</html>

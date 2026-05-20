@@ -1,0 +1,93 @@
+media:
+  input: assets
+  output: ./assets
+  categories:
+    - image
+  rename: safe
+
+content:
+  - name: products
+    label: Anuncios de PCs
+    type: file
+    path: data/products.json
+    format: json
+    list: true
+    fields:
+      - name: id
+        label: ID interno
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Use apenas letras minusculas, numeros e tracos."
+        description: "Identificador unico. Exemplo: pc-gamer-ryzen-5-3600x"
+      - name: active
+        label: Ativo no site
+        type: boolean
+        default: true
+      - name: title
+        label: Titulo
+        type: string
+        required: true
+      - name: price
+        label: Preco
+        type: string
+        required: true
+      - name: old
+        label: Preco antigo
+        type: string
+      - name: badge
+        label: Selo do card
+        type: string
+      - name: image
+        label: Foto principal
+        type: image
+        required: true
+      - name: cutout
+        label: Foto recortada/PNG do PC
+        type: image
+      - name: photo
+        label: Formato da foto
+        type: select
+        default: square
+        options:
+          values:
+            - square
+            - portrait
+      - name: tags
+        label: Bolhas/tags
+        type: string
+        list: true
+      - name: specs
+        label: Especificacoes
+        type: object
+        fields:
+          - name: processor
+            label: Processador
+            type: string
+          - name: memory
+            label: Memoria
+            type: string
+          - name: gpu
+            label: Placa de video
+            type: string
+          - name: powerSupply
+            label: Fonte
+            type: string
+          - name: storage
+            label: Armazenamento
+            type: string
+      - name: links
+        label: Links dos anuncios
+        type: object
+        fields:
+          - name: olx
+            label: Link da OLX
+            type: string
+          - name: facebook
+            label: Link do Facebook Marketplace
+            type: string
+      - name: featured
+        label: Destaque interno
+        type: boolean
+        default: false
