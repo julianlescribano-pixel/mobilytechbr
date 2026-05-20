@@ -8,6 +8,8 @@ ROOT = Path(__file__).resolve().parents[2]
 DATA_FILE = ROOT / "data" / "products.json"
 OUTPUT_DIR = ROOT / "assets" / "generated"
 MAX_EDGE = 2200
+TRIM_PADDING_RATIO = 0.045
+TRIM_MIN_PADDING = 16
 
 
 def slugify(value):
@@ -30,6 +32,14 @@ def public_path(path):
     return "./" + path.relative_to(ROOT).as_posix()
 
 
+def is_generated_cutout(path):
+    try:
+        path.relative_to(OUTPUT_DIR)
+        return True
+    except ValueError:
+        return False
+
+
 def get_image_path(product):
     return local_path(product.get("image") or product.get("img"))
 
@@ -49,16 +59,15 @@ def find_jobs(products):
             continue
 
         cutout_path = get_cutout_path(product)
-        if cutout_path and cutout_path.exists():
+        if cutout_path and cutout_path.exists() and not is_generated_cutout(cutout_path):
             continue
 
         product_id = slugify(product.get("id") or product.get("title") or f"produto-{index + 1}")
         output_path = OUTPUT_DIR / f"{product_id}-cutout.png"
 
-        if output_path.exists():
+        if output_path.exists() and not cutout_path:
             product["cutout"] = public_path(output_path)
             changed = True
-            continue
 
         jobs.append((index, image_path, output_path))
 
@@ -86,6 +95,27 @@ def resize_for_processing(image):
     return image.resize((round(width * scale), round(height * scale)))
 
 
+def trim_transparent_padding(image):
+    from PIL import Image
+
+    if image.mode != "RGBA":
+        image = image.convert("RGBA")
+
+    bbox = image.getchannel("A").getbbox()
+    if not bbox:
+        return image
+
+    cropped = image.crop(bbox)
+    padding = max(TRIM_MIN_PADDING, round(max(cropped.size) * TRIM_PADDING_RATIO))
+    framed = Image.new(
+        "RGBA",
+        (cropped.width + padding * 2, cropped.height + padding * 2),
+        (0, 0, 0, 0),
+    )
+    framed.paste(cropped, (padding, padding), cropped)
+    return framed
+
+
 def generate_cutouts(products, jobs):
     from PIL import Image
     from rembg import new_session, remove
@@ -99,7 +129,7 @@ def generate_cutouts(products, jobs):
             if image.mode not in ("RGB", "RGBA"):
                 image = image.convert("RGBA")
             image = resize_for_processing(image)
-            output = remove(image, session=session)
+            output = trim_transparent_padding(remove(image, session=session))
             output.save(output_path)
         products[index]["cutout"] = public_path(output_path)
 
