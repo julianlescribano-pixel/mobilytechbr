@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MobilyTech | PCs e Hardware</title>
     <meta name="description" content="Catalogo MobilyTech com PCs gamer revisados, testados e prontos para uso em Sao Paulo." />
+    <link rel="icon" href="./assets/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="./assets/favicon.png" />
+    <link rel="apple-touch-icon" href="./assets/favicon.png" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&display=swap");
 
@@ -184,6 +187,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        gap: 9px;
         min-height: 44px;
         padding: 0 18px;
         border: 1px solid transparent;
@@ -206,15 +210,23 @@
         background: rgba(4, 183, 255, .08);
       }
       .button .button-icon {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
+        flex: 0 0 auto;
+        object-fit: contain;
+      }
+      .button .button-logo {
+        display: block;
+        width: auto;
+        height: 23px;
+        max-width: 104px;
         flex: 0 0 auto;
         object-fit: contain;
       }
       nav a.instagram-link {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
       }
       nav a .nav-icon {
         width: 16px;
@@ -241,6 +253,10 @@
         border-color: rgba(255, 230, 0, .72);
         background: linear-gradient(135deg, #fff27a, #ffe000 52%, #f4b600);
         box-shadow: 0 12px 26px rgba(255, 224, 0, .2);
+      }
+      .payment-button .button-logo {
+        height: 26px;
+        max-width: 120px;
       }
 
       .trust {
@@ -279,9 +295,10 @@
 
       .fulfillment {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 16px;
         padding: 46px clamp(18px, 5vw, 76px);
+        border-top: 1px solid var(--line);
         border-bottom: 1px solid var(--line);
         background: linear-gradient(180deg, #07121d, #040910);
       }
@@ -391,6 +408,8 @@
       }
       .brand-logo.ml img { height: 30px; max-width: 150px; }
       .brand-logo.olx img { height: 30px; }
+      .brand-logo.facebook img { height: 28px; }
+      .brand-logo.mp img { height: 30px; max-width: 148px; }
 
       .catalog {
         padding: 82px clamp(18px, 5vw, 76px) 96px;
@@ -702,7 +721,21 @@
       .checkout-total strong {
         color: #f7fbff;
       }
-      .card-actions { margin-top: auto; }
+      .card-actions {
+        display: grid;
+        gap: 10px;
+        margin-top: auto;
+      }
+      .marketplace-actions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+        gap: 10px;
+      }
+      .card-actions .payment-button {
+        width: 100%;
+        min-height: 48px;
+        font-size: 14px;
+      }
       .compact {
         flex: 1 1 140px;
         min-height: 40px;
@@ -865,6 +898,9 @@
         white-space: nowrap;
       }
 
+      @media (max-width: 1180px) {
+        .fulfillment { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
       @media (max-width: 1120px) {
         .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       }
@@ -907,7 +943,7 @@
         <a href="#contato">Contato</a>
         <a href="https://www.olx.com.br/perfil/julian-859fd666" target="_blank" rel="noreferrer">OLX</a>
         <a href="https://www.facebook.com/marketplace/profile/100035688601043/?ref=permalink&mibextid=6ojiHh" target="_blank" rel="noreferrer">Facebook</a>
-        <a class="instagram-link" href="https://www.instagram.com/mobilytechbr/" target="_blank" rel="noreferrer"><img class="nav-icon" src="./assets/instagram-icon.png" alt="" aria-hidden="true">Instagram</a>
+        <a class="instagram-link" href="https://www.instagram.com/mobilytechbr/" target="_blank" rel="noreferrer"><img class="nav-icon" src="./assets/instagram-logo-2022.svg" alt="" aria-hidden="true">Instagram</a>
       </nav>
     </header>
     <main id="topo">
@@ -922,7 +958,7 @@
           <div class="actions">
             <a class="button primary" href="#catalogo">Ver PCs disponiveis</a>
             <a class="button secondary" href="https://www.olx.com.br/perfil/julian-859fd666" target="_blank" rel="noreferrer">Perfil na OLX</a>
-            <a class="button secondary instagram-button" href="https://www.instagram.com/mobilytechbr/" target="_blank" rel="noreferrer"><img class="button-icon" src="./assets/instagram-icon.png" alt="" aria-hidden="true">Instagram</a>
+            <a class="button secondary instagram-button" href="https://www.instagram.com/mobilytechbr/" target="_blank" rel="noreferrer"><img class="button-icon" src="./assets/instagram-logo-2022.svg" alt="" aria-hidden="true">Instagram</a>
           </div>
         </div>
       </section>
@@ -932,30 +968,6 @@
         <div><strong>66+</strong><span>vendas conclu&iacute;das OLX + Marketplace</span></div>
         <div><strong>4.3 <span class="stars" aria-label="4.3 estrelas">&#9733;&#9733;&#9733;&#9733;&#9734;</span></strong><span>classifica&ccedil;&atilde;o no Facebook</span></div>
       </section>
-      <section class="fulfillment" aria-label="Envios e plataformas de venda">
-        <article class="ship-card">
-          <div class="ship-title">
-            <span class="br-flag" aria-hidden="true"></span>
-            <h2>Envio para todo o Brasil</h2>
-          </div>
-          <p>Envios feitos pelos Correios, com despacho no primeiro dia &uacute;til ap&oacute;s a confirma&ccedil;&atilde;o. Para envio, a compra &eacute; finalizada pela OLX ou pelo Mercado Livre, usando as prote&ccedil;&otilde;es da plataforma.</p>
-          <div class="brand-marks" aria-label="Plataformas com envio">
-            <span class="brand-logo olx"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCI+CiAgICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxwYXRoIGZpbGw9IiM2RTBBRDYiIGQ9Ik05LjA5NCAyMC43NTJjLTIuNzM3IDAtNC42MjUtMi4yNjYtNC42MjUtNS42MTkgMC0zLjM4NCAxLjg4OC01LjY1IDQuNjI1LTUuNjUgMi43MzggMCA0LjYyNiAyLjI2NiA0LjYyNiA1LjYxOCAwIDMuMzg1LTEuODg4IDUuNjUxLTQuNjI2IDUuNjUxbTAgNC4yNDdjNS4wNjcgMCA5LjA5NS00LjIxNSA5LjA5NS05Ljg5OCAwLTUuNjE5LTMuODA4LTkuODY1LTkuMDk1LTkuODY1QzQuMDI4IDUuMjM2IDAgOS40NSAwIDE1LjEzMyAwIDIwLjg0OCAzLjgwOCAyNSA5LjA5NCAyNSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxMC44KSIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM4Q0U1NjMiIGQ9Ik0yMS45MzMgMTcuNDY0aDguNjg2Yy41OTcgMCAuOTQ0LS4zNTEuOTQ0LS45NTh2LTIuNzc4YzAtLjYwNi0uMzQ3LS45NTctLjk0NC0uOTU3aC01LjgyMlYuOTU4YzAtLjYwNy0uMzQ2LS45NTgtLjk0NC0uOTU4aC0yLjg2NGMtLjU5OCAwLS45NDQuMzUxLS45NDQuOTU4djE0LjU5YzAgMS4yNDUuNjYxIDEuOTE2IDEuODg4IDEuOTE2IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDEwLjgpIi8+CiAgICAgICAgPHBhdGggZmlsbD0iI0YyODAwMCIgZD0iTTMzLjczNCAyNC43MTFsNS4yMjQtNi4wOTggNS4wNjYgNi4wOThjLjQ0LjU0MyAxLjAwNy41NDMgMS41MS4wOTZsMi4wNDYtMS44MmMuNTAzLS40NDcuNTY2LTEuMDIyLjA5NC0xLjUzMmwtNS42MzItNi4zODYgNS4xMjktNS44NDJjLjQ0LS41MTEuNDA5LTEuMDU0LS4wOTQtMS41MzNsLTEuOTItMS43NTZjLS41MDQtLjQ3OS0xLjA3LS40NDctMS41MS4wOTZsLTQuNjkgNS41MjMtNC43ODItNS41MjNjLS40NDEtLjUxLTEuMDA3LS41NzUtMS41MS0uMDk2TDMwLjY4IDcuNzI2Yy0uNTAzLjQ3OS0uNTM0Ljk5LS4wNjIgMS41MzNsNS4yMjMgNS44NDItNS42OTUgNi40MThjLS40NzMuNTQyLS40MSAxLjA4NS4wOTQgMS41MzJsMS45ODIgMS43NTZjLjUwNC40NDcgMS4wNy40MTUgMS41MTEtLjA5NiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxMC44KSIvPgogICAgPC9nPgo8L3N2Zz4K" alt="OLX" /></span>
-            <span class="brand-logo ml"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgdmlld0JveD0iMCAwIDk0Ny42OSAzNzMuMzc2NzUiCiAgIHdpZHRoPSIzNDUuMjc5NTEiCiAgIGhlaWdodD0iMTM2LjAzOTA5IgogICB2ZXJzaW9uPSIxLjEiCiAgIGlkPSJzdmc2IgogICBzb2RpcG9kaTpkb2NuYW1lPSJNZXJjYWRvIExpdnJlIHdvcmRtYXJrIChQb3J0dWd1ZXNlIHZlcnNpb24pLnN2ZyIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMS40LjIgKGY0MzI3ZjQsIDIwMjUtMDUtMTMpIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzCiAgICAgaWQ9ImRlZnM2IiAvPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0ibmFtZWR2aWV3NiIKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiMwMDAwMDAiCiAgICAgYm9yZGVyb3BhY2l0eT0iMC4yNSIKICAgICBpbmtzY2FwZTpzaG93cGFnZXNoYWRvdz0iMiIKICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMC4wIgogICAgIGlua3NjYXBlOnBhZ2VjaGVja2VyYm9hcmQ9IjAiCiAgICAgaW5rc2NhcGU6ZGVza2NvbG9yPSIjZDFkMWQxIgogICAgIGlua3NjYXBlOnpvb209IjAuODU0NTY2NzIiCiAgICAgaW5rc2NhcGU6Y3g9IjE2MS40ODUzNCIKICAgICBpbmtzY2FwZTpjeT0iMjcuNDk5MzE2IgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iMTM2NiIKICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSI2OTciCiAgICAgaW5rc2NhcGU6d2luZG93LXg9Ii04IgogICAgIGlua3NjYXBlOndpbmRvdy15PSItOCIKICAgICBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIxIgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5ZXI9Imc2IiAvPgogIDxnCiAgICAgZmlsbD0iIzJkMzI3NyIKICAgICBpZD0iZzYiCiAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwtNDIxLjMxMDI2KSI+CiAgICA8cGF0aAogICAgICAgZD0ibSA5MDQuNSw1NTkuMzcgYyAtNS4yNjY2Nyw2Ljk5MzMzIC0xMi44MDY2NywxMC40ODMzMyAtMjIuNjIsMTAuNDcgLTkuODEzMzMsLTAuMDEzMyAtMTcuMzgsLTMuNTAzMzMgLTIyLjcsLTEwLjQ3IC01LjMsLTYuOTggLTcuOTQ2NjcsLTE2LjkxIC03Ljk0LC0yOS43OSAwLjAwNywtMTIuODggMi42NTMzMywtMjIuNzg2NjcgNy45NCwtMjkuNzIgNS4zMzMzMywtNi45NCAxMi45LC0xMC40MSAyMi43LC0xMC40MSA5LjgsMCAxNy4zNCwzLjQ3IDIyLjYyLDEwLjQxIDUuMjYsNi45NiA3Ljg5MzMzLDE2Ljg2NjY3IDcuOSwyOS43MiAwLjAwNywxMi44NTMzMyAtMi42MjY2NywyMi43ODMzMyAtNy45LDI5Ljc5IG0gMjYuODcsLTc3Ljk1IEMgOTIwLjU0MzMzLDQ2Ny44NCA5MDQuMDg2NjcsNDYxLjA1IDg4Miw0NjEuMDUgYyAtMjIuMDg2NjcsMCAtMzguNTUzMzMsNi43OSAtNDkuNCwyMC4zNyAtMTAuODQ2NjcsMTMuNTggLTE2LjI3MzMzLDI5LjYzMzMzIC0xNi4yOCw0OC4xNiAwLDE4Ljg0NjY3IDUuNDI2NjcsMzQuOTczMzMgMTYuMjgsNDguMzggMTAuODUzMzMsMTMuNDA2NjcgMjcuMzIsMjAuMDg2NjcgNDkuNCwyMC4wNCAyMi4xMDY2NywwIDM4LjU3NjY3LC02LjY4NjY3IDQ5LjQxLC0yMC4wNiAxMC44MzMzMywtMTMuMzczMzMgMTYuMjYsLTI5LjUgMTYuMjgsLTQ4LjM4IDAsLTE4LjUxMzMzIC01LjQyNjY3LC0zNC41NjY2NyAtMTYuMjgsLTQ4LjE2IG0gLTI5NC4yOCw2Mi4xIGMgLTAuMjMsMTEuMjkgLTMuNDcsMTkgLTkuNjUsMjMuMyAtNS45NTcyOSw0LjE4MDgxIC0xMy4wNjIwNyw2LjQxNjM0IC0yMC4zNCw2LjQgLTQuMjc0MDMsMC4xMTk0NCAtOC40NTc2MSwtMS4yNDQ0NyAtMTEuODQsLTMuODYgLTMuMjUsLTIuNTYgLTQuODYsLTYuNzMgLTQuODYsLTEyLjQ3IDAsLTYuNDcgMi42NCwtMTEuMjMgOCwtMTQuMzEgMy4xMywtMS44IDguMywtMy4zNiAxNS40OCwtNC42IGwgNy42NywtMS40MSBjIDMuMDU3OSwtMC41NDE5MiA2LjA2NzUyLC0xLjMyNzc2IDksLTIuMzUgMi4yODU0LC0wLjgzNzA4IDQuNDc0NTYsLTEuOTE2NTcgNi41MywtMy4yMiB6IG0gMTcuMDgsLTczLjQ0IGMgLTExLC01LjU2NjY3IC0yMy41NzY2NywtOC4zNiAtMzcuNzMsLTguMzggLTIxLjgsMCAtMzcuMTcsNS42NjY2NyAtNDYuMTEsMTcgLTUuNjEzMzMsNy4yNiAtOC43ODMzMywxNi41MjY2NyAtOS41MSwyNy44IGggMzIuNTQgYyAwLjgsLTUgMi4zOCwtOC45MiA0LjgsLTExLjgzIDMuMzMzMzMsLTMuOTQgOS4wNCwtNS45MSAxNy4xMiwtNS45MSA3LjIxLDAgMTIuNjYsMSAxNi4zNywzIDMuNzEsMiA1LjU3LDUuNjYgNS41NywxMC45NCAwLDQuMzQgLTIuNDIsNy41MSAtNy4yNiw5LjU3IC0yLjcsMS4xOSAtNy4xOCwyLjE3IC0xMy40NywzIEwgNjA1LDUxNi42NyBjIC0xMy4wOSwxLjY0IC0yMyw0LjQyIC0yOS43Nyw4LjI4IC0xMi4zMiw3LjEgLTE4LjQ4MzMzLDE4LjU3IC0xOC40OSwzNC40MSAwLDEyLjIxMzMzIDMuODMzMzMsMjEuNjQ2NjcgMTEuNSwyOC4zIDcuNjMsNi42NyAxNy4zNCw5LjQ2IDI5LjA3LDEwIDczLjU3LDMuMjggNzIuNzQsLTM4Ljc3IDczLjQyLC00Ny41MiB2IC00OC4zNyBjIDAsLTE1LjUyNjY3IC01LjUwMzMzLC0yNi4wOTY2NyAtMTYuNTEsLTMxLjcxIG0gLTE2Ny43NCwyMC40NSBjIDguNCwwIDE0LjU5LDIuNTkzMzMgMTguNTcsNy43OCAyLjczNTY4LDMuODUyMDYgNC40ODY2Niw4LjMxNTMzIDUuMSwxMyBoIDM2LjMgYyAtMiwtMTguMjg2NjcgLTguNDA2NjcsLTMxLjA2IC0xOS4yMiwtMzguMzIgLTEwLjgxMzMzLC03LjI2IC0yNC43MjMzMywtMTAuODgzMzMgLTQxLjczLC0xMC44NyAtMjAsMCAtMzUuNjY2NjcsNi4xMjY2NyAtNDcsMTguMzggLTExLjMzMzMzLDEyLjI1MzMzIC0xNy4wMiwyOS40MDY2NyAtMTcuMDYsNTEuNDYgMCwxOS41MjY2NyA1LjE0NjY3LDM1LjQyMzMzIDE1LjQ0LDQ3LjY5IDEwLjI5MzMzLDEyLjI2NjY3IDI2LjMzMzMzLDE4LjM5IDQ4LjEyLDE4LjM3IDIxLjgxMzMzLDAgMzguMjgsLTcuMzUzMzMgNDkuNCwtMjIuMDYgNi45NzMzMywtOS4xMDY2NyAxMC44NywtMTguNzczMzMgMTEuNjksLTI5IEggNTA5LjkgYyAtMC43NCw2Ljc2IC0yLjg1LDEyLjI2IC02LjM3LDE2LjUgLTMuNTIsNC4yNCAtOS4zNSw2LjM3IC0xNy42Niw2LjM3IC0xMS43MDY2NywwIC0xOS42ODMzMywtNS4zMzMzMyAtMjMuOTMsLTE2IC0yLjMxLC01LjcxIC0zLjUsLTEzLjI4IC0zLjUsLTIyLjY4IDAsLTkuODcgMS4xOSwtMTcuNzggMy41LC0yMy43NyA0LjQsLTExLjIyIDEyLjU4LC0xNi44MzY2NyAyNC41NCwtMTYuODUgTSA0MTEuNyw0NjIuMSBjIC03NC41NCwwIC03MC4xMyw2NiAtNzAuMTMsNjYgdiA2NyBoIDMzLjgyIHYgLTYyLjg1IGMgMCwtMTAuMyAxLjI5MzMzLC0xNy45MjY2NyAzLjg4LC0yMi44OCA0LjY1LC04LjggMTMuNzEsLTEzLjIxIDI3LjI1LC0xMy4yMSAxLDAgMi4zNSwwLjA2IDQsMC4xMyAxLjY1LDAuMDcgMy41MiwwLjIzIDUuNjcsMC40NyB2IC0zNC40MSBjIC0xLjUsLTAuMSAtMi40OCwtMC4xNCAtMi44OCwtMC4xOCAtMC40LC0wLjA0IC0xLC0wLjA3IC0xLjYxLC0wLjA3IE0gMjQyLDQ5Ny4xMyBjIDQuNzUzMzMsLTQuODg2NjcgMTEuNDM2NjcsLTcuMzMzMzMgMjAuMDUsLTcuMzQgNy45MzMzMywwIDE0LjU4LDIuMzA2NjcgMTkuOTQsNi45MiA1LjM2LDQuNjEzMzMgOC4zNCwxMS4zOCA4Ljk0LDIwLjMgSCAyMzMgYyAxLjIxLC04LjM3IDQuMjEsLTE1IDksLTE5Ljg4IG0gNDUuNDYsNjMgYyAtMS4yOTcyOSwxLjkxNjk3IC0yLjg1NTY0LDMuNjQzNiAtNC42Myw1LjEzIC00Ljc5LDMuOTIgLTExLjI3LDUuMTIgLTE4LjkxLDUuMTIgLTcuMjMsMCAtMTIuODgsLTEuMSAtMTgsLTQuMzIgLTguNDMsLTUuMTkgLTEzLjE4LC0xNCAtMTMuNywtMjYuODYgaCA5My42MSBjIDAuMTEsLTExLjA5IC0wLjIzLC0xOS41OSAtMS4xMywtMjUuNDkgLTEuMzUwNCwtOS41MjEwOSAtNC44NDg2MywtMTguNjEwMzMgLTEwLjIzLC0yNi41OCAtNS40NTc4NSwtOC4zMDIxOCAtMTMuMTU0NjUsLTE0Ljg4OTU0IC0yMi4yLC0xOSAtOS41MzIwNiwtNC4xMTQ5MyAtMTkuODI4OSwtNi4xNTk5OCAtMzAuMjEsLTYgLTE4Ljg1MzMzLDAgLTM0LjE4NjY3LDUuOTM2NjcgLTQ2LDE3LjgxIC0xMS44MTMzMywxMS44NzMzMyAtMTcuNzIsMjguOTQgLTE3LjcyLDUxLjIgMCwyMy43NjY2NyA2LjU0LDQwLjkxNjY3IDE5LjYyLDUxLjQ1IDEyLjc1MTQyLDEwLjQzNDQ1IDI4Ljc3NDg4LDE2LjAzNjQ2IDQ1LjI1LDE1LjgyIDIwLjcwNjY3LDAgMzYuODI2NjcsLTYuMjUgNDguMzYsLTE4Ljc1IDYuMiwtNi41OSAxMC4wOCwtMTMuMDggMTEuNzIsLTE5LjUxIHogbSAtMTAyLjY3LDM0Ljk5IGggLTMwLjkgdiAtNzcuODEgYyAwLC03LjEgLTIuMzUsLTI0IC0yMi43MiwtMjQgLTEzLjYsMCAtMjMuNDIsOS43OCAtMjMuNDIsMjQgdiA3Ny44MSBIIDc2LjggdiAtNzcuODEgYyAwLC03LjEgLTIuMDksLTI0IC0yMi40NywtMjQgLTEzLjgzLDAgLTIzLjQyLDkuNzggLTIzLjQyLDI0IHYgNzcuODEgSCAwIHYgLTc3LjA2IGMgMCwtMzIuMTMgMjEuMzEsLTU2LjQxIDU0LjMzLC01Ni40MSAxNi40LDAgMjkuNzUsNi44OSAzOC40MywxNy45MSA5LjQ0ODY2LC0xMS40NTUxNCAyMy41NjEzNywtMTguMDM1NjkgMzguNDEsLTE3LjkxIDMzLjcyLDAgNTMuNjIsMjMuMyA1My42Miw1Ni40MSB6IG0gNTgwLjksLTM1LjQ3IGMgLTQuOTQsNy4wOCAtMTIuMiwxMC42MSAtMjEuNjgsMTAuNjEgLTkuNDgsMCAtMTYuNjEsLTMuNTYgLTIxLjI4LC0xMC42NyAtNC42NywtNy4xMSAtNywtMTcuNSAtNywtMjkuMzUgMCwtMTEgMi4yOTMzMywtMjAuMjEzMzMgNi44OCwtMjcuNjQgNC41ODY2NywtNy40MjY2NyAxMS44LC0xMS4xNDMzMyAyMS42NCwtMTEuMTUgNi4yMjEyOSwtMC4wNzg0IDEyLjI2MDQzLDIuMDk5MjMgMTcsNi4xMyA3LjkzLDYuNzcgMTEuOSwxOC44OSAxMS45LDM0LjYgMCwxMS4yMzMzMyAtMi40NzY2NywyMC4zOSAtNy40MywyNy40NyBNIDgwNi4zLDQyMS40NiBjIDAsMCAtMzQuMDgsLTMuNjQgLTM0LjA4LDIzLjczIHYgMzYuMjUgYyAtMy42MTY5OSwtNS45MTI1MiAtOC42ODM2NywtMTAuODAzNjUgLTE0LjcyLC0xNC4yMSAtNi4zNTQ3NSwtMy40ODk3OCAtMTMuNTExMiwtNS4yNTgyMSAtMjAuNzYsLTUuMTMgLTE2Ljg4NjY3LDAgLTMwLjM4MzMzLDYuMjgzMzMgLTQwLjQ5LDE4Ljg1IC0xMC4wOSwxMi42IC0xNS4xMiwzMC43MiAtMTUuMTIsNTIuNjMgMCwxOS4wMjY2NyA1LjEyMzMzLDM0LjYxMzMzIDE1LjM3LDQ2Ljc2IDEwLjI3LDEyLjEzIDMwLjM4LDE3LjQ2IDQ4LjIzLDE3LjQ2IDYyLjI4LDAgNjEuNTYsLTUzLjQxIDYxLjU2LC01My40MSB6IE0gNjA3LjEyLDY5NC4zNSBjIDQuNzEzMzMsLTQuODQ2NjcgMTEuMzQsLTcuMjcgMTkuODgsLTcuMjcgNy44NCwwIDE0LjQyLDIuMjgzMzMgMTkuNzQsNi44NSA1LjMyLDQuNTY2NjcgOC4yOCwxMS4yNTY2NyA4Ljg4LDIwLjA3IGggLTU3LjM4IGMgMS4yMTMzMywtOC4yOCA0LjE3MzMzLC0xNC44NDMzMyA4Ljg4LC0xOS42OSBtIDQ1LjA2LDYyLjQyIGMgLTEuMjgxODgsMS45MDIxNSAtMi44MzExMywzLjYwOTcgLTQuNiw1LjA3IC00Ljc0LDMuOSAtMTEuNDEsNS4zNSAtMTksNS4zNSAtNy4xNiwwIC0xMi43NywtMS4wOSAtMTcuODQsLTQuMyAtOC4zOCwtNS4xMzMzMyAtMTIuODIsLTE0LjA5IC0xMy4zMiwtMjYuODcgaCA5Mi43OCBjIDAuMTMsLTExIC0wLjIzLC0xOS40MSAtMS4xMywtMjUuMjYgLTEuMzMwMTksLTkuNDM1OTcgLTQuNzk0NjksLTE4LjQ0NDM0IC0xMC4xMywtMjYuMzQgLTUuMzk5NTksLTguMjQwNTQgLTEzLjAyOTA2LC0xNC43Nzc2MSAtMjIsLTE4Ljg1IC05LjQzNjA5LC00LjA5NTY1IC0xOS42MzQzNiwtNi4xNDA3NiAtMjkuOTIsLTYgLTE4LjcsMCAtMzMuODUsNS44OSAtNDUuNTgsMTcuNjUgLTExLjczLDExLjc2IC0xNy41NSwyOC44MiAtMTcuNTUsNTAuODIgMCwyMy41NDY2NyA2LjQ4MzMzLDQwLjU0NjY3IDE5LjQ1LDUxIDEyLjYzOTYxLDEwLjM0NzUxIDI4LjUyNjU0LDE1LjkwMDUgNDQuODYsMTUuNjggMjAuNTA2NjcsMCAzNi40NywtNi4xOTMzMyA0Ny44OSwtMTguNTggNi4xNSwtNi41MiAxMCwtMTMgMTEuNjUsLTE5LjM0IHogbSAtOTQuNzUsLTk2Ljk5IGggLTEuNTkgYyAtNzQuNTYsMCAtNzAuMTQsNjYgLTcwLjE0LDY2IHYgNjYgaCAzMy44NCB2IC02MS45MSBjIDAsLTEwLjMgMS4yOTMzMywtMTcuOTI2NjcgMy44OCwtMjIuODggNC42MiwtOC44IDEzLjY5NjY3LC0xMy4yMDY2NyAyNy4yMywtMTMuMjIgMSwwIDIuMzUsMCA0LDAuMTUgMS42NSwwLjE1IDMuNTQsMC4yMSA1LjY3LDAuNDUgdiAtMzQuNDIgYyAtMS41LC0wLjA4IC0yLjQ2LC0wLjEyIC0yLjg5LC0wLjE3IE0gMjU3LjQsNjQyLjU3IHYgMTQ4Ljg2IGggMzEuNzQgViA2MTguMjkgYyAwLDAgLTMxLjc0LC0xLjI5IC0zMS43NCwyNC4yOCBtIDkxLjY1LDkuMTMgaCAtMzQgdiAtMzMuNjUgaCAzNCB6IG0gLTMzLjk4LDEzOS45NyBoIDM0LjA1IFYgNjYzLjE3IEggMzE1LjA3IFogTSA0NDAuMTQsNzkxLjQgSCA0MDUuOTEgTCAzNjEsNjYzLjE1IGggMzUuNzIgbCAyNS41NCw5MC4xNyAyMi42NCwtNzguNjEgYyAyLjYsLTcuNzIgNy43NDY2NywtMTEuNTczMzMgMTUuNDQsLTExLjU2IGggMjUuMSB6IgogICAgICAgaWQ9InBhdGg2IgogICAgICAgc3R5bGU9ImRpc3BsYXk6aW5saW5lIgogICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjc2NzY3Njc2Njc3Njc2NzY2NjY2Njc2NjY2NjY2NjY2NjY3Nzc2NjY2NjY2Njc2NjY2Njc2NzY3NjY2Njc3Njc2NjY2NjY3Njc3NjY3NjY2NzY2NjY2NzY2NjY2NjY3NzY2NjY2NjY3Nzc2Njc3NzY2Nzc2Njc2Njc3Nzc2Njc2Njc2NjY2NzY3NjY2Nzc2NjY2Njc2NjY2NjY2Nzc2NjY2NjY3NjY2NzY2NzY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjIiAvPgogIDwvZz4KPC9zdmc+Cg==" alt="Mercado Livre" /></span>
-          </div>
-        </article>
-        <article class="ship-card">
-          <div class="ship-title">
-            <span class="brand-mark fb" aria-hidden="true"><b>f</b></span>
-            <h2>Vendas tamb&eacute;m pelo Facebook Marketplace</h2>
-          </div>
-          <p>Atendimento e negocia&ccedil;&atilde;o tamb&eacute;m pelo Marketplace. Para compras com envio, a finaliza&ccedil;&atilde;o acontece pela OLX ou pelo Mercado Livre.</p>
-          <div class="brand-marks" aria-label="Plataformas de venda">
-            <span class="brand-logo olx"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCI+CiAgICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxwYXRoIGZpbGw9IiM2RTBBRDYiIGQ9Ik05LjA5NCAyMC43NTJjLTIuNzM3IDAtNC42MjUtMi4yNjYtNC42MjUtNS42MTkgMC0zLjM4NCAxLjg4OC01LjY1IDQuNjI1LTUuNjUgMi43MzggMCA0LjYyNiAyLjI2NiA0LjYyNiA1LjYxOCAwIDMuMzg1LTEuODg4IDUuNjUxLTQuNjI2IDUuNjUxbTAgNC4yNDdjNS4wNjcgMCA5LjA5NS00LjIxNSA5LjA5NS05Ljg5OCAwLTUuNjE5LTMuODA4LTkuODY1LTkuMDk1LTkuODY1QzQuMDI4IDUuMjM2IDAgOS40NSAwIDE1LjEzMyAwIDIwLjg0OCAzLjgwOCAyNSA5LjA5NCAyNSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxMC44KSIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM4Q0U1NjMiIGQ9Ik0yMS45MzMgMTcuNDY0aDguNjg2Yy41OTcgMCAuOTQ0LS4zNTEuOTQ0LS45NTh2LTIuNzc4YzAtLjYwNi0uMzQ3LS45NTctLjk0NC0uOTU3aC01LjgyMlYuOTU4YzAtLjYwNy0uMzQ2LS45NTgtLjk0NC0uOTU4aC0yLjg2NGMtLjU5OCAwLS45NDQuMzUxLS45NDQuOTU4djE0LjU5YzAgMS4yNDUuNjYxIDEuOTE2IDEuODg4IDEuOTE2IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDEwLjgpIi8+CiAgICAgICAgPHBhdGggZmlsbD0iI0YyODAwMCIgZD0iTTMzLjczNCAyNC43MTFsNS4yMjQtNi4wOTggNS4wNjYgNi4wOThjLjQ0LjU0MyAxLjAwNy41NDMgMS41MS4wOTZsMi4wNDYtMS44MmMuNTAzLS40NDcuNTY2LTEuMDIyLjA5NC0xLjUzMmwtNS42MzItNi4zODYgNS4xMjktNS44NDJjLjQ0LS41MTEuNDA5LTEuMDU0LS4wOTQtMS41MzNsLTEuOTItMS43NTZjLS41MDQtLjQ3OS0xLjA3LS40NDctMS41MS4wOTZsLTQuNjkgNS41MjMtNC43ODItNS41MjNjLS40NDEtLjUxLTEuMDA3LS41NzUtMS41MS0uMDk2TDMwLjY4IDcuNzI2Yy0uNTAzLjQ3OS0uNTM0Ljk5LS4wNjIgMS41MzNsNS4yMjMgNS44NDItNS42OTUgNi40MThjLS40NzMuNTQyLS40MSAxLjA4NS4wOTQgMS41MzJsMS45ODIgMS43NTZjLjUwNC40NDcgMS4wNy40MTUgMS41MTEtLjA5NiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxMC44KSIvPgogICAgPC9nPgo8L3N2Zz4K" alt="OLX" /></span>
-            <span class="brand-mark fb"><b>f</b> Facebook Marketplace</span>
-          </div>
-        </article>
-      </section>
       <section id="catalogo" class="catalog">
         <div class="section-heading">
           <div><p class="eyebrow">Estoque atual</p><h2>PCs em destaque</h2></div>
@@ -963,6 +975,41 @@
         </div>
         <div class="grid" id="products"></div>
       </section>
+      <section class="fulfillment" aria-label="Envios e plataformas de venda">
+        <article class="ship-card">
+          <div class="ship-title">
+            <span class="br-flag" aria-hidden="true"></span>
+            <h2>Envio para todo o Brasil</h2>
+          </div>
+          <p>Envios feitos pelos Correios, com despacho no primeiro dia &uacute;til ap&oacute;s a confirma&ccedil;&atilde;o. Para envio, a compra pode ser finalizada pela OLX, pelo Mercado Livre ou diretamente aqui no site.</p>
+          <div class="brand-marks" aria-label="Plataformas com envio">
+            <span class="brand-logo olx"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCI+CiAgICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxwYXRoIGZpbGw9IiM2RTBBRDYiIGQ9Ik05LjA5NCAyMC43NTJjLTIuNzM3IDAtNC42MjUtMi4yNjYtNC42MjUtNS42MTkgMC0zLjM4NCAxLjg4OC01LjY1IDQuNjI1LTUuNjUgMi43MzggMCA0LjYyNiAyLjI2NiA0LjYyNiA1LjYxOCAwIDMuMzg1LTEuODg4IDUuNjUxLTQuNjI2IDUuNjUxbTAgNC4yNDdjNS4wNjcgMCA5LjA5NS00LjIxNSA5LjA5NS05Ljg5OCAwLTUuNjE5LTMuODA4LTkuODY1LTkuMDk1LTkuODY1QzQuMDI4IDUuMjM2IDAgOS40NSAwIDE1LjEzMyAwIDIwLjg0OCAzLjgwOCAyNSA5LjA5NCAyNSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxMC44KSIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM4Q0U1NjMiIGQ9Ik0yMS45MzMgMTcuNDY0aDguNjg2Yy41OTcgMCAuOTQ0LS4zNTEuOTQ0LS45NTh2LTIuNzc4YzAtLjYwNi0uMzQ3LS45NTctLjk0NC0uOTU3aC01LjgyMlYuOTU4YzAtLjYwNy0uMzQ2LS45NTgtLjk0NC0uOTU4aC0yLjg2NGMtLjU5OCAwLS45NDQuMzUxLS45NDQuOTU4djE0LjU5YzAgMS4yNDUuNjYxIDEuOTE2IDEuODg4IDEuOTE2IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDEwLjgpIi8+CiAgICAgICAgPHBhdGggZmlsbD0iI0YyODAwMCIgZD0iTTMzLjczNCAyNC43MTFsNS4yMjQtNi4wOTggNS4wNjYgNi4wOThjLjQ0LjU0MyAxLjAwNy41NDMgMS41MS4wOTZsMi4wNDYtMS44MmMuNTAzLS40NDcuNTY2LTEuMDIyLjA5NC0xLjUzMmwtNS42MzItNi4zODYgNS4xMjktNS44NDJjLjQ0LS41MTEuNDA5LTEuMDU0LS4wOTQtMS41MzNsLTEuOTItMS43NTZjLS41MDQtLjQ3OS0xLjA3LS40NDctMS41MS4wOTZsLTQuNjkgNS41MjMtNC43ODItNS41MjNjLS40NDEtLjUxLTEuMDA3LS41NzUtMS41MS0uMDk2TDMwLjY4IDcuNzI2Yy0uNTAzLjQ3OS0uNTM0Ljk5LS4wNjIgMS41MzNsNS4yMjMgNS44NDItNS42OTUgNi40MThjLS40NzMuNTQyLS40MSAxLjA4NS4wOTQgMS41MzJsMS45ODIgMS43NTZjLjUwNC40NDcgMS4wNy40MTUgMS41MTEtLjA5NiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxMC44KSIvPgogICAgPC9nPgo8L3N2Zz4K" alt="OLX" /></span>
+            <span class="brand-logo ml"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgdmlld0JveD0iMCAwIDk0Ny42OSAzNzMuMzc2NzUiCiAgIHdpZHRoPSIzNDUuMjc5NTEiCiAgIGhlaWdodD0iMTM2LjAzOTA5IgogICB2ZXJzaW9uPSIxLjEiCiAgIGlkPSJzdmc2IgogICBzb2RpcG9kaTpkb2NuYW1lPSJNZXJjYWRvIExpdnJlIHdvcmRtYXJrIChQb3J0dWd1ZXNlIHZlcnNpb24pLnN2ZyIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMS40LjIgKGY0MzI3ZjQsIDIwMjUtMDUtMTMpIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzCiAgICAgaWQ9ImRlZnM2IiAvPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0ibmFtZWR2aWV3NiIKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiMwMDAwMDAiCiAgICAgYm9yZGVyb3BhY2l0eT0iMC4yNSIKICAgICBpbmtzY2FwZTpzaG93cGFnZXNoYWRvdz0iMiIKICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMC4wIgogICAgIGlua3NjYXBlOnBhZ2VjaGVja2VyYm9hcmQ9IjAiCiAgICAgaW5rc2NhcGU6ZGVza2NvbG9yPSIjZDFkMWQxIgogICAgIGlua3NjYXBlOnpvb209IjAuODU0NTY2NzIiCiAgICAgaW5rc2NhcGU6Y3g9IjE2MS40ODUzNCIKICAgICBpbmtzY2FwZTpjeT0iMjcuNDk5MzE2IgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iMTM2NiIKICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSI2OTciCiAgICAgaW5rc2NhcGU6d2luZG93LXg9Ii04IgogICAgIGlua3NjYXBlOndpbmRvdy15PSItOCIKICAgICBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIxIgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5ZXI9Imc2IiAvPgogIDxnCiAgICAgZmlsbD0iIzJkMzI3NyIKICAgICBpZD0iZzYiCiAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwtNDIxLjMxMDI2KSI+CiAgICA8cGF0aAogICAgICAgZD0ibSA5MDQuNSw1NTkuMzcgYyAtNS4yNjY2Nyw2Ljk5MzMzIC0xMi44MDY2NywxMC40ODMzMyAtMjIuNjIsMTAuNDcgLTkuODEzMzMsLTAuMDEzMyAtMTcuMzgsLTMuNTAzMzMgLTIyLjcsLTEwLjQ3IC01LjMsLTYuOTggLTcuOTQ2NjcsLTE2LjkxIC03Ljk0LC0yOS43OSAwLjAwNywtMTIuODggMi42NTMzMywtMjIuNzg2NjcgNy45NCwtMjkuNzIgNS4zMzMzMywtNi45NCAxMi45LC0xMC40MSAyMi43LC0xMC40MSA5LjgsMCAxNy4zNCwzLjQ3IDIyLjYyLDEwLjQxIDUuMjYsNi45NiA3Ljg5MzMzLDE2Ljg2NjY3IDcuOSwyOS43MiAwLjAwNywxMi44NTMzMyAtMi42MjY2NywyMi43ODMzMyAtNy45LDI5Ljc5IG0gMjYuODcsLTc3Ljk1IEMgOTIwLjU0MzMzLDQ2Ny44NCA5MDQuMDg2NjcsNDYxLjA1IDg4Miw0NjEuMDUgYyAtMjIuMDg2NjcsMCAtMzguNTUzMzMsNi43OSAtNDkuNCwyMC4zNyAtMTAuODQ2NjcsMTMuNTggLTE2LjI3MzMzLDI5LjYzMzMzIC0xNi4yOCw0OC4xNiAwLDE4Ljg0NjY3IDUuNDI2NjcsMzQuOTczMzMgMTYuMjgsNDguMzggMTAuODUzMzMsMTMuNDA2NjcgMjcuMzIsMjAuMDg2NjcgNDkuNCwyMC4wNCAyMi4xMDY2NywwIDM4LjU3NjY3LC02LjY4NjY3IDQ5LjQxLC0yMC4wNiAxMC44MzMzMywtMTMuMzczMzMgMTYuMjYsLTI5LjUgMTYuMjgsLTQ4LjM4IDAsLTE4LjUxMzMzIC01LjQyNjY3LC0zNC41NjY2NyAtMTYuMjgsLTQ4LjE2IG0gLTI5NC4yOCw2Mi4xIGMgLTAuMjMsMTEuMjkgLTMuNDcsMTkgLTkuNjUsMjMuMyAtNS45NTcyOSw0LjE4MDgxIC0xMy4wNjIwNyw2LjQxNjM0IC0yMC4zNCw2LjQgLTQuMjc0MDMsMC4xMTk0NCAtOC40NTc2MSwtMS4yNDQ0NyAtMTEuODQsLTMuODYgLTMuMjUsLTIuNTYgLTQuODYsLTYuNzMgLTQuODYsLTEyLjQ3IDAsLTYuNDcgMi42NCwtMTEuMjMgOCwtMTQuMzEgMy4xMywtMS44IDguMywtMy4zNiAxNS40OCwtNC42IGwgNy42NywtMS40MSBjIDMuMDU3OSwtMC41NDE5MiA2LjA2NzUyLC0xLjMyNzc2IDksLTIuMzUgMi4yODU0LC0wLjgzNzA4IDQuNDc0NTYsLTEuOTE2NTcgNi41MywtMy4yMiB6IG0gMTcuMDgsLTczLjQ0IGMgLTExLC01LjU2NjY3IC0yMy41NzY2NywtOC4zNiAtMzcuNzMsLTguMzggLTIxLjgsMCAtMzcuMTcsNS42NjY2NyAtNDYuMTEsMTcgLTUuNjEzMzMsNy4yNiAtOC43ODMzMywxNi41MjY2NyAtOS41MSwyNy44IGggMzIuNTQgYyAwLjgsLTUgMi4zOCwtOC45MiA0LjgsLTExLjgzIDMuMzMzMzMsLTMuOTQgOS4wNCwtNS45MSAxNy4xMiwtNS45MSA3LjIxLDAgMTIuNjYsMSAxNi4zNywzIDMuNzEsMiA1LjU3LDUuNjYgNS41NywxMC45NCAwLDQuMzQgLTIuNDIsNy41MSAtNy4yNiw5LjU3IC0yLjcsMS4xOSAtNy4xOCwyLjE3IC0xMy40NywzIEwgNjA1LDUxNi42NyBjIC0xMy4wOSwxLjY0IC0yMyw0LjQyIC0yOS43Nyw4LjI4IC0xMi4zMiw3LjEgLTE4LjQ4MzMzLDE4LjU3IC0xOC40OSwzNC40MSAwLDEyLjIxMzMzIDMuODMzMzMsMjEuNjQ2NjcgMTEuNSwyOC4zIDcuNjMsNi42NyAxNy4zNCw5LjQ2IDI5LjA3LDEwIDczLjU3LDMuMjggNzIuNzQsLTM4Ljc3IDczLjQyLC00Ny41MiB2IC00OC4zNyBjIDAsLTE1LjUyNjY3IC01LjUwMzMzLC0yNi4wOTY2NyAtMTYuNTEsLTMxLjcxIG0gLTE2Ny43NCwyMC40NSBjIDguNCwwIDE0LjU5LDIuNTkzMzMgMTguNTcsNy43OCAyLjczNTY4LDMuODUyMDYgNC40ODY2Niw4LjMxNTMzIDUuMSwxMyBoIDM2LjMgYyAtMiwtMTguMjg2NjcgLTguNDA2NjcsLTMxLjA2IC0xOS4yMiwtMzguMzIgLTEwLjgxMzMzLC03LjI2IC0yNC43MjMzMywtMTAuODgzMzMgLTQxLjczLC0xMC44NyAtMjAsMCAtMzUuNjY2NjcsNi4xMjY2NyAtNDcsMTguMzggLTExLjMzMzMzLDEyLjI1MzMzIC0xNy4wMiwyOS40MDY2NyAtMTcuMDYsNTEuNDYgMCwxOS41MjY2NyA1LjE0NjY3LDM1LjQyMzMzIDE1LjQ0LDQ3LjY5IDEwLjI5MzMzLDEyLjI2NjY3IDI2LjMzMzMzLDE4LjM5IDQ4LjEyLDE4LjM3IDIxLjgxMzMzLDAgMzguMjgsLTcuMzUzMzMgNDkuNCwtMjIuMDYgNi45NzMzMywtOS4xMDY2NyAxMC44NywtMTguNzczMzMgMTEuNjksLTI5IEggNTA5LjkgYyAtMC43NCw2Ljc2IC0yLjg1LDEyLjI2IC02LjM3LDE2LjUgLTMuNTIsNC4yNCAtOS4zNSw2LjM3IC0xNy42Niw2LjM3IC0xMS43MDY2NywwIC0xOS42ODMzMywtNS4zMzMzMyAtMjMuOTMsLTE2IC0yLjMxLC01LjcxIC0zLjUsLTEzLjI4IC0zLjUsLTIyLjY4IDAsLTkuODcgMS4xOSwtMTcuNzggMy41LC0yMy43NyA0LjQsLTExLjIyIDEyLjU4LC0xNi44MzY2NyAyNC41NCwtMTYuODUgTSA0MTEuNyw0NjIuMSBjIC03NC41NCwwIC03MC4xMyw2NiAtNzAuMTMsNjYgdiA2NyBoIDMzLjgyIHYgLTYyLjg1IGMgMCwtMTAuMyAxLjI5MzMzLC0xNy45MjY2NyAzLjg4LC0yMi44OCA0LjY1LC04LjggMTMuNzEsLTEzLjIxIDI3LjI1LC0xMy4yMSAxLDAgMi4zNSwwLjA2IDQsMC4xMyAxLjY1LDAuMDcgMy41MiwwLjIzIDUuNjcsMC40NyB2IC0zNC40MSBjIC0xLjUsLTAuMSAtMi40OCwtMC4xNCAtMi44OCwtMC4xOCAtMC40LC0wLjA0IC0xLC0wLjA3IC0xLjYxLC0wLjA3IE0gMjQyLDQ5Ny4xMyBjIDQuNzUzMzMsLTQuODg2NjcgMTEuNDM2NjcsLTcuMzMzMzMgMjAuMDUsLTcuMzQgNy45MzMzMywwIDE0LjU4LDIuMzA2NjcgMTkuOTQsNi45MiA1LjM2LDQuNjEzMzMgOC4zNCwxMS4zOCA4Ljk0LDIwLjMgSCAyMzMgYyAxLjIxLC04LjM3IDQuMjEsLTE1IDksLTE5Ljg4IG0gNDUuNDYsNjMgYyAtMS4yOTcyOSwxLjkxNjk3IC0yLjg1NTY0LDMuNjQzNiAtNC42Myw1LjEzIC00Ljc5LDMuOTIgLTExLjI3LDUuMTIgLTE4LjkxLDUuMTIgLTcuMjMsMCAtMTIuODgsLTEuMSAtMTgsLTQuMzIgLTguNDMsLTUuMTkgLTEzLjE4LC0xNCAtMTMuNywtMjYuODYgaCA5My42MSBjIDAuMTEsLTExLjA5IC0wLjIzLC0xOS41OSAtMS4xMywtMjUuNDkgLTEuMzUwNCwtOS41MjEwOSAtNC44NDg2MywtMTguNjEwMzMgLTEwLjIzLC0yNi41OCAtNS40NTc4NSwtOC4zMDIxOCAtMTMuMTU0NjUsLTE0Ljg4OTU0IC0yMi4yLC0xOSAtOS41MzIwNiwtNC4xMTQ5MyAtMTkuODI4OSwtNi4xNTk5OCAtMzAuMjEsLTYgLTE4Ljg1MzMzLDAgLTM0LjE4NjY3LDUuOTM2NjcgLTQ2LDE3LjgxIC0xMS44MTMzMywxMS44NzMzMyAtMTcuNzIsMjguOTQgLTE3LjcyLDUxLjIgMCwyMy43NjY2NyA2LjU0LDQwLjkxNjY3IDE5LjYyLDUxLjQ1IDEyLjc1MTQyLDEwLjQzNDQ1IDI4Ljc3NDg4LDE2LjAzNjQ2IDQ1LjI1LDE1LjgyIDIwLjcwNjY3LDAgMzYuODI2NjcsLTYuMjUgNDguMzYsLTE4Ljc1IDYuMiwtNi41OSAxMC4wOCwtMTMuMDggMTEuNzIsLTE5LjUxIHogbSAtMTAyLjY3LDM0Ljk5IGggLTMwLjkgdiAtNzcuODEgYyAwLC03LjEgLTIuMzUsLTI0IC0yMi43MiwtMjQgLTEzLjYsMCAtMjMuNDIsOS43OCAtMjMuNDIsMjQgdiA3Ny44MSBIIDc2LjggdiAtNzcuODEgYyAwLC03LjEgLTIuMDksLTI0IC0yMi40NywtMjQgLTEzLjgzLDAgLTIzLjQyLDkuNzggLTIzLjQyLDI0IHYgNzcuODEgSCAwIHYgLTc3LjA2IGMgMCwtMzIuMTMgMjEuMzEsLTU2LjQxIDU0LjMzLC01Ni40MSAxNi40LDAgMjkuNzUsNi44OSAzOC40MywxNy45MSA5LjQ0ODY2LC0xMS40NTUxNCAyMy41NjEzNywtMTguMDM1NjkgMzguNDEsLTE3LjkxIDMzLjcyLDAgNTMuNjIsMjMuMyA1My42Miw1Ni40MSB6IG0gNTgwLjksLTM1LjQ3IGMgLTQuOTQsNy4wOCAtMTIuMiwxMC42MSAtMjEuNjgsMTAuNjEgLTkuNDgsMCAtMTYuNjEsLTMuNTYgLTIxLjI4LC0xMC42NyAtNC42NywtNy4xMSAtNywtMTcuNSAtNywtMjkuMzUgMCwtMTEgMi4yOTMzMywtMjAuMjEzMzMgNi44OCwtMjcuNjQgNC41ODY2NywtNy40MjY2NyAxMS44LC0xMS4xNDMzMyAyMS42NCwtMTEuMTUgNi4yMjEyOSwtMC4wNzg0IDEyLjI2MDQzLDIuMDk5MjMgMTcsNi4xMyA3LjkzLDYuNzcgMTEuOSwxOC44OSAxMS45LDM0LjYgMCwxMS4yMzMzMyAtMi40NzY2NywyMC4zOSAtNy40MywyNy40NyBNIDgwNi4zLDQyMS40NiBjIDAsMCAtMzQuMDgsLTMuNjQgLTM0LjA4LDIzLjczIHYgMzYuMjUgYyAtMy42MTY5OSwtNS45MTI1MiAtOC42ODM2NywtMTAuODAzNjUgLTE0LjcyLC0xNC4yMSAtNi4zNTQ3NSwtMy40ODk3OCAtMTMuNTExMiwtNS4yNTgyMSAtMjAuNzYsLTUuMTMgLTE2Ljg4NjY3LDAgLTMwLjM4MzMzLDYuMjgzMzMgLTQwLjQ5LDE4Ljg1IC0xMC4wOSwxMi42IC0xNS4xMiwzMC43MiAtMTUuMTIsNTIuNjMgMCwxOS4wMjY2NyA1LjEyMzMzLDM0LjYxMzMzIDE1LjM3LDQ2Ljc2IDEwLjI3LDEyLjEzIDMwLjM4LDE3LjQ2IDQ4LjIzLDE3LjQ2IDYyLjI4LDAgNjEuNTYsLTUzLjQxIDYxLjU2LC01My40MSB6IE0gNjA3LjEyLDY5NC4zNSBjIDQuNzEzMzMsLTQuODQ2NjcgMTEuMzQsLTcuMjcgMTkuODgsLTcuMjcgNy44NCwwIDE0LjQyLDIuMjgzMzMgMTkuNzQsNi44NSA1LjMyLDQuNTY2NjcgOC4yOCwxMS4yNTY2NyA4Ljg4LDIwLjA3IGggLTU3LjM4IGMgMS4yMTMzMywtOC4yOCA0LjE3MzMzLC0xNC44NDMzMyA4Ljg4LC0xOS42OSBtIDQ1LjA2LDYyLjQyIGMgLTEuMjgxODgsMS45MDIxNSAtMi44MzExMywzLjYwOTcgLTQuNiw1LjA3IC00Ljc0LDMuOSAtMTEuNDEsNS4zNSAtMTksNS4zNSAtNy4xNiwwIC0xMi43NywtMS4wOSAtMTcuODQsLTQuMyAtOC4zOCwtNS4xMzMzMyAtMTIuODIsLTE0LjA5IC0xMy4zMiwtMjYuODcgaCA5Mi43OCBjIDAuMTMsLTExIC0wLjIzLC0xOS40MSAtMS4xMywtMjUuMjYgLTEuMzMwMTksLTkuNDM1OTcgLTQuNzk0NjksLTE4LjQ0NDM0IC0xMC4xMywtMjYuMzQgLTUuMzk5NTksLTguMjQwNTQgLTEzLjAyOTA2LC0xNC43Nzc2MSAtMjIsLTE4Ljg1IC05LjQzNjA5LC00LjA5NTY1IC0xOS42MzQzNiwtNi4xNDA3NiAtMjkuOTIsLTYgLTE4LjcsMCAtMzMuODUsNS44OSAtNDUuNTgsMTcuNjUgLTExLjczLDExLjc2IC0xNy41NSwyOC44MiAtMTcuNTUsNTAuODIgMCwyMy41NDY2NyA2LjQ4MzMzLDQwLjU0NjY3IDE5LjQ1LDUxIDEyLjYzOTYxLDEwLjM0NzUxIDI4LjUyNjU0LDE1LjkwMDUgNDQuODYsMTUuNjggMjAuNTA2NjcsMCAzNi40NywtNi4xOTMzMyA0Ny44OSwtMTguNTggNi4xNSwtNi41MiAxMCwtMTMgMTEuNjUsLTE5LjM0IHogbSAtOTQuNzUsLTk2Ljk5IGggLTEuNTkgYyAtNzQuNTYsMCAtNzAuMTQsNjYgLTcwLjE0LDY2IHYgNjYgaCAzMy44NCB2IC02MS45MSBjIDAsLTEwLjMgMS4yOTMzMywtMTcuOTI2NjcgMy44OCwtMjIuODggNC42MiwtOC44IDEzLjY5NjY3LC0xMy4yMDY2NyAyNy4yMywtMTMuMjIgMSwwIDIuMzUsMCA0LDAuMTUgMS42NSwwLjE1IDMuNTQsMC4yMSA1LjY3LDAuNDUgdiAtMzQuNDIgYyAtMS41LC0wLjA4IC0yLjQ2LC0wLjEyIC0yLjg5LC0wLjE3IE0gMjU3LjQsNjQyLjU3IHYgMTQ4Ljg2IGggMzEuNzQgViA2MTguMjkgYyAwLDAgLTMxLjc0LC0xLjI5IC0zMS43NCwyNC4yOCBtIDkxLjY1LDkuMTMgaCAtMzQgdiAtMzMuNjUgaCAzNCB6IG0gLTMzLjk4LDEzOS45NyBoIDM0LjA1IFYgNjYzLjE3IEggMzE1LjA3IFogTSA0NDAuMTQsNzkxLjQgSCA0MDUuOTEgTCAzNjEsNjYzLjE1IGggMzUuNzIgbCAyNS41NCw5MC4xNyAyMi42NCwtNzguNjEgYyAyLjYsLTcuNzIgNy43NDY2NywtMTEuNTczMzMgMTUuNDQsLTExLjU2IGggMjUuMSB6IgogICAgICAgaWQ9InBhdGg2IgogICAgICAgc3R5bGU9ImRpc3BsYXk6aW5saW5lIgogICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjc2NzY3Njc2Njc3Njc2NzY2NjY2Njc2NjY2NjY2NjY2NjY3Nzc2NjY2NjY2Njc2NjY2Njc2NzY3NjY2Njc3Njc2NjY2NjY3Njc3NjY3NjY2NzY2NjY2NzY2NjY2NjY3NzY2NjY2NjY3Nzc2Njc3NzY2Nzc2Njc2Njc3Nzc2Njc2Njc2NjY2NzY3NjY2Nzc2NjY2Njc2NjY2NjY2Nzc2NjY2NjY3NjY2NzY2NzY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjIiAvPgogIDwvZz4KPC9zdmc+Cg==" alt="Mercado Livre" /></span>
+          </div>
+        </article>
+        <article class="ship-card">
+          <div class="ship-title">
+            <span class="brand-logo mp"><img src="./assets/mercado-pago-logo.svg" alt="Mercado Pago"></span>
+            <h2>Venda direta aqui no site com Mercado Pago</h2>
+          </div>
+          <p>Compre pelo bot&atilde;o do Mercado Pago no card do PC, escolha opcionais quando estiverem dispon&iacute;veis e finalize em ambiente seguro com cart&atilde;o, Pix ou saldo da plataforma.</p>
+          <div class="brand-marks" aria-label="Pagamento direto no site">
+            <span class="brand-logo mp"><img src="./assets/mercado-pago-logo.svg" alt="Mercado Pago"></span>
+          </div>
+        </article>
+        <article class="ship-card">
+          <div class="ship-title">
+            <span class="brand-logo facebook"><img src="./assets/facebook-icon.svg" alt="Facebook"></span>
+            <h2>Vendas tamb&eacute;m pelo Facebook Marketplace</h2>
+          </div>
+          <p>Atendimento e negocia&ccedil;&atilde;o tamb&eacute;m pelo Marketplace. Se preferir conversar antes, abra o an&uacute;ncio no Facebook e combine os detalhes por l&aacute;.</p>
+          <div class="brand-marks" aria-label="Plataformas de venda">
+            <span class="brand-logo facebook"><img src="./assets/facebook-icon.svg" alt="Facebook"></span>
+            <span class="brand-logo olx"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCI+CiAgICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxwYXRoIGZpbGw9IiM2RTBBRDYiIGQ9Ik05LjA5NCAyMC43NTJjLTIuNzM3IDAtNC42MjUtMi4yNjYtNC42MjUtNS42MTkgMC0zLjM4NCAxLjg4OC01LjY1IDQuNjI1LTUuNjUgMi43MzggMCA0LjYyNiAyLjI2NiA0LjYyNiA1LjYxOCAwIDMuMzg1LTEuODg4IDUuNjUxLTQuNjI2IDUuNjUxbTAgNC4yNDdjNS4wNjcgMCA5LjA5NS00LjIxNSA5LjA5NS05Ljg5OCAwLTUuNjE5LTMuODA4LTkuODY1LTkuMDk1LTkuODY1QzQuMDI4IDUuMjM2IDAgOS40NSAwIDE1LjEzMyAwIDIwLjg0OCAzLjgwOCAyNSA5LjA5NCAyNSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxMC44KSIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM4Q0U1NjMiIGQ9Ik0yMS45MzMgMTcuNDY0aDguNjg2Yy41OTcgMCAuOTQ0LS4zNTEuOTQ0LS45NTh2LTIuNzc4YzAtLjYwNi0uMzQ3LS45NTctLjk0NC0uOTU3aC01LjgyMlYuOTU4YzAtLjYwNy0uMzQ2LS45NTgtLjk0NC0uOTU4aC0yLjg2NGMtLjU5OCAwLS45NDQuMzUxLS45NDQuOTU4djE0LjU5YzAgMS4yNDUuNjYxIDEuOTE2IDEuODg4IDEuOTE2IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDEwLjgpIi8+CiAgICAgICAgPHBhdGggZmlsbD0iI0YyODAwMCIgZD0iTTMzLjczNCAyNC43MTFsNS4yMjQtNi4wOTggNS4wNjYgNi4wOThjLjQ0LjU0MyAxLjAwNy41NDMgMS41MS4wOTZsMi4wNDYtMS44MmMuNTAzLS40NDcuNTY2LTEuMDIyLjA5NC0xLjUzMmwtNS42MzItNi4zODYgNS4xMjktNS44NDJjLjQ0LS41MTEuNDA5LTEuMDU0LS4wOTQtMS41MzNsLTEuOTItMS43NTZjLS41MDQtLjQ3OS0xLjA3LS40NDctMS41MS4wOTZsLTQuNjkgNS41MjMtNC43ODItNS41MjNjLS40NDEtLjUxLTEuMDA3LS41NzUtMS41MS0uMDk2TDMwLjY4IDcuNzI2Yy0uNTAzLjQ3OS0uNTM0Ljk5LS4wNjIgMS41MzNsNS4yMjMgNS44NDItNS42OTUgNi40MThjLS40NzMuNTQyLS40MSAxLjA4NS4wOTQgMS41MzJsMS45ODIgMS43NTZjLjUwNC40NDcgMS4wNy40MTUgMS41MTEtLjA5NiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxMC44KSIvPgogICAgPC9nPgo8L3N2Zz4K" alt="OLX" /></span>
+          </div>
+        </article>
+      </section>
+
       <section id="limpeza-pcs" class="cleaning-service" aria-labelledby="cleaning-title">
         <div class="cleaning-media">
           <img id="cleaning-photo" src="./assets/pc-cleaning-service.png" alt="PC gamer limpo com acessorios para limpeza e troca de pasta termica">
@@ -981,14 +1028,6 @@
             <button class="button gold cleaning-submit" id="cleaning-submit" type="submit" disabled>AGENDE J&Aacute;!</button>
             <p class="cleaning-message" id="cleaning-message" aria-live="polite"></p>
           </form>
-        </div>
-      </section>
-      <section class="platforms">
-        <div><p class="eyebrow">Compra segura</p><h2>Escolha a plataforma que preferir</h2></div>
-        <div class="platform-actions">
-          <a class="button primary" href="https://www.olx.com.br/perfil/julian-859fd666" target="_blank" rel="noreferrer">Abrir perfil OLX</a>
-          <a class="button secondary" href="https://www.facebook.com/marketplace/profile/100035688601043/?ref=permalink&mibextid=6ojiHh" target="_blank" rel="noreferrer">Abrir Marketplace</a>
-          <a class="button secondary instagram-button" href="https://www.instagram.com/mobilytechbr/" target="_blank" rel="noreferrer"><img class="button-icon" src="./assets/instagram-icon.png" alt="" aria-hidden="true">Abrir Instagram</a>
         </div>
       </section>
       <section id="contato" class="contact-section" aria-labelledby="contact-title">
@@ -1166,7 +1205,10 @@
             <ul class="chips">${tags.map((tag) => `<li>${escapeHtml(tag)}</li>`).join("")}</ul>
             <ul class="details">${detailOrder.filter((label) => details[label]).map((label) => `<li><span class="spec-icon" aria-hidden="true">${icons[label]}</span><span class="detail-text"><strong>${detailLabels[label]}</strong><em>${escapeHtml(details[label])}</em></span></li>`).join("")}</ul>
             ${renderAddonGroups(product, addons, basePrice)}
-            <div class="card-actions"><button class="button compact payment-button" type="button" data-product-id="${escapeHtml(product.id || "")}">Pagar com Mercado Pago</button>${olx ? `<a class="button compact primary" href="${escapeHtml(olx)}" target="_blank" rel="noreferrer">Comprar na OLX</a>` : ""}${fb ? `<a class="button compact secondary" href="${escapeHtml(fb)}" target="_blank" rel="noreferrer">Ver no Facebook</a>` : ""}</div>
+            <div class="card-actions">
+              ${(olx || fb) ? `<div class="marketplace-actions">${olx ? `<a class="button compact primary" href="${escapeHtml(olx)}" target="_blank" rel="noreferrer">Comprar na OLX</a>` : ""}${fb ? `<a class="button compact secondary" href="${escapeHtml(fb)}" target="_blank" rel="noreferrer"><img class="button-icon" src="./assets/facebook-icon.svg" alt="" aria-hidden="true">Facebook</a>` : ""}</div>` : ""}
+              <button class="button compact payment-button" type="button" data-product-id="${escapeHtml(product.id || "")}"><img class="button-logo" src="./assets/mercado-pago-logo.svg" alt="" aria-hidden="true">Pagar com Mercado Pago</button>
+            </div>
           </div>
         </article>`;
         }).join("");
