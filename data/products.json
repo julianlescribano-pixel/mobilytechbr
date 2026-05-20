@@ -4,7 +4,6 @@
     "active": true,
     "title": "PC Gamer Ryzen 5 3600X",
     "price": "R$ 4.000",
-    "old": "",
     "badge": "Melhor performance",
     "image": "./assets/ryzen-rx6650xt-manual.png",
     "cutout": "./assets/ryzen-rx6650xt-cutout.png",
@@ -19,7 +18,6 @@
       "processor": "Ryzen 5 3600X",
       "memory": "16GB DDR4",
       "gpu": "RX 6650 XT 8GB",
-      "powerSupply": "",
       "storage": "SSD 480GB"
     },
     "links": {
@@ -33,7 +31,6 @@
     "active": true,
     "title": "PC Gamer Xeon GTX 550 Ti",
     "price": "R$ 800",
-    "old": "",
     "badge": "Sem armazenamento",
     "image": "./assets/i5-gtx650-manual.png",
     "cutout": "./assets/i5-gtx650-cutout.png",
@@ -48,12 +45,10 @@
       "processor": "Xeon E3-1220V1",
       "memory": "8GB RAM",
       "gpu": "GTX 550 Ti",
-      "powerSupply": "",
       "storage": "Sem armazenamento"
     },
     "links": {
-      "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-i5-8gb-ram-gtx-650-ssd-240gb-perfeito-estado-1500196469?lis=ad_card_user_profile",
-      "facebook": ""
+      "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-i5-8gb-ram-gtx-650-ssd-240gb-perfeito-estado-1500196469?lis=ad_card_user_profile"
     },
     "featured": false
   },
@@ -62,7 +57,6 @@
     "active": true,
     "title": "PC Gamer Xeon GTX 650",
     "price": "R$ 800",
-    "old": "",
     "badge": "Sem armazenamento",
     "image": "./assets/xeon-gtx650-manual.png",
     "cutout": "./assets/xeon-gtx650-cutout.png",
@@ -77,13 +71,36 @@
       "processor": "Xeon E3-1220V1",
       "memory": "8GB RAM",
       "gpu": "GTX 650",
-      "powerSupply": "",
       "storage": "Sem armazenamento"
     },
     "links": {
-      "olx": "",
       "facebook": "https://www.facebook.com/marketplace/item/26760481873564144/?ref=marketplace_profile&referral_code=undefined&__tn__=!%3AD"
     },
     "featured": false
+  },
+  {
+    "id": "pc-gamer-amd-fx",
+    "active": true,
+    "title": "PC GAMER AMD FX",
+    "price": "R$ 1050",
+    "badge": "Novo",
+    "image": "./assets/589bdd7a-5d0c-47a4-b895-0d84ea200a6a.png",
+    "cutout": "./assets/589bdd7a-5d0c-47a4-b895-0d84ea200a6a-1.png",
+    "photo": "square",
+    "tags": [
+      "Prefeito custo-beneficio"
+    ],
+    "specs": {
+      "processor": "AMD FX-6300 (6/6)",
+      "memory": "8GB DDR3 HyperX",
+      "gpu": "GTX 1050 2GB GDDR5",
+      "powerSupply": "CX 450W 80 Plus",
+      "storage": "SSD 240GB"
+    },
+    "links": {
+      "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-amd-8gb-ram-gtx-1050-ssd-240gb-perfeito-estado-1503429313?utm_medium=shared_link&utm_source=direct",
+      "facebook": "https://www.facebook.com/share/1ECVcf86xU/"
+    },
+    "featured": true
   }
 ]
