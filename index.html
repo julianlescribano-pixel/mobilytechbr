@@ -631,6 +631,77 @@
         font-weight: 800;
         line-height: 1.25;
       }
+      .addon-groups {
+        display: grid;
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid rgba(4, 183, 255, .18);
+        border-radius: 8px;
+        background: rgba(2, 10, 18, .42);
+      }
+      .addon-title {
+        margin: 0;
+        color: var(--green);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      .addon-group {
+        display: grid;
+        gap: 7px;
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+      .addon-group legend {
+        margin-bottom: 2px;
+        color: var(--subtle);
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      .addon-choice-row {
+        display: grid;
+        grid-template-columns: 18px minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 8px;
+        min-height: 38px;
+        padding: 8px 9px;
+        border: 1px solid rgba(255, 255, 255, .07);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, .035);
+        color: #e9f4fa;
+        font-size: 12px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+      .addon-choice-row:has(input:checked) {
+        border-color: rgba(34, 240, 196, .44);
+        background: rgba(34, 240, 196, .08);
+      }
+      .addon-choice-row input {
+        accent-color: var(--green);
+      }
+      .addon-choice-row span {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+      .addon-choice-row strong {
+        color: var(--green);
+        white-space: nowrap;
+      }
+      .checkout-total {
+        margin: 2px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 900;
+      }
+      .checkout-total strong {
+        color: #f7fbff;
+      }
       .card-actions { margin-top: auto; }
       .compact {
         flex: 1 1 140px;
@@ -951,6 +1022,14 @@
 
       const productGrid = document.getElementById("products");
       const productDataUrl = "./data/products.json";
+      const currencyFormatter = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+      const addonCategories = [
+        { key: "storage", label: "Armazenamento", empty: "Sem adicional" },
+        { key: "peripherals", label: "Kit perif&eacute;ricos", empty: "Sem adicional" }
+      ];
 
       const escapeHtml = (value = "") => String(value)
         .replace(/&/g, "&amp;")
@@ -967,6 +1046,25 @@
         return `./${path.replace(/^\/+/, "")}`;
       };
 
+      const parseCurrency = (value) => {
+        if (typeof value === "number") return value;
+        const raw = String(value || "").replace(/[^\d,.-]/g, "");
+        if (!raw) return NaN;
+        if (raw.includes(",")) {
+          return Number(raw.replace(/\./g, "").replace(",", "."));
+        }
+        const parts = raw.split(".");
+        if (parts.length > 1 && parts[parts.length - 1].length === 3) {
+          return Number(parts.join(""));
+        }
+        return Number(raw);
+      };
+
+      const formatCurrency = (value) => {
+        const number = parseCurrency(value);
+        return Number.isFinite(number) ? currencyFormatter.format(number) : String(value || "");
+      };
+
       const productDetails = (product) => ({
         "Processador": product.details?.["Processador"] || product.specs?.processor || "",
         "Memoria": product.details?.["Memoria"] || product.specs?.memory || "",
@@ -974,6 +1072,71 @@
         "Fonte": product.details?.["Fonte"] || product.specs?.powerSupply || "",
         "Armazenamento": product.details?.["Armazenamento"] || product.specs?.storage || ""
       });
+
+      const productAddons = (product) => {
+        const source = product.addons || product.options || {};
+        return addonCategories.map((category) => {
+          const options = Array.isArray(source[category.key]) ? source[category.key] : [];
+          return {
+            ...category,
+            options: options.filter((option) => {
+              const label = option?.label || option?.name || "";
+              const price = parseCurrency(option.price);
+              return option && option.active !== false && label && Number.isFinite(price) && price > 0;
+            })
+          };
+        }).filter((category) => category.options.length);
+      };
+
+      const renderAddonGroups = (product, groups, basePrice) => {
+        if (!groups.length) return "";
+        const safeProductId = escapeHtml(product.id || "");
+        const safeBasePrice = Number.isFinite(basePrice) ? basePrice : 0;
+
+        return `<div class="addon-groups" data-base-price="${safeBasePrice}">
+              <p class="addon-title">Personalize no Mercado Pago</p>
+              ${groups.map((group) => {
+                const fieldName = `addon-${product.id}-${group.key}`;
+                return `<fieldset class="addon-group">
+                <legend>${group.label}</legend>
+                <label class="addon-choice-row">
+                  <input class="addon-choice" type="radio" name="${escapeHtml(fieldName)}" value="none" data-addon-category="${escapeHtml(group.key)}" data-addon-none checked>
+                  <span>${group.empty}</span>
+                  <strong>+ ${escapeHtml(formatCurrency(0))}</strong>
+                </label>
+                ${group.options.map((option, index) => {
+                  const label = option.label || option.name || "";
+                  const price = parseCurrency(option.price);
+                  return `<label class="addon-choice-row">
+                  <input class="addon-choice" type="radio" name="${escapeHtml(fieldName)}" value="${safeProductId}-${escapeHtml(group.key)}-${index}" data-addon-category="${escapeHtml(group.key)}" data-addon-index="${index}" data-addon-price="${price}">
+                  <span>${escapeHtml(label)}</span>
+                  <strong>+ ${escapeHtml(formatCurrency(price))}</strong>
+                </label>`;
+                }).join("")}
+              </fieldset>`;
+              }).join("")}
+              <p class="checkout-total">Total no Mercado Pago: <strong>${escapeHtml(formatCurrency(safeBasePrice))}</strong></p>
+            </div>`;
+      };
+
+      const selectedAddonsForCard = (card) => Array.from(card?.querySelectorAll(".addon-choice:checked") || [])
+        .filter((input) => !input.dataset.addonNone)
+        .map((input) => ({
+          category: input.dataset.addonCategory,
+          index: Number(input.dataset.addonIndex)
+        }))
+        .filter((selection) => selection.category && Number.isInteger(selection.index));
+
+      const updateCheckoutTotal = (card) => {
+        const container = card?.querySelector(".addon-groups");
+        const output = container?.querySelector(".checkout-total strong");
+        if (!container || !output) return;
+        const basePrice = parseCurrency(container.dataset.basePrice);
+        const addonsTotal = Array.from(container.querySelectorAll(".addon-choice:checked"))
+          .filter((input) => !input.dataset.addonNone)
+          .reduce((sum, input) => sum + (parseCurrency(input.dataset.addonPrice) || 0), 0);
+        output.textContent = formatCurrency((Number.isFinite(basePrice) ? basePrice : 0) + addonsTotal);
+      };
 
       const renderProducts = (items) => {
         if (!productGrid) return;
@@ -991,15 +1154,18 @@
           const image = normalizePath(product.cutout || product.imageCutout || product.cutoutImage || product.image || product.img);
           const tags = Array.isArray(product.tags) ? product.tags.filter(Boolean) : [];
           const photoClass = product.photo || "square";
+          const basePrice = parseCurrency(product.price);
+          const addons = productAddons(product);
 
           return `
         <article class="card">
           <a class="photo ${escapeHtml(photoClass)}" href="${escapeHtml(targetUrl)}" target="_blank" rel="noreferrer"><img class="product-cutout" src="${escapeHtml(image)}" alt="${escapeHtml(product.title)}" loading="lazy"></a>
           <div class="body">
-            <div class="topline"><span class="badge">${escapeHtml(product.badge || "")}</span><span class="price">${product.old ? `<s>${escapeHtml(product.old)}</s>` : ""}${escapeHtml(product.price || "")}</span></div>
+            <div class="topline"><span class="badge">${escapeHtml(product.badge || "")}</span><span class="price">${product.old ? `<s>${escapeHtml(formatCurrency(product.old))}</s>` : ""}${escapeHtml(formatCurrency(product.price))}</span></div>
             <h3>${escapeHtml(product.title)}</h3>
             <ul class="chips">${tags.map((tag) => `<li>${escapeHtml(tag)}</li>`).join("")}</ul>
             <ul class="details">${detailOrder.filter((label) => details[label]).map((label) => `<li><span class="spec-icon" aria-hidden="true">${icons[label]}</span><span class="detail-text"><strong>${detailLabels[label]}</strong><em>${escapeHtml(details[label])}</em></span></li>`).join("")}</ul>
+            ${renderAddonGroups(product, addons, basePrice)}
             <div class="card-actions"><button class="button compact payment-button" type="button" data-product-id="${escapeHtml(product.id || "")}">Pagar com Mercado Pago</button>${olx ? `<a class="button compact primary" href="${escapeHtml(olx)}" target="_blank" rel="noreferrer">Comprar na OLX</a>` : ""}${fb ? `<a class="button compact secondary" href="${escapeHtml(fb)}" target="_blank" rel="noreferrer">Ver no Facebook</a>` : ""}</div>
           </div>
         </article>`;
@@ -1009,6 +1175,8 @@
       const startMercadoPagoCheckout = async (button) => {
         const productId = button.dataset.productId;
         if (!productId) return;
+        const card = button.closest(".card");
+        const selectedAddons = selectedAddonsForCard(card);
 
         const originalText = button.textContent;
         button.disabled = true;
@@ -1018,7 +1186,7 @@
           const response = await fetch("/api/create-preference", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ productId })
+            body: JSON.stringify({ productId, selectedAddons })
           });
           const data = await response.json().catch(() => ({}));
           if (!response.ok || !data.checkout_url) {
@@ -1036,6 +1204,11 @@
         const button = event.target.closest("[data-product-id]");
         if (!button) return;
         startMercadoPagoCheckout(button);
+      });
+
+      productGrid?.addEventListener("change", (event) => {
+        if (!event.target.matches(".addon-choice")) return;
+        updateCheckoutTotal(event.target.closest(".card"));
       });
 
       const loadProducts = async () => {

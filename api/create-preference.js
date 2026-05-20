@@ -3,6 +3,10 @@ const path = require("path");
 
 const PRODUCTS_FILE = path.join(process.cwd(), "data", "products.json");
 const MERCADO_PAGO_API = "https://api.mercadopago.com/checkout/preferences";
+const ADDON_CATEGORIES = {
+  storage: "Armazenamento",
+  peripherals: "Kit perifericos"
+};
 
 function sendJson(response, status, payload) {
   response.statusCode = status;
@@ -23,6 +27,7 @@ async function readJsonBody(request) {
 }
 
 function parsePriceBRL(value) {
+  if (typeof value === "number") return value;
   const raw = String(value || "").replace(/[^\d,.-]/g, "");
   if (!raw) return NaN;
 
@@ -55,6 +60,55 @@ async function loadProducts() {
   return Array.isArray(products) ? products : [];
 }
 
+function productAddonGroups(product) {
+  const source = product.addons || product.options || {};
+  return Object.fromEntries(Object.keys(ADDON_CATEGORIES).map((category) => {
+    const options = Array.isArray(source[category]) ? source[category] : [];
+    const activeOptions = options.filter((option) => {
+      const label = option?.label || option?.name || "";
+      const price = parsePriceBRL(option.price);
+      return option && option.active !== false && label && Number.isFinite(price) && price > 0;
+    });
+    return [category, activeOptions];
+  }));
+}
+
+function normalizeSelectedAddons(product, selectedAddons) {
+  if (!Array.isArray(selectedAddons) || selectedAddons.length === 0) return [];
+
+  const groups = productAddonGroups(product);
+  const usedCategories = new Set();
+  return selectedAddons.map((selection) => {
+    const category = String(selection?.category || "");
+    const index = Number(selection?.index);
+    if (!ADDON_CATEGORIES[category]) {
+      const error = new Error("Categoria de opcional invalida.");
+      error.statusCode = 400;
+      throw error;
+    }
+    if (usedCategories.has(category)) {
+      const error = new Error("Escolha apenas um opcional por categoria.");
+      error.statusCode = 400;
+      throw error;
+    }
+    usedCategories.add(category);
+    if (!Number.isInteger(index) || index < 0 || index >= groups[category].length) {
+      const error = new Error("Opcional nao encontrado ou indisponivel.");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const option = groups[category][index];
+    return {
+      category,
+      categoryLabel: ADDON_CATEGORIES[category],
+      index,
+      label: option.label || option.name,
+      price: parsePriceBRL(option.price)
+    };
+  });
+}
+
 module.exports = async function createPreference(request, response) {
   response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   response.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -77,7 +131,7 @@ module.exports = async function createPreference(request, response) {
   }
 
   try {
-    const { productId } = await readJsonBody(request);
+    const { productId, selectedAddons } = await readJsonBody(request);
     if (!productId) {
       sendJson(response, 400, { error: "Produto nao informado." });
       return;
@@ -96,18 +150,27 @@ module.exports = async function createPreference(request, response) {
       return;
     }
 
+    const addons = normalizeSelectedAddons(product, selectedAddons);
     const origin = requestOrigin(request);
+    const addonDescription = addons.map((addon) => `${addon.categoryLabel}: ${addon.label}`).join(" | ");
     const preference = {
       items: [
         {
           id: product.id,
           title: product.title,
-          description: product.tags?.filter(Boolean).join(" | ") || product.title,
+          description: [product.tags?.filter(Boolean).join(" | "), addonDescription].filter(Boolean).join(" | ") || product.title,
           picture_url: absoluteUrl(origin, product.image || product.cutout),
           quantity: 1,
           currency_id: "BRL",
           unit_price: unitPrice
-        }
+        },
+        ...addons.map((addon) => ({
+          id: `${product.id}-${addon.category}-${addon.index}`,
+          title: `${addon.categoryLabel}: ${addon.label}`,
+          quantity: 1,
+          currency_id: "BRL",
+          unit_price: addon.price
+        }))
       ],
       back_urls: {
         success: `${origin}/pagamento-sucesso.html`,
@@ -118,7 +181,8 @@ module.exports = async function createPreference(request, response) {
       external_reference: product.id,
       metadata: {
         product_id: product.id,
-        product_title: product.title
+        product_title: product.title,
+        selected_addons: addons.map((addon) => `${addon.category}:${addon.label}`).join("; ")
       },
       statement_descriptor: "MOBILYTECHBR"
     };
@@ -154,6 +218,6 @@ module.exports = async function createPreference(request, response) {
       checkout_url: checkoutUrl
     });
   } catch (error) {
-    sendJson(response, 500, { error: error.message || "Erro ao criar checkout." });
+    sendJson(response, error.statusCode || 500, { error: error.message || "Erro ao criar checkout." });
   }
 };

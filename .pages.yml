@@ -31,11 +31,13 @@ content:
         required: true
       - name: price
         label: Preco
-        type: string
+        type: number
         required: true
+        description: "Digite apenas o numero. Exemplo: 4000. O site mostra como R$ 4.000,00 automaticamente."
       - name: old
         label: Preco antigo
-        type: string
+        type: number
+        description: "Opcional. Digite apenas o numero, sem R$."
       - name: badge
         label: Selo do card
         type: string
@@ -88,6 +90,49 @@ content:
           - name: facebook
             label: Link do Facebook Marketplace
             type: string
+      - name: addons
+        label: Opcionais para Mercado Pago
+        type: object
+        description: "Aparecem somente no site e mudam apenas o checkout do Mercado Pago. Se ficar vazio, nada aparece para o cliente."
+        fields:
+          - name: storage
+            label: Armazenamento
+            type: object
+            list: true
+            fields:
+              - name: active
+                label: Ativo
+                type: boolean
+                default: true
+              - name: label
+                label: Nome do opcional
+                type: string
+                required: true
+                description: "Exemplo: SSD 240GB instalado"
+              - name: price
+                label: Preco adicional
+                type: number
+                required: true
+                description: "Digite apenas o numero. Exemplo: 150."
+          - name: peripherals
+            label: Mouse e teclado / kits perifericos
+            type: object
+            list: true
+            fields:
+              - name: active
+                label: Ativo
+                type: boolean
+                default: true
+              - name: label
+                label: Nome do opcional
+                type: string
+                required: true
+                description: "Exemplo: Kit mouse + teclado"
+              - name: price
+                label: Preco adicional
+                type: number
+                required: true
+                description: "Digite apenas o numero. Exemplo: 80."
       - name: featured
         label: Destaque interno
         type: boolean

@@ -3,7 +3,7 @@
     "id": "pc-gamer-ryzen-5-3600x",
     "active": true,
     "title": "PC Gamer Ryzen 5 3600X",
-    "price": "R$ 4.000",
+    "price": 4000,
     "badge": "Melhor performance",
     "image": "./assets/ryzen-rx6650xt-manual.png",
     "cutout": "./assets/ryzen-rx6650xt-cutout.png",
@@ -24,13 +24,17 @@
       "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-amd-ryzen-5-3600x-16gb-ddr4-rx-6650-xt-8gb-ssd-480gb-1497594744?lis=ad_card_user_profile",
       "facebook": "https://www.facebook.com/marketplace/item/832968043185090/?ref=marketplace_profile&referral_code=undefined&__tn__=!%3AD"
     },
+    "addons": {
+      "storage": [],
+      "peripherals": []
+    },
     "featured": true
   },
   {
     "id": "pc-gamer-xeon-gtx-550-ti",
     "active": true,
     "title": "PC Gamer Xeon GTX 550 Ti",
-    "price": "R$ 800",
+    "price": 800,
     "badge": "Sem armazenamento",
     "image": "./assets/i5-gtx650-manual.png",
     "cutout": "./assets/i5-gtx650-cutout.png",
@@ -50,13 +54,17 @@
     "links": {
       "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-i5-8gb-ram-gtx-650-ssd-240gb-perfeito-estado-1500196469?lis=ad_card_user_profile"
     },
+    "addons": {
+      "storage": [],
+      "peripherals": []
+    },
     "featured": false
   },
   {
     "id": "pc-gamer-xeon-gtx-650",
     "active": true,
     "title": "PC Gamer Xeon GTX 650",
-    "price": "R$ 800",
+    "price": 800,
     "badge": "Sem armazenamento",
     "image": "./assets/chatgpt-image-20-de-mai-de-2026-161636-1.png",
     "cutout": "./assets/generated/pc-gamer-xeon-gtx-650-cutout.png",
@@ -76,13 +84,17 @@
     "links": {
       "facebook": "https://www.facebook.com/marketplace/item/26760481873564144/?ref=marketplace_profile&referral_code=undefined&__tn__=!%3AD"
     },
+    "addons": {
+      "storage": [],
+      "peripherals": []
+    },
     "featured": false
   },
   {
     "id": "pc-gamer-amd-fx",
     "active": true,
     "title": "PC GAMER AMD FX",
-    "price": "R$ 1050",
+    "price": 1050,
     "badge": "Novo",
     "image": "./assets/chatgpt-image-20-de-mai-de-2026-160505.png",
     "cutout": "./assets/generated/pc-gamer-amd-fx-cutout.png",
@@ -101,14 +113,18 @@
       "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-amd-8gb-ram-gtx-1050-ssd-240gb-perfeito-estado-1503429313?utm_medium=shared_link&utm_source=direct",
       "facebook": "https://www.facebook.com/share/1ECVcf86xU/"
     },
+    "addons": {
+      "storage": [],
+      "peripherals": []
+    },
     "featured": true
   },
   {
     "id": "pc-gamer-xeon-gtx550ti-gb",
     "active": true,
     "title": "PC GAMER E3-1220V1 e GTX 550 TI",
-    "price": "R$ 700",
-    "old": "R$ 800",
+    "price": 700,
+    "old": 800,
     "badge": "BARATO!",
     "image": "./assets/captura-de-tela-2026-05-18-170822.png",
     "photo": "square",
@@ -122,6 +138,10 @@
     "links": {
       "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-xeon-placa-de-video-gtx-550-ti-1490418005?",
       "facebook": "https://www.facebook.com/share/1FjoTCHZoy/"
+    },
+    "addons": {
+      "storage": [],
+      "peripherals": []
     },
     "featured": true,
     "cutout": "./assets/generated/pc-gamer-xeon-gtx550ti-gb-cutout.png"
