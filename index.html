@@ -190,7 +190,10 @@
         border-radius: 8px;
         font-weight: 900;
         font-size: 14px;
+        font-family: inherit;
+        text-decoration: none;
         white-space: nowrap;
+        cursor: pointer;
       }
       .primary {
         color: #f7fbff;
@@ -232,6 +235,12 @@
         border-color: rgba(255, 201, 40, .62);
         background: linear-gradient(135deg, #ffe681, #ffc928 55%, #c78614);
         box-shadow: 0 14px 30px rgba(255, 201, 40, .22);
+      }
+      .payment-button {
+        color: #1b1b12;
+        border-color: rgba(255, 230, 0, .72);
+        background: linear-gradient(135deg, #fff27a, #ffe000 52%, #f4b600);
+        box-shadow: 0 12px 26px rgba(255, 224, 0, .2);
       }
 
       .trust {
@@ -991,11 +1000,43 @@
             <h3>${escapeHtml(product.title)}</h3>
             <ul class="chips">${tags.map((tag) => `<li>${escapeHtml(tag)}</li>`).join("")}</ul>
             <ul class="details">${detailOrder.filter((label) => details[label]).map((label) => `<li><span class="spec-icon" aria-hidden="true">${icons[label]}</span><span class="detail-text"><strong>${detailLabels[label]}</strong><em>${escapeHtml(details[label])}</em></span></li>`).join("")}</ul>
-            <div class="card-actions">${olx ? `<a class="button compact primary" href="${escapeHtml(olx)}" target="_blank" rel="noreferrer">Comprar na OLX</a>` : ""}${fb ? `<a class="button compact secondary" href="${escapeHtml(fb)}" target="_blank" rel="noreferrer">Ver no Facebook</a>` : ""}</div>
+            <div class="card-actions"><button class="button compact payment-button" type="button" data-product-id="${escapeHtml(product.id || "")}">Pagar com Mercado Pago</button>${olx ? `<a class="button compact primary" href="${escapeHtml(olx)}" target="_blank" rel="noreferrer">Comprar na OLX</a>` : ""}${fb ? `<a class="button compact secondary" href="${escapeHtml(fb)}" target="_blank" rel="noreferrer">Ver no Facebook</a>` : ""}</div>
           </div>
         </article>`;
         }).join("");
       };
+
+      const startMercadoPagoCheckout = async (button) => {
+        const productId = button.dataset.productId;
+        if (!productId) return;
+
+        const originalText = button.textContent;
+        button.disabled = true;
+        button.textContent = "Abrindo checkout...";
+
+        try {
+          const response = await fetch("/api/create-preference", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ productId })
+          });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || !data.checkout_url) {
+            throw new Error(data.error || "Nao foi possivel abrir o checkout.");
+          }
+          window.location.href = data.checkout_url;
+        } catch (error) {
+          alert(error.message || "Nao foi possivel abrir o Mercado Pago agora.");
+          button.disabled = false;
+          button.textContent = originalText;
+        }
+      };
+
+      productGrid?.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-product-id]");
+        if (!button) return;
+        startMercadoPagoCheckout(button);
+      });
 
       const loadProducts = async () => {
         if (!productGrid) return;
