@@ -24,10 +24,6 @@
       "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-amd-ryzen-5-3600x-16gb-ddr4-rx-6650-xt-8gb-ssd-480gb-1497594744?lis=ad_card_user_profile",
       "facebook": "https://www.facebook.com/marketplace/item/832968043185090/?ref=marketplace_profile&referral_code=undefined&__tn__=!%3AD"
     },
-    "addons": {
-      "storage": [],
-      "peripherals": []
-    },
     "featured": true
   },
   {
@@ -55,8 +51,20 @@
       "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-i5-8gb-ram-gtx-650-ssd-240gb-perfeito-estado-1500196469?lis=ad_card_user_profile"
     },
     "addons": {
-      "storage": [],
-      "peripherals": []
+      "storage": [
+        {
+          "active": true,
+          "label": "SSD 240GB",
+          "price": 150
+        }
+      ],
+      "peripherals": [
+        {
+          "active": true,
+          "label": "KIT Mouse / Teclado PICHAU",
+          "price": 65
+        }
+      ]
     },
     "featured": false
   },
@@ -85,8 +93,20 @@
       "facebook": "https://www.facebook.com/marketplace/item/26760481873564144/?ref=marketplace_profile&referral_code=undefined&__tn__=!%3AD"
     },
     "addons": {
-      "storage": [],
-      "peripherals": []
+      "storage": [
+        {
+          "active": true,
+          "label": "SSD 240GB",
+          "price": 148
+        }
+      ],
+      "peripherals": [
+        {
+          "active": true,
+          "label": "KIT Mouse / Teclado PICHAU",
+          "price": 65
+        }
+      ]
     },
     "featured": false
   },
@@ -114,8 +134,20 @@
       "facebook": "https://www.facebook.com/share/1ECVcf86xU/"
     },
     "addons": {
-      "storage": [],
-      "peripherals": []
+      "storage": [
+        {
+          "active": true,
+          "label": "SSD 240GB",
+          "price": 150
+        }
+      ],
+      "peripherals": [
+        {
+          "active": true,
+          "label": "KIT Mouse / Teclado PICHAU",
+          "price": 65
+        }
+      ]
     },
     "featured": true
   },
@@ -127,6 +159,7 @@
     "old": 800,
     "badge": "BARATO!",
     "image": "./assets/captura-de-tela-2026-05-18-170822.png",
+    "cutout": "./assets/generated/pc-gamer-xeon-gtx550ti-gb-cutout.png",
     "photo": "square",
     "specs": {
       "processor": "Xeon E3-1220 V1",
@@ -140,10 +173,21 @@
       "facebook": "https://www.facebook.com/share/1FjoTCHZoy/"
     },
     "addons": {
-      "storage": [],
-      "peripherals": []
+      "storage": [
+        {
+          "active": true,
+          "label": "SSD 240GB",
+          "price": 150
+        }
+      ],
+      "peripherals": [
+        {
+          "active": true,
+          "label": "KIT Mouse / Teclado PICHAU",
+          "price": 65
+        }
+      ]
     },
-    "featured": true,
-    "cutout": "./assets/generated/pc-gamer-xeon-gtx550ti-gb-cutout.png"
+    "featured": true
   }
 ]
