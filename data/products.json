@@ -75,7 +75,8 @@
     "links": {
       "facebook": "https://www.facebook.com/marketplace/item/26760481873564144/?ref=marketplace_profile&referral_code=undefined&__tn__=!%3AD"
     },
-    "featured": false
+    "featured": false,
+    "cutout": "./assets/generated/pc-gamer-xeon-gtx-650-cutout.png"
   },
   {
     "id": "pc-gamer-amd-fx",
