@@ -59,6 +59,7 @@
     "price": "R$ 800",
     "badge": "Sem armazenamento",
     "image": "./assets/chatgpt-image-20-de-mai-de-2026-161636-1.png",
+    "cutout": "./assets/generated/pc-gamer-xeon-gtx-650-cutout.png",
     "photo": "square",
     "tags": [
       "Xeon E3-1220V1",
@@ -75,8 +76,7 @@
     "links": {
       "facebook": "https://www.facebook.com/marketplace/item/26760481873564144/?ref=marketplace_profile&referral_code=undefined&__tn__=!%3AD"
     },
-    "featured": false,
-    "cutout": "./assets/generated/pc-gamer-xeon-gtx-650-cutout.png"
+    "featured": false
   },
   {
     "id": "pc-gamer-amd-fx",
@@ -100,6 +100,28 @@
     "links": {
       "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-amd-8gb-ram-gtx-1050-ssd-240gb-perfeito-estado-1503429313?utm_medium=shared_link&utm_source=direct",
       "facebook": "https://www.facebook.com/share/1ECVcf86xU/"
+    },
+    "featured": true
+  },
+  {
+    "id": "pc-gamer-xeon-gtx550ti-gb",
+    "active": true,
+    "title": "PC GAMER E3-1220V1 e GTX 550 TI",
+    "price": "R$ 700",
+    "old": "R$ 800",
+    "badge": "BARATO!",
+    "image": "./assets/captura-de-tela-2026-05-18-170822.png",
+    "photo": "square",
+    "specs": {
+      "processor": "Xeon E3-1220 V1",
+      "memory": "8GB DDR3",
+      "gpu": "GTX 550 TI",
+      "powerSupply": "500W",
+      "storage": "Nao Possui"
+    },
+    "links": {
+      "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-xeon-placa-de-video-gtx-550-ti-1490418005?",
+      "facebook": "https://www.facebook.com/share/1FjoTCHZoy/"
     },
     "featured": true
   }
