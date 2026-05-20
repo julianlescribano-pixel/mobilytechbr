@@ -58,8 +58,7 @@
     "title": "PC Gamer Xeon GTX 650",
     "price": "R$ 800",
     "badge": "Sem armazenamento",
-    "image": "./assets/xeon-gtx650-manual.png",
-    "cutout": "./assets/xeon-gtx650-cutout.png",
+    "image": "./assets/chatgpt-image-20-de-mai-de-2026-161636-1.png",
     "photo": "square",
     "tags": [
       "Xeon E3-1220V1",
@@ -85,6 +84,7 @@
     "price": "R$ 1050",
     "badge": "Novo",
     "image": "./assets/chatgpt-image-20-de-mai-de-2026-160505.png",
+    "cutout": "./assets/generated/pc-gamer-amd-fx-cutout.png",
     "photo": "square",
     "tags": [
       "Prefeito custo-beneficio"
@@ -100,7 +100,6 @@
       "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-amd-8gb-ram-gtx-1050-ssd-240gb-perfeito-estado-1503429313?utm_medium=shared_link&utm_source=direct",
       "facebook": "https://www.facebook.com/share/1ECVcf86xU/"
     },
-    "featured": true,
-    "cutout": "./assets/generated/pc-gamer-amd-fx-cutout.png"
+    "featured": true
   }
 ]
