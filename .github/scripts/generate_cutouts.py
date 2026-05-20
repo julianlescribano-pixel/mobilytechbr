@@ -32,14 +32,6 @@ def public_path(path):
     return "./" + path.relative_to(ROOT).as_posix()
 
 
-def is_generated_cutout(path):
-    try:
-        path.relative_to(OUTPUT_DIR)
-        return True
-    except ValueError:
-        return False
-
-
 def get_image_path(product):
     return local_path(product.get("image") or product.get("img"))
 
@@ -59,7 +51,7 @@ def find_jobs(products):
             continue
 
         cutout_path = get_cutout_path(product)
-        if cutout_path and cutout_path.exists() and not is_generated_cutout(cutout_path):
+        if cutout_path and cutout_path.exists():
             continue
 
         product_id = slugify(product.get("id") or product.get("title") or f"produto-{index + 1}")
@@ -68,6 +60,7 @@ def find_jobs(products):
         if output_path.exists() and not cutout_path:
             product["cutout"] = public_path(output_path)
             changed = True
+            continue
 
         jobs.append((index, image_path, output_path))
 

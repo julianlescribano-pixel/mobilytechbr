@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - "data/products.json"
-      - "assets/**"
+      - "assets/*"
       - ".github/scripts/generate_cutouts.py"
       - ".github/workflows/generate-cutouts.yml"
   workflow_dispatch:
