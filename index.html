@@ -1161,7 +1161,7 @@
         <article class="card">
           <a class="photo ${escapeHtml(photoClass)}" href="${escapeHtml(targetUrl)}" target="_blank" rel="noreferrer"><img class="product-cutout" src="${escapeHtml(image)}" alt="${escapeHtml(product.title)}" loading="lazy"></a>
           <div class="body">
-            <div class="topline"><span class="badge">${escapeHtml(product.badge || "")}</span><span class="price">${product.old ? `<s>${escapeHtml(formatCurrency(product.old))}</s>` : ""}${escapeHtml(formatCurrency(product.price))}</span></div>
+            <div class="topline"><span class="badge">${escapeHtml(product.badge || "")}</span><span class="price">${product.old ? `<s>${escapeHtml(formatCurrency(product.old))}</s> ` : ""}${escapeHtml(formatCurrency(product.price))}</span></div>
             <h3>${escapeHtml(product.title)}</h3>
             <ul class="chips">${tags.map((tag) => `<li>${escapeHtml(tag)}</li>`).join("")}</ul>
             <ul class="details">${detailOrder.filter((label) => details[label]).map((label) => `<li><span class="spec-icon" aria-hidden="true">${icons[label]}</span><span class="detail-text"><strong>${detailLabels[label]}</strong><em>${escapeHtml(details[label])}</em></span></li>`).join("")}</ul>
