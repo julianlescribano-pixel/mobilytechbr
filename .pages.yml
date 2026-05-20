@@ -46,6 +46,7 @@ content:
       - name: cutout
         label: Foto recortada/PNG do PC
         type: image
+        description: "Opcional. Se ficar vazio, o GitHub tenta gerar automaticamente uma versao sem fundo a partir da foto principal."
       - name: photo
         label: Formato da foto
         type: select
