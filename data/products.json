@@ -123,6 +123,7 @@
       "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-xeon-placa-de-video-gtx-550-ti-1490418005?",
       "facebook": "https://www.facebook.com/share/1FjoTCHZoy/"
     },
-    "featured": true
+    "featured": true,
+    "cutout": "./assets/generated/pc-gamer-xeon-gtx550ti-gb-cutout.png"
   }
 ]
