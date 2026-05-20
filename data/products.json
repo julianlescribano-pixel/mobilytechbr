@@ -100,6 +100,7 @@
       "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-amd-8gb-ram-gtx-1050-ssd-240gb-perfeito-estado-1503429313?utm_medium=shared_link&utm_source=direct",
       "facebook": "https://www.facebook.com/share/1ECVcf86xU/"
     },
-    "featured": true
+    "featured": true,
+    "cutout": "./assets/generated/pc-gamer-amd-fx-cutout.png"
   }
 ]
