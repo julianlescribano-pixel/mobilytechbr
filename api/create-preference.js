@@ -2,6 +2,7 @@ const fs = require("fs/promises");
 const path = require("path");
 
 const PRODUCTS_FILE = path.join(process.cwd(), "data", "products.json");
+const ADDONS_FILE = path.join(process.cwd(), "data", "addons.json");
 const MERCADO_PAGO_API = "https://api.mercadopago.com/checkout/preferences";
 const ADDON_CATEGORIES = {
   storage: "Armazenamento",
@@ -60,24 +61,44 @@ async function loadProducts() {
   return Array.isArray(products) ? products : [];
 }
 
-function productAddonGroups(product) {
+async function loadGlobalAddons() {
+  try {
+    const addons = JSON.parse(await fs.readFile(ADDONS_FILE, "utf8"));
+    return Array.isArray(addons) ? addons : [];
+  } catch (error) {
+    if (error.code === "ENOENT") return [];
+    throw error;
+  }
+}
+
+function normalizeAddonOption(option) {
+  const label = option?.label || option?.name || "";
+  const price = parsePriceBRL(option?.price);
+  if (!option || option.active === false || !label || !Number.isFinite(price) || price <= 0) {
+    return null;
+  }
+  return { ...option, label, price };
+}
+
+function productAddonGroups(product, globalAddons = []) {
   const source = product.addons || product.options || {};
   return Object.fromEntries(Object.keys(ADDON_CATEGORIES).map((category) => {
-    const options = Array.isArray(source[category]) ? source[category] : [];
-    const activeOptions = options.filter((option) => {
-      const label = option?.label || option?.name || "";
-      const price = parsePriceBRL(option.price);
-      return option && option.active !== false && label && Number.isFinite(price) && price > 0;
-    });
+    const globalOptions = Array.isArray(globalAddons)
+      ? globalAddons.filter((option) => option?.category === category)
+      : [];
+    const productOptions = Array.isArray(source[category]) ? source[category] : [];
+    const activeOptions = [...globalOptions, ...productOptions]
+      .map(normalizeAddonOption)
+      .filter(Boolean);
     return [category, activeOptions];
   }));
 }
 
-function normalizeSelectedAddons(product, selectedAddons) {
+function normalizeSelectedAddons(product, selectedAddons, globalAddons = []) {
   if (!Array.isArray(selectedAddons) || selectedAddons.length === 0) return [];
 
-  const groups = productAddonGroups(product);
-  const usedCategories = new Set();
+  const groups = productAddonGroups(product, globalAddons);
+  const usedOptions = new Set();
   return selectedAddons.map((selection) => {
     const category = String(selection?.category || "");
     const index = Number(selection?.index);
@@ -86,12 +107,13 @@ function normalizeSelectedAddons(product, selectedAddons) {
       error.statusCode = 400;
       throw error;
     }
-    if (usedCategories.has(category)) {
-      const error = new Error("Escolha apenas um opcional por categoria.");
+    const optionKey = `${category}:${index}`;
+    if (usedOptions.has(optionKey)) {
+      const error = new Error("Opcional repetido no checkout.");
       error.statusCode = 400;
       throw error;
     }
-    usedCategories.add(category);
+    usedOptions.add(optionKey);
     if (!Number.isInteger(index) || index < 0 || index >= groups[category].length) {
       const error = new Error("Opcional nao encontrado ou indisponivel.");
       error.statusCode = 400;
@@ -103,8 +125,8 @@ function normalizeSelectedAddons(product, selectedAddons) {
       category,
       categoryLabel: ADDON_CATEGORIES[category],
       index,
-      label: option.label || option.name,
-      price: parsePriceBRL(option.price)
+      label: option.label,
+      price: option.price
     };
   });
 }
@@ -137,7 +159,10 @@ module.exports = async function createPreference(request, response) {
       return;
     }
 
-    const products = await loadProducts();
+    const [products, globalAddons] = await Promise.all([
+      loadProducts(),
+      loadGlobalAddons()
+    ]);
     const product = products.find((item) => item.id === productId && item.active !== false);
     if (!product) {
       sendJson(response, 404, { error: "Produto nao encontrado ou inativo." });
@@ -150,7 +175,7 @@ module.exports = async function createPreference(request, response) {
       return;
     }
 
-    const addons = normalizeSelectedAddons(product, selectedAddons);
+    const addons = normalizeSelectedAddons(product, selectedAddons, globalAddons);
     const origin = requestOrigin(request);
     const addonDescription = addons.map((addon) => `${addon.categoryLabel}: ${addon.label}`).join(" | ");
     const preference = {

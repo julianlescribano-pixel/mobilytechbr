@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="OLX">
+  <path fill="#6a00d4" fill-rule="evenodd" d="M272 689c-84 0-151-67-151-151s67-151 151-151 151 67 151 151-67 151-151 151Zm0-65c48 0 84-38 84-86s-36-86-84-86-84 38-84 86 36 86 84 86Z"/>
+  <path fill="#8ce563" d="M464 341c0-17 14-31 31-31h19c17 0 31 14 31 31v164h72c17 0 31 14 31 31v19c0 17-14 31-31 31H495c-17 0-31-14-31-31V341Z"/>
+  <path fill="#f28000" stroke="#f28000" stroke-linecap="round" stroke-width="75" d="m672 433 181 201M853 433 672 634"/>
+</svg>

@@ -6,6 +6,43 @@ media:
   rename: safe
 
 content:
+  - name: globalAddons
+    label: Adicionais globais
+    type: file
+    path: data/addons.json
+    format: json
+    list: true
+    fields:
+      - name: id
+        label: ID interno
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Use apenas letras minusculas, numeros e tracos."
+        description: "Identificador unico. Exemplo: ssd-240gb"
+      - name: active
+        label: Ativo no site
+        type: boolean
+        default: true
+      - name: category
+        label: Categoria
+        type: select
+        required: true
+        options:
+          values:
+            - storage
+            - peripherals
+      - name: label
+        label: Nome do adicional
+        type: string
+        required: true
+        description: "Exemplo: SSD 240GB"
+      - name: price
+        label: Preco adicional
+        type: number
+        required: true
+        description: "Digite apenas o numero. Exemplo: 150. O site mostra como reais automaticamente."
   - name: products
     label: Anuncios de PCs
     type: file
@@ -91,9 +128,9 @@ content:
             label: Link do Facebook Marketplace
             type: string
       - name: addons
-        label: Opcionais para Mercado Pago
+        label: Opcionais especificos deste PC
         type: object
-        description: "Aparecem somente no site e mudam apenas o checkout do Mercado Pago. Se ficar vazio, nada aparece para o cliente."
+        description: "Use somente quando o opcional for exclusivo deste PC. Os adicionais globais aparecem em todos os PCs automaticamente."
         fields:
           - name: storage
             label: Armazenamento

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ssd-240gb",
+    "active": true,
+    "category": "storage",
+    "label": "SSD 240GB",
+    "price": 150
+  },
+  {
+    "id": "kit-mouse-teclado-pichau",
+    "active": true,
+    "category": "peripherals",
+    "label": "Kit Mouse / Teclado PICHAU",
+    "price": 65
+  }
+]
