@@ -30,7 +30,7 @@
     "id": "pc-gamer-xeon-gtx-550-ti",
     "active": true,
     "title": "PC Gamer Xeon GTX 550 Ti",
-    "price": 800,
+    "price": 900,
     "badge": "Sem armazenamento",
     "image": "./assets/i5-gtx650-manual.png",
     "cutout": "./assets/i5-gtx650-cutout.png",
@@ -39,13 +39,13 @@
       "Xeon E3-1220V1",
       "8GB RAM",
       "GTX 550 Ti",
-      "Sem armazenamento"
+      "SSD 128GB"
     ],
     "specs": {
       "processor": "Xeon E3-1220V1",
       "memory": "8GB RAM",
       "gpu": "GTX 550 Ti",
-      "storage": "Sem armazenamento"
+      "storage": "SSD 128GB"
     },
     "links": {
       "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-i5-8gb-ram-gtx-650-ssd-240gb-perfeito-estado-1500196469?lis=ad_card_user_profile"
@@ -56,7 +56,7 @@
     "id": "pc-gamer-xeon-gtx-650",
     "active": true,
     "title": "PC Gamer Xeon GTX 650",
-    "price": 800,
+    "price": 900,
     "badge": "Sem armazenamento",
     "image": "./assets/chatgpt-image-20-de-mai-de-2026-161636-1.png",
     "cutout": "./assets/generated/pc-gamer-xeon-gtx-650-cutout.png",
@@ -65,13 +65,14 @@
       "Xeon E3-1220V1",
       "8GB RAM",
       "GTX 650",
-      "Sem armazenamento"
+      "SSD 128GB"
     ],
     "specs": {
       "processor": "Xeon E3-1220V1",
       "memory": "8GB RAM",
       "gpu": "GTX 650",
-      "storage": "Sem armazenamento"
+      "powerSupply": "500W",
+      "storage": "SSD 128GB"
     },
     "links": {
       "facebook": "https://www.facebook.com/marketplace/item/26760481873564144/?ref=marketplace_profile&referral_code=undefined&__tn__=!%3AD"
@@ -92,7 +93,7 @@
     ],
     "specs": {
       "processor": "AMD FX-6300 (6/6)",
-      "memory": "8GB DDR3 HyperX",
+      "memory": "12GB DDR3 Dual Channel",
       "gpu": "GTX 1050 2GB GDDR5",
       "powerSupply": "CX 450W 80 Plus",
       "storage": "SSD 240GB"
@@ -107,8 +108,8 @@
     "id": "pc-gamer-xeon-gtx550ti-gb",
     "active": true,
     "title": "PC GAMER E3-1220V1 e GTX 550 TI",
-    "price": 700,
-    "old": 800,
+    "price": 820,
+    "old": 900,
     "badge": "BARATO!",
     "image": "./assets/captura-de-tela-2026-05-18-170822.png",
     "cutout": "./assets/generated/pc-gamer-xeon-gtx550ti-gb-cutout.png",
@@ -118,7 +119,7 @@
       "memory": "8GB DDR3",
       "gpu": "GTX 550 TI",
       "powerSupply": "500W",
-      "storage": "Nao Possui"
+      "storage": "SSD 128GB"
     },
     "links": {
       "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-xeon-placa-de-video-gtx-550-ti-1490418005?",
