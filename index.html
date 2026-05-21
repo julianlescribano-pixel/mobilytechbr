@@ -489,10 +489,13 @@
         box-shadow: 0 16px 42px rgba(0, 0, 0, .22);
       }
       .photo {
+        appearance: none;
         position: relative;
         display: block;
+        width: calc(100% - 32px);
         aspect-ratio: 1 / .95;
         margin: 48px 16px 0;
+        padding: 0;
         overflow: visible;
         border: 1px solid rgba(4, 183, 255, .42);
         border-radius: 8px;
@@ -503,6 +506,11 @@
         box-shadow:
           inset 0 0 0 1px rgba(255, 255, 255, .03),
           0 22px 44px rgba(0, 0, 0, .24);
+        cursor: zoom-in;
+      }
+      .photo:focus-visible {
+        outline: 3px solid rgba(34, 240, 196, .72);
+        outline-offset: 4px;
       }
       .photo::before,
       .photo::after {
@@ -717,7 +725,14 @@
         color: #e9f4fa;
         font-size: 12px;
         font-weight: 800;
-        cursor: pointer;
+      }
+      .addon-choice-row.has-image {
+        grid-template-columns: 18px 56px minmax(0, 1fr);
+        min-height: 68px;
+      }
+      .addon-choice-row.has-image strong {
+        grid-column: 3;
+        justify-self: start;
       }
       .addon-choice-row:has(input:checked) {
         border-color: rgba(34, 240, 196, .44);
@@ -726,13 +741,43 @@
       .addon-choice-row input {
         accent-color: var(--green);
       }
-      .addon-choice-row span {
+      .addon-choice-label {
         min-width: 0;
+        display: flex;
+        align-items: center;
+        min-height: 38px;
         overflow-wrap: anywhere;
+        line-height: 1.22;
+        cursor: pointer;
       }
       .addon-choice-row strong {
         color: var(--green);
         white-space: nowrap;
+      }
+      .addon-thumb-button {
+        appearance: none;
+        width: 56px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        padding: 4px;
+        overflow: hidden;
+        border: 1px solid rgba(4, 183, 255, .18);
+        border-radius: 8px;
+        background:
+          radial-gradient(circle at 50% 78%, rgba(34, 240, 196, .18), transparent 62%),
+          rgba(2, 11, 19, .72);
+        cursor: zoom-in;
+      }
+      .addon-thumb-button:focus-visible {
+        outline: 2px solid rgba(34, 240, 196, .72);
+        outline-offset: 2px;
+      }
+      .addon-thumb-button img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 8px 9px rgba(0, 0, 0, .4));
       }
       .checkout-total {
         display: grid;
@@ -757,6 +802,73 @@
         display: grid;
         gap: 10px;
         margin-top: auto;
+      }
+      .media-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: grid;
+        place-items: center;
+        padding: clamp(18px, 5vw, 54px);
+        background: rgba(0, 5, 10, .86);
+        backdrop-filter: blur(10px);
+      }
+      .media-lightbox[hidden] {
+        display: none;
+      }
+      .lightbox-frame {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: min(1040px, 100%);
+        height: min(82vh, 820px);
+        border: 1px solid rgba(4, 183, 255, .32);
+        border-radius: 12px;
+        background:
+          radial-gradient(circle at 50% 78%, rgba(4, 183, 255, .16), transparent 48%),
+          linear-gradient(180deg, rgba(5, 24, 40, .96), rgba(2, 8, 14, .98));
+        box-shadow: 0 28px 80px rgba(0, 0, 0, .48);
+      }
+      .lightbox-image {
+        max-width: min(94%, 940px);
+        max-height: 76vh;
+        object-fit: contain;
+        filter: drop-shadow(0 32px 38px rgba(0, 0, 0, .48));
+      }
+      .lightbox-close,
+      .lightbox-arrow {
+        appearance: none;
+        position: absolute;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, .16);
+        color: #f7fbff;
+        background: rgba(3, 13, 22, .86);
+        cursor: pointer;
+      }
+      .lightbox-close {
+        top: 12px;
+        right: 12px;
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        font-size: 24px;
+        line-height: 1;
+      }
+      .lightbox-arrow {
+        top: 50%;
+        width: 46px;
+        height: 58px;
+        border-radius: 8px;
+        font-size: 36px;
+        line-height: 1;
+        transform: translateY(-50%);
+      }
+      .lightbox-arrow.prev { left: 12px; }
+      .lightbox-arrow.next { right: 12px; }
+      .lightbox-arrow:disabled {
+        opacity: .28;
+        cursor: default;
       }
       .marketplace-actions {
         display: grid;
@@ -963,6 +1075,7 @@
         }
         .photo {
           aspect-ratio: 1 / 1;
+          width: calc(100% - 24px);
           margin: 26px 12px 0;
           overflow: hidden;
         }
@@ -981,6 +1094,12 @@
         .contact-email { width: 100%; white-space: normal; text-align: center; }
         .cleaning-service { grid-template-columns: 1fr; padding-block: 56px; }
         .cleaning-submit { width: 100%; }
+        .lightbox-frame { height: min(72vh, 680px); }
+        .lightbox-arrow {
+          width: 38px;
+          height: 50px;
+          font-size: 30px;
+        }
       }
       @media (max-width: 520px) {
         .trust, .fulfillment { grid-template-columns: 1fr; }
@@ -991,6 +1110,13 @@
         .body { padding: 15px; }
         .topline { align-items: flex-start; flex-direction: column; }
         .price { text-align: left; }
+        .addon-choice-row.has-image {
+          grid-template-columns: 18px 50px minmax(0, 1fr);
+        }
+        .addon-thumb-button {
+          width: 50px;
+          height: 44px;
+        }
       }
     </style>
   </head>
@@ -1104,6 +1230,14 @@
         </div>
       </section>
     </main>
+    <div class="media-lightbox" id="media-lightbox" hidden>
+      <div class="lightbox-frame" role="dialog" aria-modal="true" aria-label="Visualizacao da foto">
+        <button class="lightbox-close" type="button" aria-label="Fechar">&times;</button>
+        <button class="lightbox-arrow prev" type="button" aria-label="Foto anterior">&#8249;</button>
+        <img class="lightbox-image" id="lightbox-image" src="" alt="">
+        <button class="lightbox-arrow next" type="button" aria-label="Proxima foto">&#8250;</button>
+      </div>
+    </div>
     <script>
       const icons = {
         "Processador": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M4 9h3M4 15h3M17 9h3M17 15h3M9 4v3M15 4v3M9 17v3M15 17v3"/></svg>',
@@ -1123,6 +1257,11 @@
       };
 
       const productGrid = document.getElementById("products");
+      const lightbox = document.getElementById("media-lightbox");
+      const lightboxImage = document.getElementById("lightbox-image");
+      const lightboxPrev = lightbox?.querySelector(".lightbox-arrow.prev");
+      const lightboxNext = lightbox?.querySelector(".lightbox-arrow.next");
+      const lightboxClose = lightbox?.querySelector(".lightbox-close");
       const productDataUrl = "./data/products.json";
       const addonDataUrl = "./data/addons.json";
       const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -1147,6 +1286,39 @@
           return path;
         }
         return `./${path.replace(/^\/+/, "")}`;
+      };
+
+      const safeDomId = (value = "item") => String(value)
+        .trim()
+        .replace(/[^a-z0-9_-]+/gi, "-")
+        .replace(/^-+|-+$/g, "") || "item";
+
+      const mediaSource = (item = {}) => normalizePath(
+        item.cutout || item.imageCutout || item.cutoutImage || item.image || item.img || ""
+      );
+
+      const mediaGallery = (item = {}) => {
+        const images = [];
+        const add = (entry) => {
+          const image = typeof entry === "string" ? normalizePath(entry) : mediaSource(entry);
+          if (image && !images.includes(image)) images.push(image);
+        };
+
+        add(item);
+        [item.gallery, item.photos, item.extraPhotos].forEach((list) => {
+          if (Array.isArray(list)) list.forEach(add);
+        });
+        return images;
+      };
+
+      const encodeMediaGallery = (images = []) => encodeURIComponent(JSON.stringify(images.filter(Boolean)));
+      const decodeMediaGallery = (value = "") => {
+        try {
+          const parsed = JSON.parse(decodeURIComponent(value));
+          return Array.isArray(parsed) ? parsed.filter(Boolean) : [];
+        } catch (_error) {
+          return [];
+        }
       };
 
       const parseCurrency = (value) => {
@@ -1212,11 +1384,15 @@
                 return `<fieldset class="addon-group">
                 <legend>${group.label}</legend>
                 ${group.options.map((option, index) => {
-                  return `<label class="addon-choice-row">
-                  <input class="addon-choice" type="checkbox" value="${safeProductId}-${escapeHtml(group.key)}-${index}" data-addon-category="${escapeHtml(group.key)}" data-addon-index="${index}" data-addon-price="${option.price}">
-                  <span>${escapeHtml(option.label)}</span>
+                  const inputId = `addon-${safeDomId(product.id || "pc")}-${safeDomId(group.key)}-${index}`;
+                  const optionImages = mediaGallery(option);
+                  const optionImage = optionImages[0] || "";
+                  return `<div class="addon-choice-row${optionImage ? " has-image" : ""}">
+                  <input class="addon-choice" id="${escapeHtml(inputId)}" type="checkbox" value="${safeProductId}-${escapeHtml(group.key)}-${index}" data-addon-category="${escapeHtml(group.key)}" data-addon-index="${index}" data-addon-price="${option.price}">
+                  ${optionImage ? `<button class="addon-thumb-button" type="button" data-lightbox-gallery="${escapeHtml(encodeMediaGallery(optionImages))}" data-lightbox-alt="${escapeHtml(option.label)}" aria-label="Ampliar foto de ${escapeHtml(option.label)}"><img src="${escapeHtml(optionImage)}" alt="" loading="lazy"></button>` : ""}
+                  <label class="addon-choice-label" for="${escapeHtml(inputId)}">${escapeHtml(option.label)}</label>
                   <strong>+ ${escapeHtml(formatCurrency(option.price))}</strong>
-                </label>`;
+                </div>`;
                 }).join("")}
               </fieldset>`;
               }).join("")}
@@ -1253,8 +1429,8 @@
           const details = productDetails(product);
           const olx = product.olx || product.links?.olx || "";
           const fb = product.fb || product.links?.facebook || "";
-          const targetUrl = olx || fb || "#catalogo";
-          const image = normalizePath(product.cutout || product.imageCutout || product.cutoutImage || product.image || product.img);
+          const productImages = mediaGallery(product);
+          const image = productImages[0] || "";
           const tags = Array.isArray(product.tags) ? product.tags.filter(Boolean) : [];
           const photoClass = product.photo || "square";
           const basePrice = parseCurrency(product.price);
@@ -1262,7 +1438,7 @@
 
           return `
         <article class="card">
-          <a class="photo ${escapeHtml(photoClass)}" href="${escapeHtml(targetUrl)}" target="_blank" rel="noreferrer"><img class="product-cutout" src="${escapeHtml(image)}" alt="${escapeHtml(product.title)}" loading="lazy"></a>
+          <button class="photo ${escapeHtml(photoClass)}" type="button" data-lightbox-gallery="${escapeHtml(encodeMediaGallery(productImages))}" data-lightbox-alt="${escapeHtml(product.title)}" aria-label="Ampliar fotos de ${escapeHtml(product.title)}"><img class="product-cutout" src="${escapeHtml(image)}" alt="${escapeHtml(product.title)}" loading="lazy"></button>
           <div class="body">
             <div class="topline"><span class="badge">${escapeHtml(product.badge || "")}</span><span class="price">${product.old ? `<s>${escapeHtml(formatCurrency(product.old))}</s> ` : ""}${escapeHtml(formatCurrency(product.price))}</span></div>
             <h3>${escapeHtml(product.title)}</h3>
@@ -1276,6 +1452,55 @@
           </div>
         </article>`;
         }).join("");
+      };
+
+      let lightboxImages = [];
+      let lightboxIndex = 0;
+      let lightboxReturnFocus = null;
+
+      const renderLightbox = () => {
+        if (!lightbox || !lightboxImage) return;
+        const current = lightboxImages[lightboxIndex] || "";
+        lightboxImage.src = current;
+        lightboxImage.alt = lightboxImage.dataset.alt || "";
+        const hasMany = lightboxImages.length > 1;
+        if (lightboxPrev) {
+          lightboxPrev.hidden = !hasMany;
+          lightboxPrev.disabled = lightboxIndex <= 0;
+        }
+        if (lightboxNext) {
+          lightboxNext.hidden = !hasMany;
+          lightboxNext.disabled = lightboxIndex >= lightboxImages.length - 1;
+        }
+      };
+
+      const openLightbox = (images, alt, trigger) => {
+        if (!lightbox || !lightboxImage || !images.length) return;
+        lightboxImages = images;
+        lightboxIndex = 0;
+        lightboxImage.dataset.alt = alt || "";
+        lightboxReturnFocus = trigger || document.activeElement;
+        lightbox.hidden = false;
+        document.body.style.overflow = "hidden";
+        renderLightbox();
+        lightboxClose?.focus();
+      };
+
+      const closeLightboxView = () => {
+        if (!lightbox || lightbox.hidden) return;
+        lightbox.hidden = true;
+        lightboxImage?.removeAttribute("src");
+        document.body.style.overflow = "";
+        if (lightboxReturnFocus && typeof lightboxReturnFocus.focus === "function") {
+          lightboxReturnFocus.focus();
+        }
+      };
+
+      const moveLightbox = (direction) => {
+        const nextIndex = lightboxIndex + direction;
+        if (nextIndex < 0 || nextIndex >= lightboxImages.length) return;
+        lightboxIndex = nextIndex;
+        renderLightbox();
       };
 
       const startMercadoPagoCheckout = async (button) => {
@@ -1307,9 +1532,34 @@
       };
 
       productGrid?.addEventListener("click", (event) => {
+        const mediaButton = event.target.closest("[data-lightbox-gallery]");
+        if (mediaButton) {
+          event.preventDefault();
+          event.stopPropagation();
+          openLightbox(
+            decodeMediaGallery(mediaButton.dataset.lightboxGallery),
+            mediaButton.dataset.lightboxAlt || "",
+            mediaButton
+          );
+          return;
+        }
+
         const button = event.target.closest("[data-product-id]");
         if (!button) return;
         startMercadoPagoCheckout(button);
+      });
+
+      lightboxClose?.addEventListener("click", closeLightboxView);
+      lightboxPrev?.addEventListener("click", () => moveLightbox(-1));
+      lightboxNext?.addEventListener("click", () => moveLightbox(1));
+      lightbox?.addEventListener("click", (event) => {
+        if (event.target === lightbox) closeLightboxView();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (!lightbox || lightbox.hidden) return;
+        if (event.key === "Escape") closeLightboxView();
+        if (event.key === "ArrowLeft") moveLightbox(-1);
+        if (event.key === "ArrowRight") moveLightbox(1);
       });
 
       productGrid?.addEventListener("change", (event) => {

@@ -11,6 +11,8 @@
     "active": true,
     "category": "peripherals",
     "label": "Kit Mouse / Teclado PICHAU",
-    "price": 65
+    "price": 65,
+    "image": "./assets/tgt-fal-rbw033.jpg",
+    "cutout": "./assets/generated/global-kit-mouse-teclado-pichau-cutout.png"
   }
 ]

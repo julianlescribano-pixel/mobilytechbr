@@ -43,6 +43,14 @@ content:
         type: number
         required: true
         description: "Digite apenas o numero. Exemplo: 150. O site mostra como reais automaticamente."
+      - name: image
+        label: Foto do adicional
+        type: image
+        description: "Opcional. Aparece como miniatura clicavel no site."
+      - name: cutout
+        label: Foto recortada/PNG do adicional
+        type: image
+        description: "Opcional. Se ficar vazio e houver foto, o GitHub tenta criar a versao sem fundo automaticamente."
   - name: products
     label: Anuncios de PCs
     type: file
@@ -86,6 +94,20 @@ content:
         label: Foto recortada/PNG do PC
         type: image
         description: "Opcional. Se ficar vazio, o GitHub tenta gerar automaticamente uma versao sem fundo a partir da foto principal."
+      - name: gallery
+        label: Fotos extras do PC
+        type: object
+        list: true
+        description: "Opcional. Essas fotos aparecem somente quando o cliente clica na foto do PC para abrir o zoom/galeria."
+        fields:
+          - name: image
+            label: Foto
+            type: image
+            required: true
+          - name: cutout
+            label: Foto recortada/PNG
+            type: image
+            description: "Opcional. Se ficar vazio, o GitHub tenta gerar a versao sem fundo automaticamente."
       - name: photo
         label: Formato da foto
         type: select
@@ -151,6 +173,14 @@ content:
                 type: number
                 required: true
                 description: "Digite apenas o numero. Exemplo: 150."
+              - name: image
+                label: Foto do opcional
+                type: image
+                description: "Opcional. Aparece como miniatura clicavel no site."
+              - name: cutout
+                label: Foto recortada/PNG do opcional
+                type: image
+                description: "Opcional. Se ficar vazio e houver foto, o GitHub tenta criar a versao sem fundo automaticamente."
           - name: peripherals
             label: Mouse e teclado / kits perifericos
             type: object
@@ -170,6 +200,14 @@ content:
                 type: number
                 required: true
                 description: "Digite apenas o numero. Exemplo: 80."
+              - name: image
+                label: Foto do opcional
+                type: image
+                description: "Opcional. Aparece como miniatura clicavel no site."
+              - name: cutout
+                label: Foto recortada/PNG do opcional
+                type: image
+                description: "Opcional. Se ficar vazio e houver foto, o GitHub tenta criar a versao sem fundo automaticamente."
       - name: featured
         label: Destaque interno
         type: boolean

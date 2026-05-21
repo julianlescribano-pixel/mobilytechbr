@@ -1,4 +1,4 @@
-name: Generate product cutouts
+name: Generate product and addon cutouts
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "data/products.json"
+      - "data/addons.json"
       - "assets/*"
       - ".github/scripts/generate_cutouts.py"
       - ".github/workflows/generate-cutouts.yml"
@@ -60,7 +61,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/products.json
+            git add data/products.json data/addons.json
             if [ -d assets/generated ]; then
               git add assets/generated/
             fi
