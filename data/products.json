@@ -53,9 +53,9 @@
     "featured": false
   },
   {
-    "id": "pc-gamer-xeon-gtx-650",
+    "id": "pc-gamer-xeon-gtx-750",
     "active": true,
-    "title": "PC Gamer Xeon GTX 650",
+    "title": "PC Gamer Xeon GTX 750 Ti",
     "price": 900,
     "badge": "Sem armazenamento",
     "image": "./assets/chatgpt-image-20-de-mai-de-2026-161636-1.png",
