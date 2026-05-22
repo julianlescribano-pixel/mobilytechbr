@@ -320,30 +320,69 @@
         grid-template-columns: minmax(220px, .28fr) minmax(0, 1fr) auto;
         align-items: center;
         gap: clamp(18px, 3vw, 38px);
-        min-height: 136px;
-        padding: 24px clamp(18px, 5vw, 76px);
-        border-bottom: 1px solid var(--line);
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        min-height: 188px;
+        padding: 34px clamp(18px, 5vw, 76px);
+        border-top: 1px solid rgba(4, 183, 255, .22);
+        border-bottom: 1px solid rgba(34, 240, 196, .2);
         background:
-          radial-gradient(circle at 18% 50%, rgba(255, 201, 40, .16), transparent 23rem),
-          linear-gradient(135deg, rgba(0, 121, 189, .24), rgba(4, 183, 255, .08) 45%, rgba(34, 240, 196, .06)),
+          linear-gradient(90deg, rgba(3, 10, 16, .86), rgba(3, 12, 20, .5) 48%, rgba(3, 10, 16, .9)),
           #06101a;
+      }
+      .shipping-strip:before,
+      .shipping-strip:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      .shipping-strip:before {
+        z-index: 0;
+        background:
+          radial-gradient(ellipse 34% 155% at 60% 52%, rgba(15, 59, 144, .66), rgba(15, 59, 144, .28) 34%, transparent 58%),
+          linear-gradient(115deg, transparent 0 15%, rgba(0, 130, 74, .32) 15% 28%, rgba(255, 218, 30, .35) 28% 39%, rgba(0, 130, 74, .26) 39% 52%, transparent 52%),
+          radial-gradient(circle at 14% 48%, rgba(255, 218, 30, .2), transparent 22rem),
+          linear-gradient(90deg, rgba(0, 0, 0, .28), rgba(0, 0, 0, .02) 42%, rgba(0, 0, 0, .4));
+        opacity: .95;
+      }
+      .shipping-strip:after {
+        z-index: 0;
+        background:
+          linear-gradient(90deg, transparent, rgba(4, 183, 255, .55) 18%, rgba(34, 240, 196, .28) 50%, transparent 88%) top / 100% 1px no-repeat,
+          linear-gradient(90deg, transparent, rgba(34, 240, 196, .42) 12%, rgba(4, 183, 255, .3) 62%, transparent 92%) bottom / 100% 1px no-repeat,
+          linear-gradient(90deg, rgba(3, 10, 16, .56), transparent 22%, transparent 78%, rgba(3, 10, 16, .72));
+      }
+      .correios-logo-box,
+      .shipping-strip-copy,
+      .shipping-services {
+        position: relative;
+        z-index: 1;
       }
       .correios-logo-box {
         display: grid;
         place-items: center;
         justify-self: center;
-        width: min(280px, 100%);
-        min-height: 78px;
-        padding: 12px 16px;
-        border: 1px solid rgba(255, 255, 255, .1);
-        border-radius: 10px;
-        background: rgba(255, 255, 255, .94);
-        box-shadow: 0 18px 44px rgba(0, 0, 0, .24);
+        width: min(260px, 100%);
+        min-height: 112px;
+        padding: 16px 20px;
+        border: 1px solid rgba(225, 255, 255, .18);
+        border-radius: 12px;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, .28), rgba(255, 255, 255, .08) 46%, rgba(34, 240, 196, .08)),
+          rgba(5, 18, 24, .34);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, .18),
+          inset 0 -1px 0 rgba(34, 240, 196, .1),
+          0 22px 54px rgba(0, 0, 0, .36);
+        backdrop-filter: blur(14px) saturate(130%);
       }
       .correios-logo-box img {
-        width: min(220px, 90%);
+        width: min(210px, 90%);
         height: auto;
         display: block;
+        filter: drop-shadow(0 10px 24px rgba(0, 0, 0, .28));
       }
       .shipping-strip-copy {
         display: grid;
