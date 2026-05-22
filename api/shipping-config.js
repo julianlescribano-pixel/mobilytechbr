@@ -5,33 +5,27 @@ function sendJson(response, status, payload) {
   response.end(JSON.stringify(payload));
 }
 
-function hasDefaultPackage() {
-  return Boolean(
-    process.env.DEFAULT_PACKAGE_WEIGHT_KG &&
-    process.env.DEFAULT_PACKAGE_HEIGHT_CM &&
-    process.env.DEFAULT_PACKAGE_WIDTH_CM &&
-    process.env.DEFAULT_PACKAGE_LENGTH_CM
-  );
+const REQUIRED_ENV = [
+  "MELHOR_ENVIO_TOKEN",
+  "SHIP_FROM_POSTAL_CODE",
+  "DEFAULT_PACKAGE_WEIGHT_KG",
+  "DEFAULT_PACKAGE_HEIGHT_CM",
+  "DEFAULT_PACKAGE_WIDTH_CM",
+  "DEFAULT_PACKAGE_LENGTH_CM"
+];
+
+function hasEnvValue(name) {
+  return Boolean(String(process.env[name] || "").trim());
 }
 
 module.exports = async function shippingConfig(_request, response) {
-  const enabled = Boolean(
-    process.env.MELHOR_ENVIO_TOKEN &&
-    process.env.SHIP_FROM_POSTAL_CODE &&
-    hasDefaultPackage()
-  );
+  const missing = REQUIRED_ENV.filter((name) => !hasEnvValue(name));
+  const enabled = missing.length === 0;
 
   sendJson(response, 200, {
     enabled,
     provider: "melhor-envio",
     preferredCarrier: "Correios",
-    requires: enabled ? [] : [
-      "MELHOR_ENVIO_TOKEN",
-      "SHIP_FROM_POSTAL_CODE",
-      "DEFAULT_PACKAGE_WEIGHT_KG",
-      "DEFAULT_PACKAGE_HEIGHT_CM",
-      "DEFAULT_PACKAGE_WIDTH_CM",
-      "DEFAULT_PACKAGE_LENGTH_CM"
-    ]
+    requires: missing
   });
 };
