@@ -1,11 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" role="img" aria-labelledby="title">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 640" role="img" aria-labelledby="title">
   <title id="title">Correios</title>
-  <rect width="640" height="240" rx="28" fill="#f4f8fb"/>
-  <g transform="translate(132 22)">
-    <path d="M152 16h134c18 0 28 21 17 35l-75 91c-8 10-20 16-33 16H61c-18 0-28-21-17-35l75-91c8-10 20-16 33-16z" fill="#0079bd"/>
-    <path d="M80 62h134c18 0 28 21 17 35l-74 91c-9 10-21 16-34 16H-11c-18 0-28-21-17-35l75-91c8-10 20-16 33-16z" fill="#f4c600"/>
-    <path d="M148 16h138c18 0 28 21 17 35l-73 88H92z" fill="#003e62" opacity=".92"/>
-    <path d="M80 62h134c18 0 28 21 17 35l-74 91H20z" fill="#d39c00" opacity=".78"/>
+  <defs>
+    <linearGradient id="blue" x1="420" y1="88" x2="740" y2="276" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#003e62"/>
+      <stop offset=".55" stop-color="#007fbd"/>
+      <stop offset="1" stop-color="#29b7e6"/>
+    </linearGradient>
+    <linearGradient id="yellow" x1="230" y1="230" x2="515" y2="380" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f7df00"/>
+      <stop offset=".62" stop-color="#f3c400"/>
+      <stop offset="1" stop-color="#bd8500"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="640" fill="#fff"/>
+  <g transform="translate(0 12)">
+    <path d="M438 52h205c18 0 35 9 45 24l82 121c8 12 5 29-7 38l-92 72H378l92-72c10-8 13-22 6-33L438 52z" fill="url(#blue)"/>
+    <path d="M237 320 329 248h293l-92 72c-10 8-13 22-6 33l38 150H358c-18 0-35-9-45-24l-82-121c-8-12-5-29 6-38z" fill="url(#yellow)"/>
+    <path d="M438 52h205c18 0 35 9 45 24l27 40H482z" fill="#003e62" opacity=".92"/>
+    <path d="M329 248h293l-92 72c-10 8-13 22-6 33l-169 1z" fill="#d19a00" opacity=".78"/>
   </g>
-  <text x="320" y="216" text-anchor="middle" fill="#003e62" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="800">Correios</text>
+  <text x="512" y="576" text-anchor="middle" fill="#004563" font-family="Arial, Helvetica, sans-serif" font-size="152" font-weight="800">Correios</text>
 </svg>
