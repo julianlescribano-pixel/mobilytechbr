@@ -56,21 +56,21 @@
     "id": "pc-gamer-xeon-gtx-750",
     "active": true,
     "title": "PC Gamer Xeon GTX 750 Ti",
-    "price": 900,
-    "badge": "Sem armazenamento",
+    "price": 1000,
+    "badge": "Com SDD",
     "image": "./assets/chatgpt-image-20-de-mai-de-2026-161636-1.png",
     "cutout": "./assets/generated/pc-gamer-xeon-gtx-650-cutout.png",
     "photo": "square",
     "tags": [
       "Xeon E3-1220V1",
       "8GB RAM",
-      "GTX 650",
+      "GTX 750 Ti",
       "SSD 128GB"
     ],
     "specs": {
       "processor": "Xeon E3-1220V1",
       "memory": "8GB RAM",
-      "gpu": "GTX 650",
+      "gpu": "GTX 750 Ti",
       "powerSupply": "500W",
       "storage": "SSD 128GB"
     },
