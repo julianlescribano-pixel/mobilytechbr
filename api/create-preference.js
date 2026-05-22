@@ -4,6 +4,7 @@ const path = require("path");
 const PRODUCTS_FILE = path.join(process.cwd(), "data", "products.json");
 const ADDONS_FILE = path.join(process.cwd(), "data", "addons.json");
 const MERCADO_PAGO_API = "https://api.mercadopago.com/checkout/preferences";
+const { quoteMelhorEnvio } = require("./shipping-quote");
 const ADDON_CATEGORIES = {
   storage: "Armazenamento",
   peripherals: "Kit perifericos"
@@ -59,6 +60,10 @@ function absoluteUrl(origin, value) {
 async function loadProducts() {
   const products = JSON.parse(await fs.readFile(PRODUCTS_FILE, "utf8"));
   return Array.isArray(products) ? products : [];
+}
+
+function onlyDigits(value) {
+  return String(value || "").replace(/\D/g, "");
 }
 
 async function loadGlobalAddons() {
@@ -131,6 +136,47 @@ function normalizeSelectedAddons(product, selectedAddons, globalAddons = []) {
   });
 }
 
+function splitName(name = "") {
+  const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return { name: "", surname: "" };
+  return {
+    name: parts[0],
+    surname: parts.slice(1).join(" ")
+  };
+}
+
+function splitPhone(value = "") {
+  const digits = onlyDigits(value);
+  if (digits.length >= 10) {
+    return {
+      area_code: digits.slice(0, 2),
+      number: digits.slice(2)
+    };
+  }
+  return digits ? { number: digits } : undefined;
+}
+
+async function normalizeShipping(product, shipping) {
+  if (!shipping || !shipping.postalCode || !shipping.serviceId) return null;
+  const quoteResult = await quoteMelhorEnvio(product, shipping.postalCode);
+  const selected = quoteResult.quotes.find((quote) => String(quote.id) === String(shipping.serviceId));
+  if (!selected) {
+    const error = new Error("Frete selecionado nao esta mais disponivel.");
+    error.statusCode = 400;
+    throw error;
+  }
+
+  return {
+    ...shipping,
+    postalCode: onlyDigits(shipping.postalCode),
+    serviceId: String(selected.id),
+    serviceName: selected.name,
+    carrier: selected.company,
+    price: selected.price,
+    deliveryTime: selected.deliveryTime
+  };
+}
+
 module.exports = async function createPreference(request, response) {
   response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   response.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -153,7 +199,7 @@ module.exports = async function createPreference(request, response) {
   }
 
   try {
-    const { productId, selectedAddons } = await readJsonBody(request);
+    const { productId, selectedAddons, shipping } = await readJsonBody(request);
     if (!productId) {
       sendJson(response, 400, { error: "Produto nao informado." });
       return;
@@ -176,8 +222,14 @@ module.exports = async function createPreference(request, response) {
     }
 
     const addons = normalizeSelectedAddons(product, selectedAddons, globalAddons);
+    const normalizedShipping = await normalizeShipping(product, shipping);
     const origin = requestOrigin(request);
     const addonDescription = addons.map((addon) => `${addon.categoryLabel}: ${addon.label}`).join(" | ");
+    const shippingDescription = normalizedShipping
+      ? `Frete ${normalizedShipping.carrier} ${normalizedShipping.serviceName} para CEP ${normalizedShipping.postalCode}`
+      : "";
+    const customer = normalizedShipping?.customer || {};
+    const customerName = splitName(customer.name);
     const preference = {
       items: [
         {
@@ -195,8 +247,26 @@ module.exports = async function createPreference(request, response) {
           quantity: 1,
           currency_id: "BRL",
           unit_price: addon.price
-        }))
+        })),
+        ...(normalizedShipping ? [{
+          id: `${product.id}-shipping-${normalizedShipping.serviceId}`,
+          title: shippingDescription,
+          quantity: 1,
+          currency_id: "BRL",
+          unit_price: normalizedShipping.price
+        }] : [])
       ],
+      payer: normalizedShipping ? {
+        name: customerName.name || undefined,
+        surname: customerName.surname || undefined,
+        email: customer.email || undefined,
+        phone: splitPhone(customer.phone),
+        address: {
+          zip_code: normalizedShipping.postalCode,
+          street_name: customer.street || undefined,
+          street_number: customer.number || undefined
+        }
+      } : undefined,
       back_urls: {
         success: `${origin}/pagamento-sucesso.html`,
         pending: `${origin}/pagamento-pendente.html`,
@@ -207,13 +277,22 @@ module.exports = async function createPreference(request, response) {
       metadata: {
         product_id: product.id,
         product_title: product.title,
-        selected_addons: addons.map((addon) => `${addon.category}:${addon.label}`).join("; ")
+        selected_addons: addons.map((addon) => `${addon.category}:${addon.label}`).join("; "),
+        shipping_requested: normalizedShipping ? "true" : "false",
+        shipping_provider: normalizedShipping ? "melhor-envio" : "",
+        shipping_service_id: normalizedShipping?.serviceId || "",
+        shipping_service_name: normalizedShipping?.serviceName || "",
+        shipping_carrier: normalizedShipping?.carrier || "",
+        shipping_price: normalizedShipping ? String(normalizedShipping.price) : "",
+        shipping_postal_code: normalizedShipping?.postalCode || "",
+        shipping_customer: normalizedShipping ? JSON.stringify(customer) : ""
       },
       statement_descriptor: "MOBILYTECHBR"
     };
 
-    if (process.env.MERCADO_PAGO_WEBHOOK_URL) {
-      preference.notification_url = process.env.MERCADO_PAGO_WEBHOOK_URL;
+    const notificationUrl = process.env.MERCADO_PAGO_WEBHOOK_URL || `${origin}/api/mercado-pago-webhook`;
+    if (notificationUrl) {
+      preference.notification_url = notificationUrl;
     }
 
     const mercadoPagoResponse = await fetch(MERCADO_PAGO_API, {

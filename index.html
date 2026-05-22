@@ -870,6 +870,138 @@
         opacity: .28;
         cursor: default;
       }
+      .shipping-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 110;
+        display: grid;
+        place-items: center;
+        padding: clamp(14px, 4vw, 34px);
+        background: rgba(0, 5, 10, .84);
+        backdrop-filter: blur(10px);
+      }
+      .shipping-modal[hidden] {
+        display: none;
+      }
+      .shipping-panel {
+        width: min(760px, 100%);
+        max-height: min(88vh, 780px);
+        overflow: auto;
+        border: 1px solid rgba(4, 183, 255, .32);
+        border-radius: 12px;
+        background: linear-gradient(180deg, rgba(7, 27, 45, .98), rgba(2, 8, 14, .99));
+        box-shadow: 0 28px 80px rgba(0, 0, 0, .48);
+      }
+      .shipping-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 20px 22px;
+        border-bottom: 1px solid rgba(4, 183, 255, .16);
+      }
+      .shipping-head h2,
+      .shipping-head p {
+        margin: 0;
+      }
+      .shipping-head h2 {
+        font-size: 24px;
+        line-height: 1.1;
+      }
+      .shipping-head p {
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 1.45;
+      }
+      .shipping-close {
+        appearance: none;
+        flex: 0 0 auto;
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(255, 255, 255, .16);
+        border-radius: 999px;
+        color: #f7fbff;
+        background: rgba(255, 255, 255, .04);
+        font-size: 22px;
+        cursor: pointer;
+      }
+      .shipping-form {
+        display: grid;
+        gap: 14px;
+        padding: 22px;
+      }
+      .shipping-fields {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .shipping-fields label {
+        display: grid;
+        gap: 6px;
+        color: var(--subtle);
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: .07em;
+        text-transform: uppercase;
+      }
+      .shipping-fields label.full {
+        grid-column: 1 / -1;
+      }
+      .shipping-fields input {
+        min-height: 42px;
+        width: 100%;
+        border: 1px solid rgba(4, 183, 255, .2);
+        border-radius: 8px;
+        padding: 0 11px;
+        color: var(--text);
+        background: rgba(255, 255, 255, .045);
+        font: inherit;
+        font-weight: 800;
+      }
+      .shipping-quotes {
+        display: grid;
+        gap: 8px;
+      }
+      .shipping-quote {
+        display: grid;
+        grid-template-columns: 18px minmax(0, 1fr) auto;
+        gap: 10px;
+        align-items: center;
+        min-height: 48px;
+        padding: 10px 12px;
+        border: 1px solid rgba(255, 255, 255, .08);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, .035);
+        font-weight: 900;
+      }
+      .shipping-quote:has(input:checked) {
+        border-color: rgba(34, 240, 196, .44);
+        background: rgba(34, 240, 196, .08);
+      }
+      .shipping-quote small {
+        display: block;
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .shipping-quote strong {
+        color: var(--green);
+        white-space: nowrap;
+      }
+      .shipping-message {
+        min-height: 20px;
+        margin: 0;
+        color: var(--gold);
+        font-size: 13px;
+        font-weight: 900;
+        line-height: 1.4;
+      }
+      .shipping-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
       .marketplace-actions {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
@@ -1095,6 +1227,7 @@
         .cleaning-service { grid-template-columns: 1fr; padding-block: 56px; }
         .cleaning-submit { width: 100%; }
         .lightbox-frame { height: min(72vh, 680px); }
+        .shipping-fields { grid-template-columns: 1fr; }
         .lightbox-arrow {
           width: 38px;
           height: 50px;
@@ -1238,6 +1371,39 @@
         <button class="lightbox-arrow next" type="button" aria-label="Proxima foto">&#8250;</button>
       </div>
     </div>
+    <div class="shipping-modal" id="shipping-modal" hidden>
+      <section class="shipping-panel" role="dialog" aria-modal="true" aria-labelledby="shipping-title">
+        <div class="shipping-head">
+          <div>
+            <h2 id="shipping-title">Entrega pelos Correios</h2>
+            <p>Informe os dados de entrega para calcular o frete e pagar tudo junto pelo Mercado Pago.</p>
+          </div>
+          <button class="shipping-close" type="button" aria-label="Fechar">&times;</button>
+        </div>
+        <form class="shipping-form" id="shipping-form">
+          <div class="shipping-fields">
+            <label class="full">Nome completo<input name="name" autocomplete="name" required></label>
+            <label>Email<input name="email" type="email" autocomplete="email" required></label>
+            <label>Telefone<input name="phone" autocomplete="tel" required></label>
+            <label>CPF/CNPJ para etiqueta<input name="document" inputmode="numeric" autocomplete="off" required></label>
+            <label>CEP<input name="postalCode" inputmode="numeric" autocomplete="postal-code" required></label>
+            <label class="full">Rua<input name="street" autocomplete="address-line1" required></label>
+            <label>Numero<input name="number" autocomplete="address-line2" required></label>
+            <label>Complemento<input name="complement" autocomplete="address-line3"></label>
+            <label>Bairro<input name="district" required></label>
+            <label>Cidade<input name="city" autocomplete="address-level2" required></label>
+            <label>UF<input name="state" maxlength="2" autocomplete="address-level1" required></label>
+          </div>
+          <div class="shipping-quotes" id="shipping-quotes"></div>
+          <p class="shipping-message" id="shipping-message"></p>
+          <div class="shipping-actions">
+            <button class="button secondary" type="button" id="shipping-quote-button">Calcular frete</button>
+            <button class="button primary" type="submit" id="shipping-pay-button" disabled>Pagar com frete</button>
+            <button class="button secondary" type="button" id="shipping-skip-button">Continuar sem frete</button>
+          </div>
+        </form>
+      </section>
+    </div>
     <script>
       const icons = {
         "Processador": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M4 9h3M4 15h3M17 9h3M17 15h3M9 4v3M15 4v3M9 17v3M15 17v3"/></svg>',
@@ -1262,6 +1428,14 @@
       const lightboxPrev = lightbox?.querySelector(".lightbox-arrow.prev");
       const lightboxNext = lightbox?.querySelector(".lightbox-arrow.next");
       const lightboxClose = lightbox?.querySelector(".lightbox-close");
+      const shippingModal = document.getElementById("shipping-modal");
+      const shippingForm = document.getElementById("shipping-form");
+      const shippingClose = shippingModal?.querySelector(".shipping-close");
+      const shippingQuotes = document.getElementById("shipping-quotes");
+      const shippingMessage = document.getElementById("shipping-message");
+      const shippingQuoteButton = document.getElementById("shipping-quote-button");
+      const shippingPayButton = document.getElementById("shipping-pay-button");
+      const shippingSkipButton = document.getElementById("shipping-skip-button");
       const productDataUrl = "./data/products.json";
       const addonDataUrl = "./data/addons.json";
       const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -1272,6 +1446,9 @@
         { key: "storage", label: "Armazenamento" },
         { key: "peripherals", label: "Kit perif&eacute;ricos" }
       ];
+      let shippingEnabled = false;
+      let activeShippingButton = null;
+      let activeShippingQuotes = [];
 
       const escapeHtml = (value = "") => String(value)
         .replace(/&/g, "&amp;")
@@ -1417,6 +1594,69 @@
         output.textContent = formatCurrency((Number.isFinite(basePrice) ? basePrice : 0) + addonsTotal);
       };
 
+      const formDataObject = (form) => Object.fromEntries(new FormData(form).entries());
+
+      const setShippingMessage = (message = "", isError = false) => {
+        if (!shippingMessage) return;
+        shippingMessage.textContent = message;
+        shippingMessage.style.color = isError ? "#ff9b9b" : "";
+      };
+
+      const selectedShippingQuote = () => {
+        const selected = shippingForm?.querySelector("input[name='shippingService']:checked");
+        if (!selected) return null;
+        return activeShippingQuotes.find((quote) => String(quote.id) === String(selected.value)) || null;
+      };
+
+      const renderShippingQuotes = (quotes = []) => {
+        activeShippingQuotes = quotes;
+        if (!shippingQuotes || !shippingPayButton) return;
+        shippingPayButton.disabled = true;
+        if (!quotes.length) {
+          shippingQuotes.innerHTML = "";
+          return;
+        }
+
+        shippingQuotes.innerHTML = quotes.map((quote, index) => `
+          <label class="shipping-quote">
+            <input type="radio" name="shippingService" value="${escapeHtml(quote.id)}" ${index === 0 ? "checked" : ""}>
+            <span>${escapeHtml(quote.company)} - ${escapeHtml(quote.name)}${quote.deliveryTime ? `<small>Prazo estimado: ${escapeHtml(quote.deliveryTime)} dia(s)</small>` : ""}</span>
+            <strong>${escapeHtml(formatCurrency(quote.price))}</strong>
+          </label>
+        `).join("");
+        shippingPayButton.disabled = false;
+      };
+
+      const collectShippingPayload = () => {
+        const quote = selectedShippingQuote();
+        if (!quote || !shippingForm) return null;
+        const customer = formDataObject(shippingForm);
+        return {
+          postalCode: customer.postalCode,
+          serviceId: quote.id,
+          customer
+        };
+      };
+
+      const openShippingModal = (button) => {
+        if (!shippingModal || !shippingForm) return;
+        activeShippingButton = button;
+        activeShippingQuotes = [];
+        shippingForm.reset();
+        renderShippingQuotes([]);
+        setShippingMessage("");
+        shippingModal.hidden = false;
+        document.body.style.overflow = "hidden";
+        shippingForm.querySelector("input[name='name']")?.focus();
+      };
+
+      const closeShippingModal = () => {
+        if (!shippingModal || shippingModal.hidden) return;
+        shippingModal.hidden = true;
+        document.body.style.overflow = "";
+        activeShippingButton?.focus();
+      };
+
       const renderProducts = (items, globalAddons = []) => {
         if (!productGrid) return;
         const products = Array.isArray(items) ? items.filter((product) => product.active !== false) : [];
@@ -1503,7 +1743,7 @@
         renderLightbox();
       };
 
-      const startMercadoPagoCheckout = async (button) => {
+      const startMercadoPagoCheckout = async (button, shipping = null) => {
         const productId = button.dataset.productId;
         if (!productId) return;
         const card = button.closest(".card");
@@ -1517,7 +1757,7 @@
           const response = await fetch("/api/create-preference", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ productId, selectedAddons })
+            body: JSON.stringify({ productId, selectedAddons, shipping })
           });
           const data = await response.json().catch(() => ({}));
           if (!response.ok || !data.checkout_url) {
@@ -1546,6 +1786,10 @@
 
         const button = event.target.closest("[data-product-id]");
         if (!button) return;
+        if (shippingEnabled) {
+          openShippingModal(button);
+          return;
+        }
         startMercadoPagoCheckout(button);
       });
 
@@ -1554,6 +1798,56 @@
       lightboxNext?.addEventListener("click", () => moveLightbox(1));
       lightbox?.addEventListener("click", (event) => {
         if (event.target === lightbox) closeLightboxView();
+      });
+      shippingClose?.addEventListener("click", closeShippingModal);
+      shippingModal?.addEventListener("click", (event) => {
+        if (event.target === shippingModal) closeShippingModal();
+      });
+      shippingQuotes?.addEventListener("change", () => {
+        if (shippingPayButton) shippingPayButton.disabled = !selectedShippingQuote();
+      });
+      shippingQuoteButton?.addEventListener("click", async () => {
+        if (!activeShippingButton || !shippingForm || !shippingForm.reportValidity()) return;
+        const productId = activeShippingButton.dataset.productId;
+        const { postalCode } = formDataObject(shippingForm);
+        shippingQuoteButton.disabled = true;
+        renderShippingQuotes([]);
+        setShippingMessage("Calculando frete pelos Correios...");
+        try {
+          const response = await fetch("/api/shipping-quote", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ productId, postalCode })
+          });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || !Array.isArray(data.quotes)) {
+            throw new Error(data.error || "Nao foi possivel calcular o frete.");
+          }
+          renderShippingQuotes(data.quotes);
+          setShippingMessage("Escolha o frete e finalize o pagamento.");
+        } catch (error) {
+          setShippingMessage(error.message || "Nao foi possivel calcular o frete agora.", true);
+        } finally {
+          shippingQuoteButton.disabled = false;
+        }
+      });
+      shippingSkipButton?.addEventListener("click", () => {
+        if (!activeShippingButton) return;
+        const button = activeShippingButton;
+        closeShippingModal();
+        startMercadoPagoCheckout(button);
+      });
+      shippingForm?.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (!activeShippingButton || !shippingForm.reportValidity()) return;
+        const shipping = collectShippingPayload();
+        if (!shipping) {
+          setShippingMessage("Calcule e selecione uma opcao de frete antes de continuar.", true);
+          return;
+        }
+        const button = activeShippingButton;
+        closeShippingModal();
+        startMercadoPagoCheckout(button, shipping);
       });
       document.addEventListener("keydown", (event) => {
         if (!lightbox || lightbox.hidden) return;
@@ -1580,6 +1874,17 @@
         }
       };
 
+      const loadShippingConfig = async () => {
+        try {
+          const response = await fetch("/api/shipping-config", { cache: "no-store" });
+          const data = await response.json().catch(() => ({}));
+          shippingEnabled = Boolean(response.ok && data.enabled);
+        } catch (_error) {
+          shippingEnabled = false;
+        }
+      };
+
+      loadShippingConfig();
       loadProducts();
 
       const cleaningForm = document.getElementById("cleaning-form");

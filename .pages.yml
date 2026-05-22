@@ -83,6 +83,31 @@ content:
         label: Preco antigo
         type: number
         description: "Opcional. Digite apenas o numero, sem R$."
+      - name: shipping
+        label: Caixa para frete
+        type: object
+        description: "Opcional. Use para sobrescrever o peso e as medidas padrao da Vercel neste PC."
+        fields:
+          - name: weightKg
+            label: Peso da caixa em kg
+            type: number
+            description: "Exemplo: 9.5"
+          - name: heightCm
+            label: Altura da caixa em cm
+            type: number
+            description: "Exemplo: 55"
+          - name: widthCm
+            label: Largura da caixa em cm
+            type: number
+            description: "Exemplo: 35"
+          - name: lengthCm
+            label: Comprimento da caixa em cm
+            type: number
+            description: "Exemplo: 60"
+          - name: insuranceValue
+            label: Valor segurado
+            type: number
+            description: "Opcional. Se vazio, usa o preco do PC."
       - name: badge
         label: Selo do card
         type: string
