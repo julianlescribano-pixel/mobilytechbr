@@ -17,6 +17,8 @@ Na Vercel, configure antes de autorizar:
 - `MELHOR_ENVIO_CLIENT_SECRET`
 - `MELHOR_ENVIO_REDIRECT_URI=https://mobilytechbr.vercel.app/api/melhor-envio-callback`
 
+Evite espacos ou quebras de linha no comeco/fim dos valores.
+
 Depois do deploy, abra:
 
 `https://mobilytechbr.vercel.app/api/melhor-envio-authorize`

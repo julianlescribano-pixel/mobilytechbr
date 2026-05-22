@@ -18,7 +18,7 @@ function absoluteOrigin(request) {
 }
 
 function normalizeBaseUrl(value) {
-  return String(value || DEFAULT_AUTH_BASE).replace(/\/+$/, "");
+  return String(value || DEFAULT_AUTH_BASE).trim().replace(/\/+$/, "");
 }
 
 function sendHtml(response, status, html) {
@@ -38,7 +38,7 @@ function escapeHtml(value) {
 }
 
 module.exports = async function melhorEnvioAuthorize(request, response) {
-  const clientId = process.env.MELHOR_ENVIO_CLIENT_ID;
+  const clientId = String(process.env.MELHOR_ENVIO_CLIENT_ID || "").trim();
   if (!clientId) {
     sendHtml(response, 500, `
       <h1>Client ID ausente</h1>
@@ -48,9 +48,9 @@ module.exports = async function melhorEnvioAuthorize(request, response) {
   }
 
   const authBase = normalizeBaseUrl(process.env.MELHOR_ENVIO_AUTH_BASE);
-  const redirectUri = process.env.MELHOR_ENVIO_REDIRECT_URI || `${absoluteOrigin(request)}/api/melhor-envio-callback`;
-  const scope = process.env.MELHOR_ENVIO_SCOPES || DEFAULT_SCOPES.join(" ");
-  const state = process.env.MELHOR_ENVIO_OAUTH_STATE || "mobilytechbr";
+  const redirectUri = String(process.env.MELHOR_ENVIO_REDIRECT_URI || `${absoluteOrigin(request)}/api/melhor-envio-callback`).trim();
+  const scope = String(process.env.MELHOR_ENVIO_SCOPES || DEFAULT_SCOPES.join(" ")).trim();
+  const state = String(process.env.MELHOR_ENVIO_OAUTH_STATE || "mobilytechbr").trim();
 
   const authorizeUrl = new URL("/oauth/authorize", authBase);
   authorizeUrl.searchParams.set("client_id", clientId);

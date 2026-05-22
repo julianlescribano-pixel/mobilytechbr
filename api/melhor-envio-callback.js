@@ -7,7 +7,7 @@ function absoluteOrigin(request) {
 }
 
 function normalizeBaseUrl(value) {
-  return String(value || DEFAULT_AUTH_BASE).replace(/\/+$/, "");
+  return String(value || DEFAULT_AUTH_BASE).trim().replace(/\/+$/, "");
 }
 
 function escapeHtml(value) {
@@ -135,8 +135,8 @@ module.exports = async function melhorEnvioCallback(request, response) {
     return;
   }
 
-  const clientId = process.env.MELHOR_ENVIO_CLIENT_ID;
-  const clientSecret = process.env.MELHOR_ENVIO_CLIENT_SECRET;
+  const clientId = String(process.env.MELHOR_ENVIO_CLIENT_ID || "").trim();
+  const clientSecret = String(process.env.MELHOR_ENVIO_CLIENT_SECRET || "").trim();
   if (!clientId || !clientSecret) {
     sendHtml(response, 500, `
       <h1>Credenciais ausentes</h1>
@@ -146,7 +146,7 @@ module.exports = async function melhorEnvioCallback(request, response) {
   }
 
   const authBase = normalizeBaseUrl(process.env.MELHOR_ENVIO_AUTH_BASE);
-  const redirectUri = process.env.MELHOR_ENVIO_REDIRECT_URI || `${absoluteOrigin(request)}/api/melhor-envio-callback`;
+  const redirectUri = String(process.env.MELHOR_ENVIO_REDIRECT_URI || `${absoluteOrigin(request)}/api/melhor-envio-callback`).trim();
 
   try {
     const tokenResponse = await fetch(`${authBase}/oauth/token`, {
