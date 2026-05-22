@@ -118,7 +118,7 @@ async function notifyOrder(request, payment) {
 
   const form = new URLSearchParams({
     _subject: "Pedido pago - MobilyTechBR",
-    email: shippingCustomer.email || payment.payer?.email || "mobilyfinds@gmail.com",
+    email: shippingCustomer.email || payment.payer?.email || "mobilytechbr@gmail.com",
     mensagem: lines.join("\n"),
     pagamento: String(payment.id),
     produto: metadata.product_title || "",

@@ -154,7 +154,7 @@ module.exports = async function melhorEnvioCallback(request, response) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "User-Agent": process.env.MELHOR_ENVIO_USER_AGENT || "MobilyTechBR (mobilyfinds@gmail.com)"
+        "User-Agent": process.env.MELHOR_ENVIO_USER_AGENT || "MobilyTechBR (mobilytechbr@gmail.com)"
       },
       body: JSON.stringify({
         grant_type: "authorization_code",

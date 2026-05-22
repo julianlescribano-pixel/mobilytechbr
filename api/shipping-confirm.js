@@ -133,7 +133,7 @@ async function melhorEnvioRequest(pathname, body) {
       Authorization: `Bearer ${token}`,
       Accept: "application/json",
       "Content-Type": "application/json",
-      "User-Agent": process.env.MELHOR_ENVIO_USER_AGENT || "MobilyTechBR (mobilyfinds@gmail.com)"
+      "User-Agent": process.env.MELHOR_ENVIO_USER_AGENT || "MobilyTechBR (mobilytechbr@gmail.com)"
     },
     body: JSON.stringify(body)
   });
