@@ -317,10 +317,10 @@
 
       .shipping-strip {
         display: grid;
-        grid-template-columns: minmax(260px, .34fr) minmax(0, 1fr) auto;
+        grid-template-columns: minmax(220px, .28fr) minmax(0, 1fr) auto;
         align-items: center;
-        gap: clamp(18px, 4vw, 44px);
-        min-height: 146px;
+        gap: clamp(18px, 3vw, 38px);
+        min-height: 136px;
         padding: 24px clamp(18px, 5vw, 76px);
         border-bottom: 1px solid var(--line);
         background:
@@ -331,14 +331,17 @@
       .correios-logo-box {
         display: grid;
         place-items: center;
-        min-height: 92px;
+        justify-self: center;
+        width: min(280px, 100%);
+        min-height: 78px;
+        padding: 12px 16px;
         border: 1px solid rgba(255, 255, 255, .1);
         border-radius: 10px;
         background: rgba(255, 255, 255, .94);
         box-shadow: 0 18px 44px rgba(0, 0, 0, .24);
       }
       .correios-logo-box img {
-        width: min(300px, 92%);
+        width: min(220px, 90%);
         height: auto;
         display: block;
       }
