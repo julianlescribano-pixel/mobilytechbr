@@ -2,6 +2,27 @@
 
 Este site ja tem a base para calcular frete pelos Correios via Melhor Envio, somar o frete no Checkout Pro do Mercado Pago e enviar um e-mail de pos-venda com link de confirmacao da etiqueta.
 
+## Autorizacao OAuth
+
+O `Client ID` e o `Secret` do aplicativo do Melhor Envio nao sao o token final usado pelo site. Eles servem para gerar um `access_token` OAuth.
+
+No aplicativo do Melhor Envio, use:
+
+- URL do ambiente para testes: `https://mobilytechbr.vercel.app`
+- URL de redirecionamento apos autorizacao: `https://mobilytechbr.vercel.app/api/melhor-envio-callback`
+
+Na Vercel, configure antes de autorizar:
+
+- `MELHOR_ENVIO_CLIENT_ID`
+- `MELHOR_ENVIO_CLIENT_SECRET`
+- `MELHOR_ENVIO_REDIRECT_URI=https://mobilytechbr.vercel.app/api/melhor-envio-callback`
+
+Depois do deploy, abra:
+
+`https://mobilytechbr.vercel.app/api/melhor-envio-authorize`
+
+Ao autorizar no Melhor Envio, a pagina de callback mostrara o `access_token` e o `refresh_token`. Copie o `access_token` para `MELHOR_ENVIO_TOKEN` na Vercel. O token de acesso dura cerca de 30 dias; guarde o `refresh_token` em `MELHOR_ENVIO_REFRESH_TOKEN` para renovacoes futuras.
+
 ## Variaveis obrigatorias na Vercel
 
 Para habilitar o calculo de frete no site:
