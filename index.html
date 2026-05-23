@@ -720,27 +720,6 @@
         font-size: 23px;
         line-height: 1.08;
       }
-      .chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 7px;
-        min-height: 63px;
-        align-content: start;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-      .chips li {
-        display: inline-flex;
-        align-items: center;
-        min-height: 28px;
-        padding: 0 9px;
-        border-radius: 6px;
-        color: #dce2e6;
-        background: #0d2434;
-        font-size: 12px;
-        font-weight: 800;
-      }
       .details {
         display: grid;
         gap: 8px;
@@ -1991,7 +1970,6 @@
           const fb = product.fb || product.links?.facebook || "";
           const productImages = mediaGallery(product);
           const image = productImages[0] || "";
-          const tags = Array.isArray(product.tags) ? product.tags.filter(Boolean) : [];
           const photoClass = product.photo || "square";
           const basePrice = parseCurrency(product.price);
           const addons = productAddons(product, globalAddons);
@@ -2002,7 +1980,6 @@
           <div class="body">
             <div class="topline"><span class="badge">${escapeHtml(product.badge || "")}</span><span class="price">${product.old ? `<s>${escapeHtml(formatCurrency(product.old))}</s> ` : ""}${escapeHtml(formatCurrency(product.price))}</span></div>
             <h3>${escapeHtml(product.title)}</h3>
-            <ul class="chips">${tags.map((tag) => `<li>${escapeHtml(tag)}</li>`).join("")}</ul>
             <ul class="details">${detailOrder.filter((label) => details[label]).map((label) => `<li><span class="spec-icon" aria-hidden="true">${icons[label]}</span><span class="detail-text"><strong>${detailLabels[label]}</strong><em>${escapeHtml(details[label])}</em></span></li>`).join("")}</ul>
             ${renderAddonGroups(product, addons, basePrice)}
             <div class="card-actions">
