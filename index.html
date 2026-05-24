@@ -518,11 +518,13 @@
         overflow: hidden;
         display: grid;
         grid-template-rows: auto auto auto 1fr auto auto;
-        gap: 18px;
+        justify-items: center;
+        gap: 20px;
         min-height: 580px;
         padding: 34px 40px 0;
         border: 1px solid color-mix(in srgb, var(--card-accent) 55%, transparent);
         border-radius: 16px;
+        text-align: center;
         background:
           radial-gradient(circle at 74% 18%, color-mix(in srgb, var(--card-accent) 18%, transparent), transparent 15rem),
           radial-gradient(circle at 50% 58%, rgba(4, 183, 255, .1), transparent 18rem),
@@ -560,11 +562,11 @@
       .ship-visual {
         position: relative;
         display: flex;
-        align-items: flex-start;
-        min-height: 166px;
-      }
-      .ship-card-mercado .ship-visual {
+        align-items: center;
         justify-content: center;
+        min-height: 168px;
+        width: 100%;
+        margin-bottom: 12px;
       }
       .visual-tile {
         display: inline-grid;
@@ -580,8 +582,8 @@
           0 0 28px color-mix(in srgb, var(--card-accent) 16%, transparent);
       }
       .visual-tile.glass-photo-tile {
-        width: 186px;
-        height: 176px;
+        width: 158px;
+        height: 150px;
         padding: 0;
         overflow: hidden;
         border-radius: 19px;
@@ -593,10 +595,15 @@
           0 0 34px color-mix(in srgb, var(--card-accent) 24%, transparent);
       }
       .visual-tile.payment-logo-tile {
-        width: 206px;
-        height: 194px;
+        width: 158px;
+        height: 150px;
       }
       .visual-tile.facebook-logo-tile {
+        width: 158px;
+        height: 150px;
+        position: absolute;
+        left: calc(50% - 150px);
+        top: 9px;
         border-color: rgba(141, 92, 255, .42);
         background:
           linear-gradient(145deg, rgba(255, 255, 255, .13), rgba(255, 255, 255, .035)),
@@ -657,11 +664,11 @@
       }
       .facebook-bag {
         position: absolute;
-        right: 42px;
-        top: 20px;
-        width: 166px;
+        left: calc(50% - 20px);
+        top: 28px;
+        width: 142px;
         max-width: 48%;
-        height: 118px;
+        height: 108px;
         color: #8d5cff;
         filter: drop-shadow(0 18px 25px rgba(141, 92, 255, .24));
       }
@@ -677,14 +684,15 @@
         color: #fff;
         font-weight: 900;
       }
-      .chat-dot.left { right: 178px; top: 78px; }
-      .chat-dot.right { right: 10px; top: 42px; }
+      .chat-dot.left { left: calc(50% - 56px); top: 82px; }
+      .chat-dot.right { left: calc(50% + 112px); top: 48px; }
       .ship-card h3 {
-        margin: 0;
+        margin: 4px auto 0;
         max-width: 420px;
         color: #fff;
         font-size: clamp(28px, 2.8vw, 38px);
         line-height: 1.02;
+        text-align: center;
         text-shadow: 0 10px 22px rgba(0, 0, 0, .38);
       }
       .ship-accent {
@@ -693,14 +701,17 @@
         height: 2px;
         border-radius: 999px;
         background: var(--card-accent);
+        margin: 0 auto;
         box-shadow: 0 0 16px color-mix(in srgb, var(--card-accent) 68%, transparent);
       }
       .ship-card p {
-        margin: 0;
+        max-width: 390px;
+        margin: 0 auto;
         color: rgba(229, 241, 255, .84);
         font-size: 18px;
         font-weight: 600;
         line-height: 1.48;
+        text-align: center;
       }
       .platform-strip {
         display: grid;
@@ -708,6 +719,7 @@
         gap: 8px;
         align-self: end;
         min-height: 96px;
+        width: 100%;
         padding: 10px;
         border: 1px solid rgba(255, 255, 255, .08);
         border-radius: 14px;
@@ -751,6 +763,7 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 0;
         min-height: 106px;
+        width: 100%;
         padding: 13px 0;
         border: 1px solid rgba(255, 255, 255, .09);
         border-radius: 14px;
@@ -1654,9 +1667,14 @@
         .fulfillment-grid { grid-template-columns: 1fr; gap: 20px; }
         .ship-card { min-height: auto; padding-inline: 24px; }
         .ship-card-foot { margin-inline: -24px; }
-        .ship-visual { min-height: 150px; }
-        .visual-tile.glass-photo-tile { width: 166px; height: 156px; }
-        .visual-tile.payment-logo-tile { width: 180px; height: 170px; }
+        .ship-visual { min-height: 156px; }
+        .visual-tile.glass-photo-tile,
+        .visual-tile.payment-logo-tile,
+        .visual-tile.facebook-logo-tile { width: 148px; height: 140px; }
+        .visual-tile.facebook-logo-tile { left: calc(50% - 142px); top: 8px; }
+        .facebook-bag { left: calc(50% - 22px); width: 130px; height: 100px; }
+        .chat-dot.left { left: calc(50% - 58px); }
+        .chat-dot.right { left: calc(50% + 100px); }
         .fulfillment-assurances { grid-template-columns: 1fr; }
         .assurance-item,
         .assurance-item:nth-child(3) { border-left: 0; }
@@ -1730,11 +1748,13 @@
         .brand-logo.correios { min-height: 60px; }
         .brand-logo.correios img { height: 46px; }
         .visual-tile { width: 88px; height: 88px; }
-        .visual-tile.glass-photo-tile { width: 138px; height: 130px; }
-        .visual-tile.payment-logo-tile { width: 150px; height: 142px; }
+        .visual-tile.glass-photo-tile,
+        .visual-tile.payment-logo-tile,
+        .visual-tile.facebook-logo-tile { width: 132px; height: 124px; }
         .br-flag { width: 48px; height: 34px; }
-        .facebook-bag { right: 0; max-width: 52%; }
-        .chat-dot.left { right: 112px; }
+        .facebook-bag { left: calc(50% - 20px); max-width: 52%; width: 116px; height: 90px; }
+        .chat-dot.left { left: calc(50% - 54px); }
+        .chat-dot.right { left: calc(50% + 86px); }
       }
       @media (max-width: 430px) {
         .button, .compact { width: 100%; }
