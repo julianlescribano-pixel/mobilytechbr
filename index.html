@@ -485,6 +485,10 @@
         stroke-width: 2.2;
         fill: none;
       }
+      .assurance-icon svg {
+        width: 31px;
+        height: 31px;
+      }
       .fulfillment-heading h2 {
         margin: 0;
         color: #fff;
@@ -555,7 +559,12 @@
       .ship-card-facebook { --card-accent: #8d5cff; }
       .ship-visual {
         position: relative;
-        min-height: 144px;
+        display: flex;
+        align-items: flex-start;
+        min-height: 166px;
+      }
+      .ship-card-mercado .ship-visual {
+        justify-content: center;
       }
       .visual-tile {
         display: inline-grid;
@@ -569,6 +578,41 @@
           inset 0 1px 0 rgba(255, 255, 255, .08),
           0 14px 30px rgba(0, 0, 0, .22),
           0 0 28px color-mix(in srgb, var(--card-accent) 16%, transparent);
+      }
+      .visual-tile.glass-photo-tile {
+        width: 186px;
+        height: 176px;
+        padding: 0;
+        overflow: hidden;
+        border-radius: 19px;
+        background: rgba(255, 255, 255, .075);
+        backdrop-filter: blur(16px);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, .18),
+          0 18px 36px rgba(0, 0, 0, .28),
+          0 0 34px color-mix(in srgb, var(--card-accent) 24%, transparent);
+      }
+      .visual-tile.payment-logo-tile {
+        width: 206px;
+        height: 194px;
+      }
+      .visual-tile.facebook-logo-tile {
+        border-color: rgba(141, 92, 255, .42);
+        background:
+          linear-gradient(145deg, rgba(255, 255, 255, .13), rgba(255, 255, 255, .035)),
+          radial-gradient(circle at 50% 50%, rgba(141, 92, 255, .2), transparent 68%);
+        backdrop-filter: blur(16px);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, .14),
+          0 18px 36px rgba(0, 0, 0, .26),
+          0 0 32px rgba(141, 92, 255, .24);
+      }
+      .visual-tile .glass-art {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
       }
       .br-flag {
         position: relative;
@@ -600,88 +644,16 @@
         background: #1746a2;
         transform: translate(-50%, -50%);
       }
-      .package-art {
-        position: absolute;
-        left: 178px;
-        top: 76px;
-        width: 82px;
-        height: 58px;
-        border-radius: 10px;
-        background:
-          linear-gradient(90deg, transparent 42%, rgba(0, 224, 112, .7) 43% 60%, transparent 61%),
-          linear-gradient(145deg, rgba(56, 87, 117, .72), rgba(13, 31, 50, .76));
-        transform: perspective(160px) rotateX(16deg) rotateY(-22deg);
-        box-shadow: 0 24px 34px rgba(0, 0, 0, .26), 0 0 32px rgba(0, 224, 112, .13);
-      }
-      .brazil-map-art {
-        position: absolute;
-        right: 24px;
-        top: 10px;
-        width: 176px;
-        max-width: 45%;
-        color: var(--card-accent);
-        filter: drop-shadow(0 0 16px color-mix(in srgb, var(--card-accent) 54%, transparent));
-      }
-      .brazil-map-art path {
-        fill: none;
-        stroke: currentColor;
-        stroke-width: 6;
-        stroke-linejoin: round;
-      }
-      .brazil-map-art path:nth-of-type(2) {
-        stroke-width: 3;
-        stroke-dasharray: 7 8;
-      }
-      .brazil-map-art path:nth-of-type(3) {
-        fill: currentColor;
-        stroke: none;
-      }
-      .brazil-map-art circle {
-        fill: currentColor;
-      }
       .visual-tile img {
         display: block;
         width: 58px;
         height: 58px;
         object-fit: contain;
       }
-      .card-art {
-        position: absolute;
-        left: 30px;
-        top: 46px;
-        width: 84px;
-        height: 54px;
-        border-radius: 12px;
-        background: linear-gradient(145deg, #1c8dff, #0641a8);
-        box-shadow: 0 0 30px rgba(35, 132, 255, .32);
-      }
-      .card-art:before,
-      .card-art:after {
-        content: "";
-        position: absolute;
-        background: rgba(255, 255, 255, .84);
-        border-radius: 2px;
-      }
-      .card-art:before {
-        left: 14px;
-        top: 18px;
-        width: 30px;
-        height: 5px;
-      }
-      .card-art:after {
-        left: 14px;
-        bottom: 14px;
-        width: 54px;
-        height: 5px;
-      }
-      .payment-shield {
-        position: absolute;
-        right: 50px;
-        top: 16px;
-        width: 176px;
-        max-width: 50%;
-        color: #2384ff;
-        filter: drop-shadow(0 18px 24px rgba(35, 132, 255, .22));
+      .visual-tile.facebook-logo-tile img {
+        width: 72px;
+        height: 72px;
+        filter: drop-shadow(0 0 16px rgba(24, 119, 242, .46));
       }
       .facebook-bag {
         position: absolute;
@@ -758,8 +730,12 @@
         height: 28px;
         object-fit: contain;
       }
-      .brand-logo.ml img { height: 37px; max-width: 130px; }
-      .brand-logo.olx img { height: 32px; }
+      .brand-logo.ml img { height: 50px; max-width: 164px; }
+      .brand-logo.olx img {
+        height: 56px;
+        width: 86px;
+        transform: scale(1.22);
+      }
       .brand-logo.facebook img { height: 34px; }
       .brand-logo.mp img { height: 36px; max-width: 152px; }
       .brand-logo.correios {
@@ -828,7 +804,7 @@
       }
       .assurance-item {
         display: grid;
-        grid-template-columns: 54px minmax(0, 1fr);
+        grid-template-columns: 64px minmax(0, 1fr);
         align-items: center;
         gap: 18px;
         padding: 20px 28px;
@@ -1678,7 +1654,9 @@
         .fulfillment-grid { grid-template-columns: 1fr; gap: 20px; }
         .ship-card { min-height: auto; padding-inline: 24px; }
         .ship-card-foot { margin-inline: -24px; }
-        .ship-visual { min-height: 132px; }
+        .ship-visual { min-height: 150px; }
+        .visual-tile.glass-photo-tile { width: 166px; height: 156px; }
+        .visual-tile.payment-logo-tile { width: 180px; height: 170px; }
         .fulfillment-assurances { grid-template-columns: 1fr; }
         .assurance-item,
         .assurance-item:nth-child(3) { border-left: 0; }
@@ -1752,12 +1730,10 @@
         .brand-logo.correios { min-height: 60px; }
         .brand-logo.correios img { height: 46px; }
         .visual-tile { width: 88px; height: 88px; }
+        .visual-tile.glass-photo-tile { width: 138px; height: 130px; }
+        .visual-tile.payment-logo-tile { width: 150px; height: 142px; }
         .br-flag { width: 48px; height: 34px; }
-        .package-art { left: 118px; top: 64px; width: 66px; height: 46px; }
-        .brazil-map-art,
-        .payment-shield,
         .facebook-bag { right: 0; max-width: 52%; }
-        .card-art { left: 20px; }
         .chat-dot.left { right: 112px; }
       }
       @media (max-width: 430px) {
@@ -1844,15 +1820,7 @@
         <div class="fulfillment-grid">
           <article class="ship-card ship-card-shipping">
             <div class="ship-visual shipping-visual" aria-hidden="true">
-              <span class="visual-tile flag-tile"><span class="br-flag"></span></span>
-              <span class="package-art"></span>
-              <svg class="brazil-map-art" viewBox="0 0 210 170">
-                <path d="M83 9 124 20l13 24 33 11 8 25-18 20 5 28-28 7-12 25-30-14-29 7-9-30-31-15 14-27-18-26 31-14 6-32Z"></path>
-                <path d="M78 26 99 30l13 15 28 8 9 17-14 16 5 28-23 4-9 24-22-11-28 5-6-25-26-14 13-21-12-18 27-11 5-25Z" opacity=".28"></path>
-                <circle cx="139" cy="73" r="15"></circle>
-                <path d="M139 57c12 0 22 10 22 22 0 16-22 42-22 42s-22-26-22-42c0-12 10-22 22-22Z"></path>
-                <circle cx="139" cy="79" r="7" fill="#061321"></circle>
-              </svg>
+              <span class="visual-tile glass-photo-tile"><img class="glass-art" src="./assets/brazil-flag-glass.png" alt=""></span>
             </div>
             <h3>Envio para todo o Brasil!</h3>
             <span class="ship-accent" aria-hidden="true"></span>
@@ -1869,13 +1837,7 @@
           </article>
           <article class="ship-card ship-card-mercado">
             <div class="ship-visual payment-visual" aria-hidden="true">
-              <span class="visual-tile"><span class="card-art"></span></span>
-              <svg class="payment-shield" viewBox="0 0 220 160">
-                <ellipse cx="111" cy="130" rx="66" ry="16" fill="rgba(35,132,255,.25)"></ellipse>
-                <path d="M110 14 170 38v42c0 36-23 58-60 70-37-12-60-34-60-70V38l60-24Z" fill="rgba(35,132,255,.28)" stroke="currentColor" stroke-width="7"></path>
-                <path d="M74 86c18-23 37-18 52-4 12-13 29-14 41-4-10 24-29 36-57 43-22-7-38-18-49-34 4-6 8-9 13-1Z" fill="rgba(255,255,255,.72)"></path>
-                <path d="M78 86c15-11 31-7 48 8 17-16 33-20 49-8" stroke="#061321" stroke-width="6" stroke-linecap="round" fill="none"></path>
-              </svg>
+              <span class="visual-tile glass-photo-tile payment-logo-tile"><img class="glass-art" src="./assets/mercado-pago-glass.png" alt=""></span>
             </div>
             <h3>Venda direta aqui no site com Mercado Pago</h3>
             <span class="ship-accent" aria-hidden="true"></span>
@@ -1892,7 +1854,7 @@
           </article>
           <article class="ship-card ship-card-facebook">
             <div class="ship-visual facebook-visual" aria-hidden="true">
-              <span class="visual-tile"><img src="./assets/facebook-icon.svg" alt="" width="58" height="58"></span>
+              <span class="visual-tile facebook-logo-tile"><img src="./assets/facebook-icon.svg" alt="" width="58" height="58"></span>
               <svg class="facebook-bag" viewBox="0 0 170 130">
                 <path d="M46 38h78l9 76H36l10-76Z" fill="rgba(141,92,255,.7)" stroke="currentColor" stroke-width="4"></path>
                 <path d="M62 38c0-18 9-28 23-28s23 10 23 28" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"></path>
