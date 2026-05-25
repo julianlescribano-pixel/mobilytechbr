@@ -27,32 +27,6 @@
     "featured": true
   },
   {
-    "id": "pc-gamer-xeon-gtx-550-ti",
-    "active": true,
-    "title": "PC Gamer Xeon GTX 550 Ti",
-    "price": 900,
-    "badge": "Sem armazenamento",
-    "image": "./assets/i5-gtx650-manual.png",
-    "cutout": "./assets/i5-gtx650-cutout.png",
-    "photo": "portrait",
-    "tags": [
-      "Xeon E3-1220V1",
-      "8GB RAM",
-      "GTX 550 Ti",
-      "SSD 128GB"
-    ],
-    "specs": {
-      "processor": "Xeon E3-1220V1",
-      "memory": "8GB RAM",
-      "gpu": "GTX 550 Ti",
-      "storage": "SSD 128GB"
-    },
-    "links": {
-      "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-i5-8gb-ram-gtx-650-ssd-240gb-perfeito-estado-1500196469?lis=ad_card_user_profile"
-    },
-    "featured": false
-  },
-  {
     "id": "pc-gamer-xeon-gtx-750",
     "active": true,
     "title": "PC Gamer Xeon GTX 750 Ti",
@@ -124,6 +98,35 @@
     "links": {
       "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-xeon-placa-de-video-gtx-550-ti-1490418005?",
       "facebook": "https://www.facebook.com/share/1FjoTCHZoy/"
+    },
+    "featured": true
+  },
+  {
+    "id": "pc-gamer-gtx550tigbnv",
+    "active": true,
+    "title": "PC GAMER E3-1220V1 / 8GB RAM / GTX 550 Ti / SSD 128GB",
+    "price": 950,
+    "badge": "NOVO!",
+    "image": "./assets/img2768-1.jpeg",
+    "gallery": [
+      {
+        "image": "./assets/img2769.jpeg"
+      },
+      {
+        "image": "./assets/img2770.jpeg"
+      }
+    ],
+    "photo": "square",
+    "specs": {
+      "processor": "Xeon E3-1220 V1",
+      "memory": "8GB RAM Dual Channel",
+      "gpu": "GTX 550 Ti 1GB GDDR5",
+      "powerSupply": "VS600W Corsair",
+      "storage": "SSD 128GB"
+    },
+    "links": {
+      "olx": "https://olx.com.br/vi/1504848067?utm_source=social_media_ad_share&utm_medium=instagram_stories",
+      "facebook": "https://www.facebook.com/marketplace/item/2174678960047128/?mibextid=6ojiHh"
     },
     "featured": true
   }
