@@ -424,27 +424,27 @@
       .fulfillment {
         position: relative;
         overflow: hidden;
-        padding: 66px clamp(18px, 5vw, 76px) 58px;
+        padding: 42px clamp(18px, 5vw, 76px) 40px;
         border-top: 1px solid rgba(4, 183, 255, .18);
         border-bottom: 1px solid rgba(4, 183, 255, .14);
         background:
-          radial-gradient(circle at 50% 0%, rgba(65, 124, 255, .16), transparent 30rem),
-          radial-gradient(circle at 12% 42%, rgba(34, 240, 196, .08), transparent 29rem),
-          radial-gradient(circle at 88% 46%, rgba(141, 92, 255, .12), transparent 31rem),
-          linear-gradient(180deg, #061321, #030813 82%);
+          radial-gradient(circle at 50% 0%, rgba(4, 183, 255, .16), transparent 32rem),
+          radial-gradient(circle at 13% 28%, rgba(34, 240, 196, .09), transparent 28rem),
+          radial-gradient(circle at 88% 40%, rgba(141, 92, 255, .1), transparent 30rem),
+          linear-gradient(90deg, rgba(4, 183, 255, .04) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(4, 183, 255, .035) 1px, transparent 1px),
+          linear-gradient(180deg, #06111e, #030812 80%);
+        background-size: auto, auto, auto, 48px 48px, 48px 48px, auto;
       }
       .fulfillment:before {
         content: "";
         position: absolute;
         inset: 0;
         pointer-events: none;
-        background-image:
-          radial-gradient(circle, rgba(34, 240, 196, .14) 1px, transparent 1px),
-          radial-gradient(circle, rgba(80, 135, 255, .12) 1px, transparent 1px);
-        background-position: 36px 78px, calc(100% - 40px) 96px;
-        background-size: 22px 22px, 24px 24px;
-        mask-image: linear-gradient(90deg, #000 0 13%, transparent 27% 73%, #000 87% 100%);
-        opacity: .28;
+        background:
+          linear-gradient(135deg, rgba(34, 240, 196, .08), transparent 32%),
+          linear-gradient(225deg, rgba(80, 135, 255, .09), transparent 34%);
+        opacity: .6;
       }
       .fulfillment:after {
         content: "";
@@ -459,7 +459,7 @@
         z-index: 1;
         display: grid;
         justify-items: center;
-        gap: 8px;
+        gap: 7px;
         max-width: 1360px;
         margin: 0 auto;
         text-align: center;
@@ -470,7 +470,7 @@
         gap: 10px;
         margin: 0;
         color: #4f8eff;
-        font-size: 19px;
+        font-size: 16px;
         font-weight: 900;
         letter-spacing: .04em;
         text-transform: uppercase;
@@ -492,15 +492,15 @@
       .fulfillment-heading h2 {
         margin: 0;
         color: #fff;
-        font-size: clamp(40px, 4.2vw, 72px);
-        line-height: .98;
+        font-size: clamp(32px, 4.4vw, 54px);
+        line-height: 1.02;
         letter-spacing: 0;
         text-shadow: 0 10px 32px rgba(0, 0, 0, .48);
       }
       .fulfillment-heading > p:last-child {
         margin: 0;
         color: rgba(229, 241, 255, .86);
-        font-size: clamp(17px, 1.5vw, 23px);
+        font-size: clamp(15px, 1.3vw, 19px);
         font-weight: 700;
       }
       .fulfillment-grid {
@@ -508,9 +508,9 @@
         z-index: 1;
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 24px;
+        gap: 22px;
         max-width: 1560px;
-        margin: 34px auto 0;
+        margin: 24px auto 0;
       }
       .ship-card {
         --card-accent: #22f0c4;
@@ -519,9 +519,9 @@
         display: grid;
         grid-template-rows: auto auto auto 1fr auto auto;
         justify-items: center;
-        gap: 20px;
-        min-height: 580px;
-        padding: 34px 40px 0;
+        gap: 13px;
+        min-height: 480px;
+        padding: 24px 32px 0;
         border: 1px solid color-mix(in srgb, var(--card-accent) 55%, transparent);
         border-radius: 16px;
         text-align: center;
@@ -557,6 +557,13 @@
         z-index: 1;
       }
       .ship-card-shipping { --card-accent: #00e070; }
+      .ship-card-shipping {
+        background:
+          linear-gradient(180deg, rgba(4, 13, 22, .34), rgba(4, 10, 19, .78)),
+          radial-gradient(circle at 50% 42%, rgba(0, 224, 112, .12), transparent 18rem),
+          url("./assets/brazil-purchase-card-bg.png") center / cover no-repeat,
+          linear-gradient(180deg, rgba(7, 26, 47, .92), rgba(4, 10, 19, .98));
+      }
       .ship-card-mercado { --card-accent: #2384ff; }
       .ship-card-facebook { --card-accent: #8d5cff; }
       .ship-visual {
@@ -564,9 +571,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 168px;
+        min-height: 126px;
         width: 100%;
-        margin-bottom: 12px;
+        margin-bottom: 6px;
       }
       .visual-tile {
         display: inline-grid;
@@ -582,8 +589,8 @@
           0 0 28px color-mix(in srgb, var(--card-accent) 16%, transparent);
       }
       .visual-tile.glass-photo-tile {
-        width: 158px;
-        height: 150px;
+        width: 130px;
+        height: 122px;
         padding: 0;
         overflow: hidden;
         border-radius: 19px;
@@ -595,12 +602,12 @@
           0 0 34px color-mix(in srgb, var(--card-accent) 24%, transparent);
       }
       .visual-tile.payment-logo-tile {
-        width: 158px;
-        height: 150px;
+        width: 130px;
+        height: 122px;
       }
       .visual-tile.facebook-logo-tile {
-        width: 158px;
-        height: 150px;
+        width: 130px;
+        height: 122px;
         position: relative;
         border-color: rgba(141, 92, 255, .42);
         background:
@@ -656,16 +663,16 @@
         object-fit: contain;
       }
       .visual-tile.facebook-logo-tile img {
-        width: 118px;
-        height: 118px;
+        width: 98px;
+        height: 98px;
         filter: drop-shadow(0 0 20px rgba(24, 119, 242, .5));
       }
       .ship-card h3 {
-        margin: 4px auto 0;
+        margin: 2px auto 0;
         max-width: 420px;
         color: #fff;
-        font-size: clamp(28px, 2.8vw, 38px);
-        line-height: 1.02;
+        font-size: clamp(23px, 2.25vw, 30px);
+        line-height: 1.05;
         text-align: center;
         text-shadow: 0 10px 22px rgba(0, 0, 0, .38);
       }
@@ -682,19 +689,19 @@
         max-width: 390px;
         margin: 0 auto;
         color: rgba(229, 241, 255, .84);
-        font-size: 18px;
+        font-size: 15.5px;
         font-weight: 600;
-        line-height: 1.48;
+        line-height: 1.42;
         text-align: center;
       }
       .platform-strip {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 8px;
+        gap: 6px;
         align-self: end;
-        min-height: 96px;
+        min-height: 74px;
         width: 100%;
-        padding: 10px;
+        padding: 8px;
         border: 1px solid rgba(255, 255, 255, .08);
         border-radius: 14px;
         background: rgba(6, 20, 36, .58);
@@ -704,8 +711,10 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 74px;
-        padding: 10px 12px;
+        min-height: 60px;
+        min-width: 0;
+        padding: 6px 7px;
+        overflow: hidden;
         border: 1px solid rgba(255, 255, 255, .11);
         border-radius: 11px;
         background: rgba(255, 255, 255, .055);
@@ -714,31 +723,37 @@
         display: block;
         width: auto;
         height: 28px;
+        max-width: 100%;
         object-fit: contain;
       }
-      .brand-logo.ml img { height: 50px; max-width: 164px; }
+      .brand-logo.ml img {
+        height: 52px;
+        max-width: 76px;
+        border-radius: 8px;
+      }
       .brand-logo.olx img {
-        height: 56px;
-        width: 86px;
-        transform: scale(1.22);
+        height: 40px;
+        width: auto;
+        max-width: 78px;
+        border-radius: 8px;
       }
       .brand-logo.facebook img { height: 34px; }
       .brand-logo.mp img { height: 36px; max-width: 152px; }
       .brand-logo.correios {
-        min-height: 74px;
-        min-width: 118px;
-        padding: 7px 11px;
+        min-height: 60px;
+        min-width: 0;
+        padding: 7px 10px;
         background: rgba(255, 255, 255, .96);
       }
-      .brand-logo.correios img { height: 56px; max-width: 126px; }
+      .brand-logo.correios img { height: 46px; max-width: 100%; }
       .feature-row {
         align-self: end;
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 0;
-        min-height: 106px;
+        min-height: 80px;
         width: 100%;
-        padding: 13px 0;
+        padding: 10px 0;
         border: 1px solid rgba(255, 255, 255, .09);
         border-radius: 14px;
         background: rgba(255, 255, 255, .04);
@@ -747,10 +762,10 @@
         display: grid;
         align-content: center;
         justify-items: center;
-        gap: 7px;
+        gap: 6px;
         padding: 0 14px;
         color: rgba(229, 241, 255, .94);
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 800;
         line-height: 1.25;
         text-align: center;
@@ -768,56 +783,13 @@
         align-items: center;
         justify-content: center;
         gap: 10px;
-        min-height: 62px;
-        margin: 2px -40px 0;
+        min-height: 46px;
+        margin: 1px -32px 0;
         color: var(--card-accent);
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 900;
         background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--card-accent) 12%, #050b14));
       }
-      .fulfillment-assurances {
-        position: relative;
-        z-index: 1;
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0;
-        max-width: 1560px;
-        min-height: 86px;
-        margin: 30px auto 0;
-        border: 1px solid rgba(255, 255, 255, .09);
-        border-radius: 16px;
-        background: linear-gradient(180deg, rgba(9, 30, 54, .76), rgba(4, 12, 23, .9));
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04);
-      }
-      .assurance-item {
-        display: grid;
-        grid-template-columns: 64px minmax(0, 1fr);
-        align-items: center;
-        gap: 18px;
-        padding: 20px 28px;
-      }
-      .assurance-item + .assurance-item {
-        border-left: 1px solid rgba(255, 255, 255, .1);
-      }
-      .assurance-icon {
-        display: inline-grid;
-        place-items: center;
-        color: #6558ff;
-      }
-      .assurance-item strong {
-        display: block;
-        color: #fff;
-        font-size: 16px;
-        line-height: 1.15;
-      }
-      .assurance-item div span {
-        display: block;
-        margin-top: 4px;
-        color: rgba(229, 241, 255, .78);
-        font-size: 13px;
-        font-weight: 700;
-      }
-
       .catalog {
         padding: 82px clamp(18px, 5vw, 76px) 96px;
         background:
@@ -1616,9 +1588,6 @@
 
       @media (max-width: 1180px) {
         .fulfillment-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .fulfillment-assurances { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .assurance-item:nth-child(3) { border-left: 0; }
-        .assurance-item:nth-child(n+3) { border-top: 1px solid rgba(255, 255, 255, .1); }
       }
       @media (max-width: 1120px) {
         .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1637,19 +1606,15 @@
         .hero-logo { width: 170px; height: 170px; }
         .trust { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .fulfillment { padding-inline: 14px; }
-        .fulfillment-heading h2 { font-size: clamp(36px, 11vw, 58px); }
+        .fulfillment-heading h2 { font-size: clamp(32px, 10vw, 50px); }
         .fulfillment-grid { grid-template-columns: 1fr; gap: 20px; }
         .ship-card { min-height: auto; padding-inline: 24px; }
         .ship-card-foot { margin-inline: -24px; }
-        .ship-visual { min-height: 156px; }
+        .ship-visual { min-height: 126px; }
         .visual-tile.glass-photo-tile,
         .visual-tile.payment-logo-tile,
-        .visual-tile.facebook-logo-tile { width: 148px; height: 140px; }
-        .visual-tile.facebook-logo-tile img { width: 108px; height: 108px; }
-        .fulfillment-assurances { grid-template-columns: 1fr; }
-        .assurance-item,
-        .assurance-item:nth-child(3) { border-left: 0; }
-        .assurance-item + .assurance-item { border-top: 1px solid rgba(255, 255, 255, .1); }
+        .visual-tile.facebook-logo-tile { width: 130px; height: 122px; }
+        .visual-tile.facebook-logo-tile img { width: 98px; height: 98px; }
         .section-heading { grid-template-columns: 1fr; }
         .catalog { padding-inline: 14px; }
         .grid {
@@ -1706,11 +1671,11 @@
       @media (max-width: 520px) {
         .trust { grid-template-columns: 1fr; }
         .hero-subtitle { letter-spacing: .08em; }
-        .fulfillment { padding-block: 50px 44px; }
+        .fulfillment { padding-block: 42px 38px; }
         .fulfillment-eyebrow { font-size: 14px; }
         .ship-card { padding: 24px 18px 0; }
         .ship-card-foot { margin-inline: -18px; text-align: center; }
-        .ship-card h3 { font-size: 27px; }
+        .ship-card h3 { font-size: 25px; }
         .ship-card p { font-size: 15px; }
         .platform-strip,
         .feature-row { grid-template-columns: 1fr; }
@@ -1718,11 +1683,13 @@
         .brand-logo { min-height: 58px; }
         .brand-logo.correios { min-height: 60px; }
         .brand-logo.correios img { height: 46px; }
+        .brand-logo.olx img { height: 44px; }
+        .brand-logo.ml img { height: 52px; }
         .visual-tile { width: 88px; height: 88px; }
         .visual-tile.glass-photo-tile,
         .visual-tile.payment-logo-tile,
-        .visual-tile.facebook-logo-tile { width: 132px; height: 124px; }
-        .visual-tile.facebook-logo-tile img { width: 104px; height: 104px; }
+        .visual-tile.facebook-logo-tile { width: 122px; height: 116px; }
+        .visual-tile.facebook-logo-tile img { width: 94px; height: 94px; }
         .br-flag { width: 48px; height: 34px; }
       }
       @media (max-width: 430px) {
@@ -1816,8 +1783,8 @@
             <p>Enviamos para todos os estados com seguran&ccedil;a e agilidade. Receba onde estiver com todo o cuidado que seu pedido merece!</p>
             <div class="brand-marks platform-strip" aria-label="Plataformas com envio">
               <span class="brand-logo correios"><img src="./assets/correios-logo.png" alt="Correios" /></span>
-              <span class="brand-logo olx"><img src="./assets/olx-logo.svg" alt="OLX" /></span>
-              <span class="brand-logo ml"><img src="./assets/mercado-livre-logo.svg" alt="Mercado Livre" /></span>
+              <span class="brand-logo olx"><img src="./assets/olx-reference-logo.png" alt="OLX" /></span>
+              <span class="brand-logo ml"><img src="./assets/mercado-livre-reference-logo.png" alt="Mercado Livre" /></span>
             </div>
             <div class="ship-card-foot">
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 20 6v6c0 4.6-3.2 7.7-8 9-4.8-1.3-8-4.4-8-9V6l8-3Z"></path><path d="m9 12 2 2 4-5"></path></svg>
@@ -1858,12 +1825,6 @@
               Atendimento e confian&ccedil;a que voc&ecirc; j&aacute; conhece
             </div>
           </article>
-        </div>
-        <div class="fulfillment-assurances" aria-label="Garantias de compra">
-          <div class="assurance-item"><span class="assurance-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 20 6v6c0 4.6-3.2 7.7-8 9-4.8-1.3-8-4.4-8-9V6l8-3Z"></path><path d="m9 12 2 2 4-5"></path></svg></span><div><strong>Ambiente 100% seguro</strong><span>Seus dados protegidos</span></div></div>
-          <div class="assurance-item"><span class="assurance-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"></path></svg></span><div><strong>Produtos com garantia</strong><span>Qualidade garantida</span></div></div>
-          <div class="assurance-item"><span class="assurance-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 13a8 8 0 0 1 16 0"></path><path d="M4 13v4a2 2 0 0 0 2 2h2v-7H6a2 2 0 0 0-2 2Zm16 0v4a2 2 0 0 1-2 2h-2v-7h2a2 2 0 0 1 2 2Z"></path><path d="M12 21h3"></path></svg></span><div><strong>Suporte dedicado</strong><span>Estamos aqui para ajudar</span></div></div>
-          <div class="assurance-item"><span class="assurance-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"></path></svg></span><div><strong>Avalia&ccedil;&otilde;es positivas</strong><span>Clientes satisfeitos</span></div></div>
         </div>
       </section>
 
