@@ -840,33 +840,10 @@
         min-height: 100%;
         overflow: visible;
         isolation: isolate;
-        border: 1px solid rgba(92, 214, 255, .3);
+        border: 1px solid var(--line);
         border-radius: 8px;
-        background:
-          linear-gradient(160deg, rgba(255, 255, 255, .075), transparent 34%),
-          linear-gradient(180deg, rgba(8, 28, 48, .74), rgba(7, 16, 27, .84));
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, .07),
-          inset 0 0 36px rgba(4, 183, 255, .045),
-          0 24px 58px rgba(0, 0, 0, .34);
-        backdrop-filter: blur(18px) saturate(1.18);
-        -webkit-backdrop-filter: blur(18px) saturate(1.18);
-      }
-      .card::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        pointer-events: none;
-        border-radius: inherit;
-        background:
-          radial-gradient(circle at 18% 0%, rgba(34, 240, 196, .1), transparent 34%),
-          linear-gradient(135deg, rgba(255, 255, 255, .09), transparent 28%, rgba(4, 183, 255, .055));
-        opacity: .62;
-      }
-      .card > * {
-        position: relative;
-        z-index: 1;
+        background: linear-gradient(180deg, rgba(8, 28, 48, .96), rgba(7, 16, 27, .98));
+        box-shadow: 0 16px 42px rgba(0, 0, 0, .22);
       }
       .photo {
         appearance: none;
@@ -882,13 +859,10 @@
         background:
           radial-gradient(circle at 50% 14%, rgba(34, 240, 196, .18), transparent 36%),
           radial-gradient(circle at 44% 88%, rgba(4, 183, 255, .22), transparent 44%),
-          linear-gradient(180deg, rgba(7, 24, 40, .66), rgba(2, 7, 14, .78) 78%);
+          linear-gradient(180deg, #071828, #02070e 78%);
         box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, .09),
-          inset 0 0 34px rgba(34, 240, 196, .045),
+          inset 0 0 0 1px rgba(255, 255, 255, .03),
           0 22px 44px rgba(0, 0, 0, .24);
-        backdrop-filter: blur(14px) saturate(1.16);
-        -webkit-backdrop-filter: blur(14px) saturate(1.16);
         cursor: zoom-in;
       }
       .photo:focus-visible {
@@ -1008,10 +982,7 @@
         padding: 9px 10px;
         border: 1px solid rgba(4, 183, 255, .16);
         border-radius: 8px;
-        background: linear-gradient(135deg, rgba(255, 255, 255, .065), rgba(255, 255, 255, .028));
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .055);
-        backdrop-filter: blur(10px) saturate(1.15);
-        -webkit-backdrop-filter: blur(10px) saturate(1.15);
+        background: rgba(255, 255, 255, .035);
       }
       .spec-icon {
         display: inline-grid;
@@ -1051,12 +1022,7 @@
         padding: 12px;
         border: 1px solid rgba(4, 183, 255, .18);
         border-radius: 8px;
-        background:
-          linear-gradient(145deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .018)),
-          rgba(2, 10, 18, .48);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
-        backdrop-filter: blur(13px) saturate(1.14);
-        -webkit-backdrop-filter: blur(13px) saturate(1.14);
+        background: rgba(2, 10, 18, .42);
       }
       .addon-title {
         margin: 0;
@@ -1091,12 +1057,7 @@
         padding: 8px 9px;
         border: 1px solid rgba(255, 255, 255, .07);
         border-radius: 8px;
-        background:
-          linear-gradient(135deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .025)),
-          rgba(255, 255, 255, .018);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
-        backdrop-filter: blur(9px) saturate(1.12);
-        -webkit-backdrop-filter: blur(9px) saturate(1.12);
+        background: rgba(255, 255, 255, .035);
         color: #e9f4fa;
         font-size: 12px;
         font-weight: 800;
@@ -1141,11 +1102,7 @@
         border-radius: 8px;
         background:
           radial-gradient(circle at 50% 78%, rgba(34, 240, 196, .18), transparent 62%),
-          linear-gradient(135deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .025)),
-          rgba(2, 11, 19, .62);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
-        backdrop-filter: blur(10px) saturate(1.14);
-        -webkit-backdrop-filter: blur(10px) saturate(1.14);
+          rgba(2, 11, 19, .72);
         cursor: zoom-in;
       }
       .addon-thumb-button:focus-visible {
@@ -1475,194 +1432,49 @@
       }
 
       .cleaning-service {
-        position: relative;
-        isolation: isolate;
         display: grid;
-        grid-template-columns: minmax(280px, .9fr) minmax(320px, 1.1fr);
+        grid-template-columns: minmax(280px, .95fr) minmax(320px, 1.05fr);
         align-items: center;
-        gap: clamp(28px, 5vw, 64px);
-        overflow: hidden;
-        padding: clamp(62px, 7vw, 96px) clamp(18px, 5vw, 76px);
-        border-top: 1px solid rgba(34, 240, 196, .2);
-        border-bottom: 1px solid rgba(4, 183, 255, .14);
-        background: #02080d;
-      }
-      .cleaning-service::before,
-      .cleaning-service::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-      }
-      .cleaning-service::before {
-        z-index: -2;
-        background:
-          linear-gradient(90deg, rgba(2, 8, 13, .86), rgba(2, 10, 16, .38) 44%, rgba(2, 8, 13, .86)),
-          linear-gradient(180deg, rgba(2, 8, 13, .64), rgba(2, 8, 13, .26) 48%, rgba(2, 8, 13, .78)),
-          url("./assets/cleaning-neon-bg.png") center / cover no-repeat;
-        opacity: .72;
-      }
-      .cleaning-service::after {
-        z-index: -1;
-        background:
-          radial-gradient(circle at 20% 38%, rgba(34, 240, 196, .18), transparent 28%),
-          radial-gradient(circle at 86% 16%, rgba(34, 240, 196, .13), transparent 24%),
-          linear-gradient(90deg, rgba(34, 240, 196, .07) 1px, transparent 1px),
-          linear-gradient(180deg, rgba(4, 183, 255, .055) 1px, transparent 1px);
-        background-size: auto, auto, 46px 46px, 46px 46px;
-        opacity: .54;
-        mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
+        gap: clamp(22px, 4vw, 46px);
+        padding: 76px clamp(18px, 5vw, 76px);
+        border-top: 1px solid var(--line);
+        background: linear-gradient(135deg, rgba(255, 201, 40, .14), rgba(34, 240, 196, .08)), linear-gradient(180deg, #07121d, #040910);
       }
       .cleaning-media {
-        position: relative;
-        justify-self: center;
-        width: min(100%, 560px);
-        aspect-ratio: 1 / 1.08;
+        aspect-ratio: 4 / 3;
         overflow: hidden;
-        border: 1px solid rgba(142, 255, 214, .48);
-        border-radius: 22px;
-        background:
-          linear-gradient(145deg, rgba(255, 255, 255, .11), rgba(255, 255, 255, .025)),
-          rgba(3, 18, 18, .42);
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, .12),
-          inset 0 -34px 66px rgba(0, 0, 0, .28),
-          0 0 0 1px rgba(34, 240, 196, .05),
-          0 34px 80px rgba(0, 0, 0, .38);
-        backdrop-filter: blur(16px) saturate(1.16);
-        -webkit-backdrop-filter: blur(16px) saturate(1.16);
-      }
-      .cleaning-media::before {
-        content: "";
-        position: absolute;
-        inset: 12px;
-        pointer-events: none;
-        border: 1px solid rgba(34, 240, 196, .12);
-        border-radius: 16px;
-        background: radial-gradient(circle at 50% 82%, rgba(34, 240, 196, .16), transparent 46%);
+        border: 1px solid rgba(255, 201, 40, .28);
+        border-radius: 8px;
+        background: #0f1215;
+        box-shadow: var(--shadow);
       }
       .cleaning-media img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center;
-        opacity: .94;
-        filter: saturate(1.1) contrast(1.08) drop-shadow(0 22px 28px rgba(0, 0, 0, .38));
-      }
-      .cleaning-media-badge {
-        position: absolute;
-        left: clamp(18px, 8%, 72px);
-        right: clamp(18px, 8%, 72px);
-        bottom: clamp(18px, 5%, 42px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 18px;
-        min-height: 68px;
-        padding: 12px 18px;
-        border: 1px solid rgba(142, 255, 214, .34);
-        border-radius: 12px;
-        color: #f7fbff;
-        background:
-          linear-gradient(135deg, rgba(255, 255, 255, .085), rgba(255, 255, 255, .02)),
-          rgba(2, 14, 18, .52);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
-        backdrop-filter: blur(12px) saturate(1.18);
-        -webkit-backdrop-filter: blur(12px) saturate(1.18);
-        font-size: clamp(16px, 1.8vw, 22px);
-        font-weight: 900;
-        letter-spacing: .16em;
-        text-transform: uppercase;
-      }
-      .cleaning-media-badge svg {
-        width: 30px;
-        height: 30px;
-        flex: 0 0 auto;
-        color: var(--green);
+        filter: saturate(1.04) contrast(1.05);
       }
       .cleaning-content {
         display: grid;
         gap: 18px;
-        max-width: 760px;
-      }
-      .cleaning-content .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        color: #21f26d;
-      }
-      .cleaning-eyebrow-icon {
-        display: inline-grid;
-        place-items: center;
-        width: 26px;
-        height: 26px;
-        border: 1px solid rgba(33, 242, 109, .36);
-        border-radius: 7px;
-        background: rgba(33, 242, 109, .09);
-      }
-      .cleaning-eyebrow-icon svg {
-        width: 18px;
-        height: 18px;
+        max-width: 680px;
       }
       .cleaning-content h2 {
         margin: 0;
-        max-width: 760px;
-        font-size: clamp(38px, 4.7vw, 66px);
+        font-size: clamp(30px, 4vw, 52px);
         line-height: 1.03;
-        text-shadow: 0 18px 48px rgba(0, 0, 0, .34);
       }
       .cleaning-content p:not(.eyebrow):not(.cleaning-message) {
         margin: 0;
-        color: #d8e7ee;
-        font-size: clamp(17px, 1.55vw, 21px);
+        color: var(--muted);
+        font-size: 16px;
         font-weight: 700;
-        line-height: 1.55;
-      }
-      .cleaning-benefits {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
-      }
-      .cleaning-benefit {
-        display: grid;
-        grid-template-columns: 42px minmax(0, 1fr);
-        align-items: center;
-        gap: 12px;
-        min-height: 74px;
-        padding: 12px 14px;
-        border: 1px solid rgba(34, 240, 196, .24);
-        border-radius: 8px;
-        color: #e9f4fa;
-        background:
-          linear-gradient(135deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .018)),
-          rgba(3, 17, 20, .5);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
-        backdrop-filter: blur(12px) saturate(1.16);
-        -webkit-backdrop-filter: blur(12px) saturate(1.16);
-        font-size: 14px;
-        font-weight: 900;
-        line-height: 1.18;
-      }
-      .cleaning-benefit svg {
-        width: 34px;
-        height: 34px;
-        color: #21f26d;
+        line-height: 1.6;
       }
       .cleaning-form {
         display: grid;
         gap: 12px;
-        margin-top: 10px;
-        padding: clamp(18px, 2.2vw, 28px);
-        border: 1px solid rgba(34, 240, 196, .28);
-        border-radius: 18px;
-        background:
-          linear-gradient(145deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02)),
-          rgba(3, 15, 22, .58);
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, .08),
-          0 18px 42px rgba(0, 0, 0, .22);
-        backdrop-filter: blur(14px) saturate(1.18);
-        -webkit-backdrop-filter: blur(14px) saturate(1.18);
+        margin-top: 8px;
       }
       .cleaning-form label {
         display: grid;
@@ -1675,13 +1487,13 @@
       }
       .cleaning-form input {
         width: 100%;
-        min-height: 56px;
-        padding: 0 15px;
-        border: 1px solid rgba(34, 240, 196, .28);
+        min-height: 46px;
+        padding: 0 13px;
+        border: 1px solid rgba(4, 183, 255, .24);
         border-radius: 8px;
         outline: 0;
         color: var(--text);
-        background: rgba(2, 8, 13, .58);
+        background: rgba(3, 7, 13, .6);
         font: inherit;
       }
       .cleaning-form input:focus {
@@ -1689,11 +1501,8 @@
         box-shadow: 0 0 0 3px rgba(255, 201, 40, .12);
       }
       .cleaning-submit {
-        width: 100%;
-        min-height: 62px;
-        margin-top: 0;
-        font-size: clamp(16px, 1.7vw, 22px);
-        letter-spacing: .02em;
+        width: fit-content;
+        margin-top: 6px;
       }
       .cleaning-message {
         min-height: 24px;
@@ -1837,24 +1646,7 @@
         .platforms { align-items: flex-start; flex-direction: column; }
         .contact-card { grid-template-columns: 1fr; }
         .contact-email { width: 100%; white-space: normal; text-align: center; }
-        .cleaning-service {
-          grid-template-columns: 1fr;
-          padding-block: 56px;
-        }
-        .cleaning-media {
-          min-height: 420px;
-          aspect-ratio: 1 / 1.08;
-        }
-        .cleaning-benefits {
-          grid-template-columns: 1fr;
-        }
-        .cleaning-media-badge {
-          left: 18px;
-          right: 18px;
-          min-height: 58px;
-          font-size: 14px;
-          letter-spacing: .12em;
-        }
+        .cleaning-service { grid-template-columns: 1fr; padding-block: 56px; }
         .cleaning-submit { width: 100%; }
         .shipping-strip {
           grid-template-columns: 1fr;
@@ -2039,55 +1831,11 @@
       <section id="limpeza-pcs" class="cleaning-service" aria-labelledby="cleaning-title">
         <div class="cleaning-media">
           <img id="cleaning-photo" src="./assets/pc-cleaning-service.png" alt="PC gamer limpo com acessorios para limpeza e troca de pasta termica">
-          <div class="cleaning-media-badge" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 6 9 17l-5-5"></path>
-              <path d="M21 12a9 9 0 1 1-5.1-8.1"></path>
-            </svg>
-            Manuten&ccedil;&atilde;o completa
-          </div>
         </div>
         <div class="cleaning-content">
-          <p class="eyebrow">
-            <span class="cleaning-eyebrow-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="12" rx="2"></rect>
-                <path d="M8 20h8"></path>
-                <path d="M12 16v4"></path>
-                <path d="m10 9 2 2 3-4"></path>
-              </svg>
-            </span>
-            Limpeza de PCs
-          </p>
+          <p class="eyebrow">Limpeza de PCs</p>
           <h2 id="cleaning-title">Seu PC est&aacute; sujo ou esquentando demais?</h2>
           <p>N&atilde;o machuque mais seu PC. Fa&ccedil;a uma limpeza completa com troca de pasta t&eacute;rmica no processador e na placa de v&iacute;deo para manter tudo mais frio e confi&aacute;vel.</p>
-          <div class="cleaning-benefits" aria-label="Servicos inclusos">
-            <div class="cleaning-benefit">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M14 14.76V5a4 4 0 0 0-8 0v9.76a6 6 0 1 0 8 0Z"></path>
-                <path d="M10 5v11"></path>
-              </svg>
-              <span>Troca de pasta t&eacute;rmica</span>
-            </div>
-            <div class="cleaning-benefit">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M3 8h10a3 3 0 1 0-3-3"></path>
-                <path d="M3 16h14a3 3 0 1 1-3 3"></path>
-                <path d="M3 12h18"></path>
-              </svg>
-              <span>Remo&ccedil;&atilde;o de poeira interna</span>
-            </div>
-            <div class="cleaning-benefit">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M4 20V10"></path>
-                <path d="M10 20V4"></path>
-                <path d="M16 20v-7"></path>
-                <path d="M22 20V7"></path>
-                <path d="M2 20h22"></path>
-              </svg>
-              <span>Verifica&ccedil;&atilde;o de temperaturas</span>
-            </div>
-          </div>
           <form class="cleaning-form" id="cleaning-form" action="https://formspree.io/f/mnjrqypq" method="POST">
             <input type="hidden" name="_subject" value="Pedido de limpeza - MobilyTechBR">
             <input type="hidden" name="mensagem" value="Novo pedido de limpeza!">
