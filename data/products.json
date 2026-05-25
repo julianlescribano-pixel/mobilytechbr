@@ -110,10 +110,12 @@
     "image": "./assets/img2768-1.jpeg",
     "gallery": [
       {
-        "image": "./assets/img2769.jpeg"
+        "image": "./assets/img2769.jpeg",
+        "cutout": "./assets/generated/pc-gamer-gtx550tigbnv-gallery-1-cutout.png"
       },
       {
-        "image": "./assets/img2770.jpeg"
+        "image": "./assets/img2770.jpeg",
+        "cutout": "./assets/generated/pc-gamer-gtx550tigbnv-gallery-2-cutout.png"
       }
     ],
     "photo": "square",
@@ -128,6 +130,7 @@
       "olx": "https://olx.com.br/vi/1504848067?utm_source=social_media_ad_share&utm_medium=instagram_stories",
       "facebook": "https://www.facebook.com/marketplace/item/2174678960047128/?mibextid=6ojiHh"
     },
-    "featured": true
+    "featured": true,
+    "cutout": "./assets/generated/pc-gamer-gtx550tigbnv-cutout.png"
   }
 ]
