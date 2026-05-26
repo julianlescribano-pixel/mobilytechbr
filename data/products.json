@@ -142,10 +142,12 @@
     "image": "./assets/img2807.jpeg",
     "gallery": [
       {
-        "image": "./assets/img2810.jpeg"
+        "image": "./assets/img2810.jpeg",
+        "cutout": "./assets/generated/pc-amdlx-gallery-1-cutout.png"
       },
       {
-        "image": "./assets/img2808.jpeg"
+        "image": "./assets/img2808.jpeg",
+        "cutout": "./assets/generated/pc-amdlx-gallery-2-cutout.png"
       }
     ],
     "photo": "square",
@@ -160,6 +162,7 @@
       "olx": "https://olx.com.br/vi/1505253492?utm_source=social_media_ad_share&utm_medium=instagram_stories",
       "facebook": "https://www.facebook.com/marketplace/item/1891906721500389/?mibextid=6ojiHh"
     },
-    "featured": true
+    "featured": true,
+    "cutout": "./assets/generated/pc-amdlx-cutout.png"
   }
 ]
