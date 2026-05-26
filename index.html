@@ -246,6 +246,23 @@
         height: 20px;
         max-width: 46px;
       }
+      .button-symbol {
+        display: inline-grid;
+        place-items: center;
+        width: 20px;
+        height: 20px;
+        flex: 0 0 auto;
+        color: currentColor;
+      }
+      .button-symbol svg {
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2.2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
       nav a.instagram-link {
         display: inline-flex;
         align-items: center;
@@ -280,6 +297,120 @@
         height: 26px;
         max-width: 120px;
       }
+      .cart-nav-link {
+        position: relative;
+      }
+      .cart-count {
+        display: inline-grid;
+        place-items: center;
+        min-width: 20px;
+        height: 20px;
+        padding: 0 6px;
+        border-radius: 999px;
+        color: #021018;
+        background: var(--green);
+        font-size: 11px;
+        font-weight: 900;
+      }
+      .cart-count[hidden] {
+        display: none;
+      }
+
+      .hero-video-card {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, .72fr) minmax(170px, .28fr);
+        align-items: center;
+        gap: 18px;
+        width: min(620px, 100%);
+        margin-top: 24px;
+        padding: 14px 16px;
+        overflow: hidden;
+        border: 1px solid rgba(4, 183, 255, .26);
+        border-radius: 12px;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .025)),
+          rgba(4, 18, 30, .56);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, .12),
+          0 22px 52px rgba(0, 0, 0, .28);
+        backdrop-filter: blur(16px) saturate(1.18);
+      }
+      .hero-video-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(110deg, transparent 0 35%, rgba(255, 255, 255, .14) 48%, transparent 62%),
+          radial-gradient(circle at 80% 62%, rgba(34, 240, 196, .16), transparent 36%);
+        opacity: .72;
+        animation: softSweep 5.8s ease-in-out infinite;
+      }
+      .hero-video-copy,
+      .hero-video-art {
+        position: relative;
+        z-index: 1;
+      }
+      .hero-video-copy {
+        display: grid;
+        gap: 5px;
+        text-align: left;
+      }
+      .hero-video-copy strong {
+        font-size: 15px;
+        line-height: 1.25;
+      }
+      .hero-video-copy span {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      .hero-video-art {
+        min-height: 94px;
+        border: 1px solid rgba(34, 240, 196, .22);
+        border-radius: 10px;
+        background:
+          radial-gradient(circle at 50% 80%, rgba(4, 183, 255, .24), transparent 60%),
+          rgba(2, 8, 13, .56);
+      }
+      .hero-video-art img {
+        position: absolute;
+        left: 50%;
+        bottom: -6px;
+        width: 142px;
+        height: 118px;
+        object-fit: contain;
+        transform: translateX(-50%);
+        filter: drop-shadow(0 18px 18px rgba(0, 0, 0, .42));
+      }
+      .play-dot {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        color: #021018;
+        background: var(--green);
+        box-shadow: 0 0 24px rgba(34, 240, 196, .32);
+      }
+      .play-dot::before {
+        content: "";
+        width: 0;
+        height: 0;
+        margin-left: 2px;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-left: 9px solid currentColor;
+      }
+      @keyframes softSweep {
+        0%, 100% { transform: translateX(-18%); opacity: .44; }
+        50% { transform: translateX(18%); opacity: .78; }
+      }
 
       .trust {
         display: grid;
@@ -313,6 +444,341 @@
         color: var(--muted);
         font-size: 14px;
         font-weight: 800;
+      }
+
+      .story-section,
+      .why-section,
+      .reviews-section,
+      .cart-section,
+      .post-sale-section {
+        position: relative;
+        overflow: hidden;
+        padding: clamp(52px, 6vw, 84px) clamp(18px, 5vw, 76px);
+        border-top: 1px solid rgba(4, 183, 255, .14);
+        background:
+          radial-gradient(circle at 12% 20%, rgba(34, 240, 196, .1), transparent 28rem),
+          radial-gradient(circle at 88% 16%, rgba(4, 183, 255, .12), transparent 30rem),
+          linear-gradient(90deg, rgba(4, 183, 255, .035) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(4, 183, 255, .028) 1px, transparent 1px),
+          linear-gradient(180deg, #04101b, #03070d);
+        background-size: auto, auto, 48px 48px, 48px 48px, auto;
+      }
+      .story-wrap,
+      .why-wrap,
+      .reviews-wrap,
+      .cart-wrap,
+      .post-sale-wrap {
+        position: relative;
+        z-index: 1;
+        width: min(1180px, 100%);
+        margin: 0 auto;
+      }
+      .story-wrap,
+      .post-sale-wrap {
+        display: grid;
+        grid-template-columns: minmax(260px, .52fr) minmax(0, 1fr);
+        gap: clamp(22px, 5vw, 54px);
+        align-items: start;
+      }
+      .section-kicker {
+        margin: 0 0 10px;
+        color: var(--yellow);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+      .story-title,
+      .why-title,
+      .reviews-title,
+      .cart-title,
+      .post-sale-title {
+        margin: 0;
+        font-size: clamp(32px, 4.3vw, 52px);
+        line-height: 1.04;
+      }
+      .story-lead,
+      .why-lead,
+      .reviews-lead,
+      .cart-lead,
+      .post-sale-lead {
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: clamp(15px, 1.35vw, 18px);
+        font-weight: 800;
+        line-height: 1.58;
+      }
+      .story-copy,
+      .post-sale-card,
+      .why-card,
+      .review-card,
+      .cart-panel {
+        border: 1px solid rgba(88, 214, 255, .22);
+        border-radius: 10px;
+        background:
+          linear-gradient(145deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .025)),
+          rgba(5, 20, 34, .66);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, .1),
+          0 22px 54px rgba(0, 0, 0, .25);
+        backdrop-filter: blur(16px) saturate(1.2);
+      }
+      .story-copy {
+        display: grid;
+        gap: 14px;
+        padding: clamp(20px, 3vw, 32px);
+      }
+      .story-copy p {
+        margin: 0;
+        color: #d8e7ee;
+        font-size: 15.5px;
+        font-weight: 700;
+        line-height: 1.68;
+      }
+      .story-points,
+      .post-sale-steps {
+        display: grid;
+        gap: 10px;
+        margin-top: 18px;
+      }
+      .story-point,
+      .post-sale-step {
+        display: grid;
+        grid-template-columns: 34px minmax(0, 1fr);
+        gap: 11px;
+        align-items: center;
+        min-height: 52px;
+        padding: 11px 12px;
+        border: 1px solid rgba(34, 240, 196, .22);
+        border-radius: 8px;
+        background: rgba(34, 240, 196, .055);
+        color: #e9f4fa;
+        font-weight: 900;
+        line-height: 1.3;
+      }
+      .story-point span,
+      .post-sale-step span {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        color: var(--green);
+        background: rgba(34, 240, 196, .1);
+      }
+      .why-section {
+        padding-top: clamp(46px, 5vw, 70px);
+      }
+      .why-wrap,
+      .reviews-wrap,
+      .cart-wrap {
+        display: grid;
+        gap: 24px;
+      }
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .why-card {
+        min-height: 142px;
+        padding: 18px;
+      }
+      .why-card strong {
+        display: block;
+        margin-bottom: 8px;
+        color: #f7fbff;
+        font-size: 17px;
+        line-height: 1.18;
+      }
+      .why-card span {
+        color: var(--muted);
+        font-size: 13.5px;
+        font-weight: 800;
+        line-height: 1.45;
+      }
+      .reviews-section {
+        background:
+          radial-gradient(circle at 20% 8%, rgba(255, 201, 40, .12), transparent 28rem),
+          radial-gradient(circle at 86% 38%, rgba(34, 240, 196, .1), transparent 28rem),
+          linear-gradient(180deg, #06101a, #03070d);
+      }
+      .review-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .review-card {
+        display: grid;
+        gap: 12px;
+        min-height: 190px;
+        padding: 20px;
+      }
+      .review-stars {
+        color: var(--yellow);
+        letter-spacing: 2px;
+        font-size: 17px;
+      }
+      .review-card blockquote {
+        margin: 0;
+        color: #e8f4fb;
+        font-size: 15px;
+        font-weight: 800;
+        line-height: 1.52;
+      }
+      .review-card small {
+        color: var(--subtle);
+        font-weight: 900;
+      }
+      .reviews-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+      .cart-panel {
+        display: grid;
+        gap: 16px;
+        padding: clamp(18px, 3vw, 28px);
+      }
+      .cart-items {
+        display: grid;
+        gap: 10px;
+      }
+      .cart-empty {
+        margin: 0;
+        padding: 18px;
+        border: 1px dashed rgba(88, 214, 255, .28);
+        border-radius: 8px;
+        color: var(--muted);
+        font-weight: 900;
+        text-align: center;
+      }
+      .cart-item {
+        display: grid;
+        grid-template-columns: 74px minmax(0, 1fr) auto;
+        gap: 14px;
+        align-items: center;
+        padding: 12px;
+        border: 1px solid rgba(88, 214, 255, .2);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, .035);
+      }
+      .cart-item img {
+        width: 74px;
+        height: 62px;
+        object-fit: contain;
+        border-radius: 7px;
+        background: radial-gradient(circle at 50% 80%, rgba(4, 183, 255, .2), transparent 62%), rgba(2, 8, 13, .5);
+      }
+      .cart-item h3 {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.22;
+      }
+      .cart-item p {
+        margin: 5px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 1.35;
+      }
+      .cart-item-price {
+        display: grid;
+        justify-items: end;
+        gap: 8px;
+        color: #f7fbff;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+      .remove-cart-item {
+        appearance: none;
+        min-height: 32px;
+        padding: 0 10px;
+        border: 1px solid rgba(255, 110, 110, .34);
+        border-radius: 8px;
+        color: #ffb2b2;
+        background: rgba(255, 110, 110, .07);
+        font: inherit;
+        font-size: 12px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .cart-summary {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(4, 183, 255, .14);
+      }
+      .cart-total {
+        display: grid;
+        gap: 4px;
+      }
+      .cart-total span {
+        color: var(--subtle);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      .cart-total strong {
+        color: var(--green);
+        font-size: clamp(28px, 3vw, 38px);
+        line-height: 1;
+      }
+      .cart-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .cart-checkout-note {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 1.45;
+      }
+      .cart-toast {
+        position: fixed;
+        right: clamp(14px, 3vw, 28px);
+        bottom: 18px;
+        z-index: 120;
+        max-width: 320px;
+        padding: 13px 15px;
+        border: 1px solid rgba(34, 240, 196, .34);
+        border-radius: 10px;
+        color: var(--text);
+        background: rgba(4, 18, 30, .92);
+        box-shadow: 0 20px 44px rgba(0, 0, 0, .34);
+        font-size: 13px;
+        font-weight: 900;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(12px);
+        transition: opacity .2s ease, transform .2s ease;
+      }
+      .cart-toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .post-sale-section {
+        background:
+          radial-gradient(circle at 15% 20%, rgba(4, 183, 255, .12), transparent 30rem),
+          radial-gradient(circle at 88% 22%, rgba(34, 240, 196, .11), transparent 28rem),
+          linear-gradient(180deg, #04101b, #03070d);
+      }
+      .post-sale-card {
+        padding: clamp(20px, 3vw, 32px);
+      }
+      .post-sale-card p {
+        margin: 0 0 14px;
+        color: #d8e7ee;
+        font-size: 15.5px;
+        font-weight: 700;
+        line-height: 1.65;
       }
 
       .shipping-strip {
@@ -1002,6 +1468,27 @@
         font-size: 23px;
         line-height: 1.08;
       }
+      .card-trust-seals {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+        margin-top: -2px;
+      }
+      .card-trust-seals span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 28px;
+        padding: 0 9px;
+        border: 1px solid rgba(34, 240, 196, .2);
+        border-radius: 8px;
+        color: #dffdf7;
+        background: rgba(34, 240, 196, .055);
+        font-size: 11px;
+        font-weight: 900;
+        line-height: 1.15;
+        text-align: center;
+      }
       .details {
         display: grid;
         gap: 8px;
@@ -1487,6 +1974,16 @@
         min-height: 48px;
         font-size: 14px;
       }
+      .cart-button {
+        width: 100%;
+        min-height: 50px;
+        color: #021018;
+        background: linear-gradient(135deg, #7df8e0, #22f0c4 52%, #04b7ff);
+        box-shadow: 0 14px 30px rgba(34, 240, 196, .16);
+      }
+      .details-button {
+        width: 100%;
+      }
       .compact {
         flex: 1 1 140px;
         min-height: 40px;
@@ -1812,12 +2309,39 @@
         font-weight: 900;
         white-space: nowrap;
       }
+      .reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition: opacity .58s ease, transform .58s ease;
+      }
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .reveal,
+        .card,
+        .product-cutout,
+        .button,
+        nav a,
+        .hero-video-card::before {
+          animation: none;
+          transition: none;
+        }
+      }
 
       @media (max-width: 1180px) {
         .fulfillment-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .review-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       }
       @media (max-width: 1120px) {
         .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .story-wrap,
+        .post-sale-wrap {
+          grid-template-columns: 1fr;
+        }
       }
       @media (max-width: 760px) {
         html, body { max-width: 100%; overflow-x: hidden; }
@@ -1831,7 +2355,29 @@
         .hero { min-height: 84vh; padding-top: 66px; }
         .hero h1 { font-size: clamp(44px, 15vw, 64px); }
         .hero-logo { width: 170px; height: 170px; }
+        .hero-video-card { grid-template-columns: 1fr; text-align: center; }
+        .hero-video-copy { text-align: center; }
         .trust { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .story-section,
+        .why-section,
+        .reviews-section,
+        .cart-section,
+        .post-sale-section { padding-inline: 14px; }
+        .why-grid,
+        .review-grid { grid-template-columns: 1fr; }
+        .cart-item {
+          grid-template-columns: 64px minmax(0, 1fr);
+        }
+        .cart-item-price {
+          grid-column: 1 / -1;
+          justify-items: stretch;
+        }
+        .cart-summary {
+          align-items: stretch;
+          flex-direction: column;
+        }
+        .cart-actions .button,
+        .cart-actions { width: 100%; }
         .fulfillment { padding-inline: 14px; }
         .fulfillment-heading h2 { font-size: clamp(32px, 10vw, 50px); }
         .fulfillment-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -1927,6 +2473,10 @@
       @media (max-width: 520px) {
         .trust { grid-template-columns: 1fr; }
         .hero-subtitle { letter-spacing: .08em; }
+        .story-copy,
+        .post-sale-card,
+        .cart-panel { padding: 18px; }
+        .card-trust-seals { grid-template-columns: 1fr; }
         .fulfillment { padding-block: 42px 38px; }
         .fulfillment-eyebrow { font-size: 14px; }
         .ship-card { padding: 24px 18px 0; }
@@ -1970,7 +2520,10 @@
         <span><strong>Mobily<em>Tech</em></strong><small>PCs e Hardware</small></span>
       </a>
       <nav aria-label="Navegacao principal">
+        <a href="#sobre">Sobre</a>
         <a href="#catalogo">Cat&aacute;logo</a>
+        <a class="cart-nav-link" href="#carrinho">Carrinho <span class="cart-count" id="cart-count-badge" hidden>0</span></a>
+        <a href="#avaliacoes">Avalia&ccedil;&otilde;es</a>
         <a href="#limpeza-pcs">Limpeza</a>
         <a href="#contato">Contato</a>
         <a href="https://www.olx.com.br/perfil/julian-859fd666" target="_blank" rel="noreferrer">OLX</a>
@@ -1988,9 +2541,57 @@
           <p class="hero-handle">@mobilytechbr</p>
           <p class="copy">PCs gamer revisados, limpos, testados e prontos para uso com preco justo.</p>
           <div class="actions">
-            <a class="button primary" href="#catalogo">Ver PCs disponiveis</a>
-            <a class="button secondary" href="https://www.olx.com.br/perfil/julian-859fd666" target="_blank" rel="noreferrer">Perfil na OLX</a>
-            <a class="button secondary instagram-button" href="https://www.instagram.com/mobilytechbr/" target="_blank" rel="noreferrer"><img class="button-icon" src="./assets/instagram-logo-2022.svg" alt="" aria-hidden="true">Instagram</a>
+            <a class="button primary" href="#catalogo"><span class="button-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 11h14"></path><path d="m13 5 6 6-6 6"></path></svg></span>Ver PCs disponiveis</a>
+            <a class="button secondary" href="#contato"><span class="button-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 6h14v9H8l-3 3V6Z"></path><path d="M9 10h.01M12 10h.01M15 10h.01"></path></svg></span>Falar no WhatsApp</a>
+            <a class="button secondary" href="#avaliacoes"><span class="button-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.8 1-6.1-4.4-4.3 6.1-.9L12 3Z"></path></svg></span>Ver avalia&ccedil;&otilde;es</a>
+            <a class="button secondary" href="#carrinho"><span class="button-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 20 6v6c0 4.6-3.2 7.7-8 9-4.8-1.3-8-4.4-8-9V6l8-3Z"></path><path d="m9 12 2 2 4-5"></path></svg></span>Comprar com seguran&ccedil;a</a>
+          </div>
+          <div class="hero-video-card" aria-label="Previa dos PCs revisados">
+            <div class="hero-video-copy">
+              <span>Preview da loja</span>
+              <strong>PCs revisados, testados e prontos para jogar.</strong>
+            </div>
+            <div class="hero-video-art">
+              <img src="./assets/ryzen-rx6650xt-cutout.png" alt="" aria-hidden="true">
+              <span class="play-dot" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="sobre" class="story-section reveal" aria-labelledby="about-title">
+        <div class="story-wrap">
+          <div>
+            <p class="section-kicker">Nossa historia</p>
+            <h2 class="story-title" id="about-title">Sobre a MobilyTech BR</h2>
+            <p class="story-lead">A loja nasceu para ajudar quem quer entrar no mundo dos PCs sem cair em anuncios caros, confusos ou com pecas que nao entregam o desempenho prometido.</p>
+            <div class="story-points" aria-label="Pilares da MobilyTech BR">
+              <div class="story-point"><span>1</span>PCs usados em excelente estado</div>
+              <div class="story-point"><span>2</span>Revisao, limpeza e testes antes da entrega</div>
+              <div class="story-point"><span>3</span>Transparencia nas configuracoes e no desempenho real</div>
+            </div>
+          </div>
+          <div class="story-copy">
+            <p>A MobilyTech BR nasceu de uma experiencia real: por muitos anos, eu sonhava em ter um PC para jogar os jogos que via no YouTube, mas nunca tive acesso a um console ou computador gamer. Depois de muita pesquisa e economia, consegui comprar meu primeiro PC sem cair no erro dos famosos "PCs gamers" anunciados por precos altos, mas com pecas fracas, placas GT antigas ou ate mesmo sem placa de video dedicada de verdade.</p>
+            <p>Depois disso, percebi que poderia transformar essa experiencia em uma oportunidade: ajudar outras pessoas a comprarem computadores bons, revisados e com desempenho real, sem pagar valores absurdos por maquinas que nao entregam o que prometem.</p>
+            <p>Foi assim que nasceu a MobilyTech BR. Ha mais de um ano, trabalhamos com venda e revenda de PCs, manutencao, limpeza, formatacao, reinstalacao de sistema e revisao completa dos computadores antes da entrega.</p>
+            <p>Nosso objetivo e oferecer PCs usados, mas em excelente estado, totalmente revisados e prontos para uso. A ideia e eliminar os principais riscos de comprar um computador usado: sujeira interna, pasta termica ressecada, lentidao, falta de testes, problemas escondidos ou configuracoes anunciadas de forma enganosa.</p>
+            <p>Aqui, cada PC e preparado para chegar ao cliente funcionando corretamente, com manutencao feita, placa de video dedicada de verdade e desempenho compativel com o que e anunciado. Nao prometemos milagre, mas entregamos uma alternativa muito mais acessivel para quem quer jogar, estudar, trabalhar ou comecar no mundo dos PCs sem precisar esperar juntar dinheiro para comprar um computador novo.</p>
+            <p>A MobilyTech BR trabalha com garantia, envio para todo o Brasil e vendas por canais seguros como site oficial, OLX, Facebook Marketplace, Mercado Livre e Mercado Pago. Nosso foco e entregar confianca, transparencia e computadores realmente prontos para uso.</p>
+          </div>
+        </div>
+      </section>
+      <section id="diferenciais" class="why-section reveal" aria-labelledby="why-title">
+        <div class="why-wrap">
+          <div>
+            <p class="section-kicker">Diferenciais</p>
+            <h2 class="why-title" id="why-title">Por que comprar com a MobilyTech BR?</h2>
+            <p class="why-lead">Comprar um PC usado pode ser uma otima forma de economizar, mas tambem pode trazer riscos quando o equipamento nao e revisado. Por isso, entregamos computadores testados, limpos e prontos para uso.</p>
+          </div>
+          <div class="why-grid" aria-label="Diferenciais da loja">
+            <div class="why-card"><strong>Placa dedicada de verdade</strong><span>Os PCs sao anunciados com configuracoes reais e foco no desempenho que o cliente vai receber.</span></div>
+            <div class="why-card"><strong>Manutencao completa</strong><span>Limpeza, revisao, testes e verificacoes basicas antes da entrega.</span></div>
+            <div class="why-card"><strong>Garantia inclusa</strong><span>Mais seguranca para comprar um PC usado sem ficar sozinho depois da compra.</span></div>
+            <div class="why-card"><strong>Envio para todo o Brasil</strong><span>Compra pelo site com frete calculado, retirada local ou canais seguros de venda.</span></div>
           </div>
         </div>
       </section>
@@ -1999,6 +2600,27 @@
         <div><strong>67</strong><span>avalia&ccedil;&otilde;es recebidas</span></div>
         <div><strong>66+</strong><span>vendas conclu&iacute;das OLX + Marketplace</span></div>
         <div><strong>4.3 <span class="stars" aria-label="4.3 estrelas">&#9733;&#9733;&#9733;&#9733;&#9734;</span></strong><span>classifica&ccedil;&atilde;o no Facebook</span></div>
+      </section>
+      <section id="avaliacoes" class="reviews-section reveal" aria-labelledby="reviews-title">
+        <div class="reviews-wrap">
+          <div>
+            <p class="section-kicker">Prova social</p>
+            <h2 class="reviews-title" id="reviews-title">Avalia&ccedil;&otilde;es dos clientes</h2>
+            <p class="reviews-lead">A MobilyTech BR possui nota 5,0 na OLX, com avalia&ccedil;&otilde;es recebidas como vendedor e historico real de entregas.</p>
+          </div>
+          <div class="review-grid">
+            <article class="review-card"><div class="review-stars" aria-label="5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>"Cara gente boa demais, veio tudo certinho e ainda me auxiliou sobre as configuracoes e drives direitinho, recomendo demais."</blockquote><small>Cliente OLX</small></article>
+            <article class="review-card"><div class="review-stars" aria-label="5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>"Super atencioso, mandou provas que o PC e super bom antes mesmo do pagamento, e depois do pagamento entregou super rapido."</blockquote><small>Cliente OLX</small></article>
+            <article class="review-card"><div class="review-stars" aria-label="5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>"Excelente vendedor tudo perfeito conforme anunciado."</blockquote><small>Cliente OLX</small></article>
+            <article class="review-card"><div class="review-stars" aria-label="5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>"Confiavel, atencioso e muito agil."</blockquote><small>Cliente OLX</small></article>
+            <article class="review-card"><div class="review-stars" aria-label="5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>"Vendedor sensacional, atencioso, honesto e muito gente boa, recomendo."</blockquote><small>Cliente OLX</small></article>
+            <article class="review-card"><div class="review-stars" aria-label="5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>"Atendimento cuidadoso, transparente e com suporte para entender as configuracoes do PC."</blockquote><small>Atendimento MobilyTech BR</small></article>
+          </div>
+          <div class="reviews-actions">
+            <a class="button primary" href="https://avaliacoes.olx.com.br/vendedor/859fd666-c047-4d6d-adac-374dd530d56c" target="_blank" rel="noreferrer">Ver avalia&ccedil;&otilde;es na OLX</a>
+            <a class="button secondary" href="#catalogo">Ver PCs disponiveis</a>
+          </div>
+        </div>
       </section>
       <section class="shipping-strip" aria-label="Fretes pelos Correios">
         <div class="correios-logo-box"><img src="./assets/correios-logo-white.png" alt="Correios"></div>
@@ -2020,14 +2642,39 @@
         </div>
         <div class="grid" id="products"></div>
       </section>
+      <section id="carrinho" class="cart-section reveal" aria-labelledby="cart-title">
+        <div class="cart-wrap">
+          <div>
+            <p class="section-kicker">Loja online</p>
+            <h2 class="cart-title" id="cart-title">Carrinho</h2>
+            <p class="cart-lead">Adicione um ou mais produtos, revise os opcionais e finalize a compra com seguran&ccedil;a pelo Mercado Pago. Dentro do carrinho, a finaliza&ccedil;&atilde;o e feita somente pelo Mercado Pago.</p>
+          </div>
+          <div class="cart-panel" aria-live="polite">
+            <div class="cart-items" id="cart-items">
+              <p class="cart-empty">Seu carrinho ainda esta vazio.</p>
+            </div>
+            <div class="cart-summary">
+              <div class="cart-total">
+                <span>Valor total</span>
+                <strong id="cart-total">R$ 0,00</strong>
+              </div>
+              <div class="cart-actions">
+                <a class="button secondary" href="#catalogo">Continuar comprando</a>
+                <button class="button primary" id="cart-checkout" type="button" disabled>Finalizar compra pelo Mercado Pago</button>
+              </div>
+            </div>
+            <p class="cart-checkout-note">PIX, cart&atilde;o de cr&eacute;dito e demais op&ccedil;&otilde;es aparecem diretamente no ambiente seguro do Mercado Pago, conforme disponibilidade da plataforma.</p>
+          </div>
+        </div>
+      </section>
       <section id="formas-de-compra" class="fulfillment" aria-label="Formas de compra">
         <div class="fulfillment-heading">
           <p class="fulfillment-eyebrow">
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 20 6v6c0 4.6-3.2 7.7-8 9-4.8-1.3-8-4.4-8-9V6l8-3Z"></path><path d="m9 12 2 2 4-5"></path></svg>
             Compra segura, do seu jeito
           </p>
-          <h2>Escolha a melhor forma de comprar</h2>
-          <p>Op&ccedil;&otilde;es seguras e pr&aacute;ticas para voc&ecirc; comprar com tranquilidade.</p>
+          <h2>Finaliza&ccedil;&atilde;o pelo Mercado Pago</h2>
+          <p>O carrinho do site e finalizado pelo Mercado Pago. OLX, Facebook Marketplace e Mercado Livre seguem como canais onde a MobilyTech BR tamb&eacute;m vende.</p>
         </div>
         <div class="fulfillment-grid">
           <article class="ship-card ship-card-shipping">
@@ -2081,6 +2728,28 @@
               Atendimento e confian&ccedil;a que voc&ecirc; j&aacute; conhece
             </div>
           </article>
+        </div>
+      </section>
+
+      <section id="pos-venda" class="post-sale-section reveal" aria-labelledby="post-sale-title">
+        <div class="post-sale-wrap">
+          <div>
+            <p class="section-kicker">Depois da compra</p>
+            <h2 class="post-sale-title" id="post-sale-title">P&oacute;s-venda e acompanhamento do pedido</h2>
+            <p class="post-sale-lead">O atendimento continua depois do pagamento, com confirma&ccedil;&otilde;es, rastreamento e suporte para deixar o cliente seguro durante todo o processo.</p>
+            <div class="post-sale-steps" aria-label="Etapas do pos-venda">
+              <div class="post-sale-step"><span>1</span>Confirma&ccedil;&atilde;o da compra por e-mail</div>
+              <div class="post-sale-step"><span>2</span>Pedido em prepara&ccedil;&atilde;o e revis&atilde;o final</div>
+              <div class="post-sale-step"><span>3</span>C&oacute;digo de rastreamento ap&oacute;s despacho</div>
+            </div>
+          </div>
+          <div class="post-sale-card">
+            <p>Depois da compra, o atendimento n&atilde;o acaba. Assim que o pagamento for confirmado, o cliente receber&aacute; automaticamente um e-mail de confirma&ccedil;&atilde;o da compra, enviado pelo sistema da MobilyTech BR.</p>
+            <p>Esse e-mail ser&aacute; automatizado pelo Google Apps Script e ter&aacute; uma formata&ccedil;&atilde;o profissional, com cabe&ccedil;alho contendo a logo da MobilyTech BR, visual organizado e informa&ccedil;&otilde;es principais do pedido.</p>
+            <p>Ap&oacute;s o produto ser despachado, o cliente tamb&eacute;m receber&aacute; automaticamente outro e-mail com o c&oacute;digo de rastreamento da encomenda, para acompanhar a entrega.</p>
+            <p>Todos os PCs vendidos pela MobilyTech BR passam por revis&atilde;o, limpeza e testes antes da entrega. Caso o cliente tenha alguma d&uacute;vida ap&oacute;s receber o computador, oferecemos suporte pelo chat para orientar sobre uso, instala&ccedil;&atilde;o, configura&ccedil;&otilde;es b&aacute;sicas e funcionamento do equipamento.</p>
+            <p>Tamb&eacute;m trabalhamos com garantia inclusa, dando mais seguran&ccedil;a para quem compra um PC usado, mas quer receber um produto revisado, limpo e pronto para uso.</p>
+          </div>
         </div>
       </section>
 
@@ -2231,6 +2900,10 @@
       };
 
       const productGrid = document.getElementById("products");
+      const cartItemsContainer = document.getElementById("cart-items");
+      const cartTotalOutput = document.getElementById("cart-total");
+      const cartCheckoutButton = document.getElementById("cart-checkout");
+      const cartCountBadge = document.getElementById("cart-count-badge");
       const lightbox = document.getElementById("media-lightbox");
       const lightboxImage = document.getElementById("lightbox-image");
       const lightboxPrev = lightbox?.querySelector(".lightbox-arrow.prev");
@@ -2259,9 +2932,14 @@
       ];
       let shippingEnabled = false;
       let activeShippingButton = null;
+      let checkoutContext = null;
+      let productStore = [];
+      let addonStore = [];
+      let cart = [];
       let activeShippingQuotes = [];
       let shippingValidationStarted = false;
       let lastCepLookup = "";
+      const cartStorageKey = "mobilytech-cart-v1";
 
       const escapeHtml = (value = "") => String(value)
         .replace(/&/g, "&amp;")
@@ -2409,6 +3087,115 @@
         output.textContent = formatCurrency((Number.isFinite(basePrice) ? basePrice : 0) + addonsTotal);
       };
 
+      const cartToast = (() => {
+        const node = document.createElement("div");
+        node.className = "cart-toast";
+        node.setAttribute("role", "status");
+        node.setAttribute("aria-live", "polite");
+        document.body.appendChild(node);
+        let timer = null;
+        return (message) => {
+          node.textContent = message;
+          node.classList.add("show");
+          window.clearTimeout(timer);
+          timer = window.setTimeout(() => node.classList.remove("show"), 2600);
+        };
+      })();
+
+      const cartKeyForProduct = (productId) => String(productId || "");
+
+      const resolveSelectedAddons = (product, selectedAddons = []) => {
+        const groups = productAddons(product, addonStore);
+        return (Array.isArray(selectedAddons) ? selectedAddons : []).map((selection) => {
+          const group = groups.find((item) => item.key === selection.category);
+          const option = group?.options?.[Number(selection.index)];
+          return group && option ? { ...option, category: group.key, categoryLabel: group.label, index: Number(selection.index) } : null;
+        }).filter(Boolean);
+      };
+
+      const cartItemTotal = (item) => {
+        const product = productStore.find((entry) => entry.id === item.productId && entry.active !== false);
+        if (!product) return 0;
+        const basePrice = parseCurrency(product.price);
+        const addonsTotal = resolveSelectedAddons(product, item.selectedAddons)
+          .reduce((sum, addon) => sum + (parseCurrency(addon.price) || 0), 0);
+        return (Number.isFinite(basePrice) ? basePrice : 0) + addonsTotal;
+      };
+
+      const saveCart = () => {
+        try {
+          localStorage.setItem(cartStorageKey, JSON.stringify(cart));
+        } catch (_error) {
+          // LocalStorage can be unavailable in private contexts.
+        }
+      };
+
+      const loadCart = () => {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(cartStorageKey) || "[]");
+          cart = Array.isArray(parsed) ? parsed.filter((item) => item?.productId) : [];
+        } catch (_error) {
+          cart = [];
+        }
+      };
+
+      const renderCart = () => {
+        const activeIds = new Set(productStore.filter((product) => product.active !== false).map((product) => product.id));
+        cart = cart.filter((item) => activeIds.has(item.productId));
+        const count = cart.length;
+        if (cartCountBadge) {
+          cartCountBadge.textContent = String(count);
+          cartCountBadge.hidden = count === 0;
+        }
+        if (cartCheckoutButton) cartCheckoutButton.disabled = count === 0;
+        const total = cart.reduce((sum, item) => sum + cartItemTotal(item), 0);
+        if (cartTotalOutput) cartTotalOutput.textContent = formatCurrency(total);
+        if (!cartItemsContainer) return;
+        if (!count) {
+          cartItemsContainer.innerHTML = '<p class="cart-empty">Seu carrinho ainda esta vazio.</p>';
+          return;
+        }
+
+        cartItemsContainer.innerHTML = cart.map((item) => {
+          const product = productStore.find((entry) => entry.id === item.productId);
+          const addons = resolveSelectedAddons(product, item.selectedAddons);
+          const image = mediaGallery(product)[0] || "";
+          const addonText = addons.length
+            ? addons.map((addon) => `${addon.categoryLabel}: ${addon.label}`).join(" | ")
+            : "Sem opcionais adicionais";
+          return `<article class="cart-item">
+            <img src="${escapeHtml(image)}" alt="" loading="lazy">
+            <div>
+              <h3>${escapeHtml(product.title)}</h3>
+              <p>${escapeHtml(addonText)}</p>
+            </div>
+            <div class="cart-item-price">
+              <strong>${escapeHtml(formatCurrency(cartItemTotal(item)))}</strong>
+              <button class="remove-cart-item" type="button" data-remove-cart="${escapeHtml(item.productId)}">Remover</button>
+            </div>
+          </article>`;
+        }).join("");
+      };
+
+      const addProductToCart = (button) => {
+        const productId = button?.dataset.cartProductId;
+        const product = productStore.find((item) => item.id === productId && item.active !== false);
+        if (!product) return;
+        const card = button.closest(".card");
+        const selectedAddons = selectedAddonsForCard(card);
+        const existingIndex = cart.findIndex((item) => cartKeyForProduct(item.productId) === cartKeyForProduct(productId));
+        const nextItem = { productId, selectedAddons };
+        if (existingIndex >= 0) {
+          cart[existingIndex] = nextItem;
+          cartToast("Carrinho atualizado com os opcionais selecionados.");
+        } else {
+          cart.push(nextItem);
+          cartToast("Produto adicionado ao carrinho.");
+        }
+        saveCart();
+        renderCart();
+      };
+
       const formDataObject = (form) => Object.fromEntries(new FormData(form).entries());
 
       const setShippingMessage = (message = "", isError = false) => {
@@ -2542,9 +3329,10 @@
         };
       };
 
-      const openShippingModal = (button) => {
+      const openShippingModal = (button, context = { type: "product" }) => {
         if (!shippingModal || !shippingForm) return;
         activeShippingButton = button;
+        checkoutContext = context;
         activeShippingQuotes = [];
         shippingValidationStarted = false;
         shippingForm.reset();
@@ -2563,6 +3351,7 @@
         shippingModal.hidden = true;
         document.body.style.overflow = "";
         activeShippingButton?.focus();
+        checkoutContext = null;
       };
 
       const renderProducts = (items, globalAddons = []) => {
@@ -2589,11 +3378,20 @@
           <div class="body">
             <div class="topline"><span class="badge">${escapeHtml(product.badge || "")}</span><span class="price">${product.old ? `<s>${escapeHtml(formatCurrency(product.old))}</s> ` : ""}${escapeHtml(formatCurrency(product.price))}</span></div>
             <h3>${escapeHtml(product.title)}</h3>
+            <div class="card-trust-seals" aria-label="Selos de confianca">
+              <span>Revisado</span>
+              <span>Limpeza feita</span>
+              <span>Garantia inclusa</span>
+              <span>Envio Brasil</span>
+              ${details["Placa de video"] ? "<span>Placa dedicada</span>" : ""}
+              <span>Pronto para uso</span>
+            </div>
             <ul class="details">${detailOrder.filter((label) => details[label]).map((label) => `<li><span class="spec-icon" aria-hidden="true">${icons[label]}</span><span class="detail-text"><strong>${detailLabels[label]}</strong><em>${escapeHtml(details[label])}</em></span></li>`).join("")}</ul>
             ${renderAddonGroups(product, addons, basePrice)}
             <div class="card-actions">
+              <button class="button compact cart-button" type="button" data-cart-product-id="${escapeHtml(product.id || "")}"><span class="button-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6h15l-1.5 8h-12L6 6Z"></path><path d="M6 6 5 3H2"></path><circle cx="9" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg></span>Adicionar ao carrinho</button>
+              <button class="button compact secondary details-button" type="button" data-lightbox-gallery="${escapeHtml(encodeMediaGallery(productImages))}" data-lightbox-alt="${escapeHtml(product.title)}">Ver detalhes</button>
               ${(olx || fb) ? `<div class="marketplace-actions">${olx ? `<a class="button compact primary olx-button" href="${escapeHtml(olx)}" target="_blank" rel="noreferrer"><img class="button-logo olx-button-logo" src="./assets/olx-logo.svg" alt="" aria-hidden="true">Comprar na OLX</a>` : ""}${fb ? `<a class="button compact secondary" href="${escapeHtml(fb)}" target="_blank" rel="noreferrer"><img class="button-icon" src="./assets/facebook-icon.svg" alt="" aria-hidden="true">Facebook</a>` : ""}</div>` : ""}
-              <button class="button compact payment-button" type="button" data-product-id="${escapeHtml(product.id || "")}"><img class="button-logo" src="./assets/mercado-pago-logo.svg" alt="" aria-hidden="true">Pagar com Mercado Pago</button>
             </div>
           </div>
         </article>`;
@@ -2677,6 +3475,30 @@
         }
       };
 
+      const startCartCheckout = async (button, shipping = null) => {
+        if (!button || cart.length === 0) return;
+        const originalText = button.textContent;
+        button.disabled = true;
+        button.textContent = "Abrindo checkout...";
+
+        try {
+          const response = await fetch("/api/create-preference", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cartItems: cart, shipping })
+          });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || !data.checkout_url) {
+            throw new Error(data.error || "Nao foi possivel abrir o checkout.");
+          }
+          window.location.href = data.checkout_url;
+        } catch (error) {
+          alert(error.message || "Nao foi possivel abrir o Mercado Pago agora.");
+          button.disabled = cart.length === 0;
+          button.textContent = originalText;
+        }
+      };
+
       productGrid?.addEventListener("click", (event) => {
         const mediaButton = event.target.closest("[data-lightbox-gallery]");
         if (mediaButton) {
@@ -2690,13 +3512,37 @@
           return;
         }
 
+        const cartButton = event.target.closest("[data-cart-product-id]");
+        if (cartButton) {
+          addProductToCart(cartButton);
+          return;
+        }
+
         const button = event.target.closest("[data-product-id]");
         if (!button) return;
         if (shippingEnabled) {
-          openShippingModal(button);
+          openShippingModal(button, { type: "product" });
           return;
         }
         startMercadoPagoCheckout(button);
+      });
+
+      cartItemsContainer?.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-remove-cart]");
+        if (!button) return;
+        cart = cart.filter((item) => cartKeyForProduct(item.productId) !== cartKeyForProduct(button.dataset.removeCart));
+        saveCart();
+        renderCart();
+        cartToast("Produto removido do carrinho.");
+      });
+
+      cartCheckoutButton?.addEventListener("click", () => {
+        if (!cart.length) return;
+        if (shippingEnabled) {
+          openShippingModal(cartCheckoutButton, { type: "cart" });
+          return;
+        }
+        startCartCheckout(cartCheckoutButton);
       });
 
       lightboxClose?.addEventListener("click", closeLightboxView);
@@ -2728,8 +3574,10 @@
       shippingQuoteButton?.addEventListener("click", async () => {
         if (!activeShippingButton || !shippingForm || !validateShippingInputs([postalCodeInput])) return;
         await fillAddressFromCep();
-        const productId = activeShippingButton.dataset.productId;
         const { postalCode } = formDataObject(shippingForm);
+        const quotePayload = checkoutContext?.type === "cart"
+          ? { cartItems: cart, postalCode }
+          : { productId: activeShippingButton.dataset.productId, postalCode };
         shippingQuoteButton.disabled = true;
         renderShippingQuotes([]);
         setShippingMessage("Calculando frete pelos Correios...");
@@ -2737,7 +3585,7 @@
           const response = await fetch("/api/shipping-quote", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ productId, postalCode })
+            body: JSON.stringify(quotePayload)
           });
           const data = await response.json().catch(() => ({}));
           if (!response.ok || !Array.isArray(data.quotes)) {
@@ -2754,10 +3602,12 @@
       shippingForm?.addEventListener("submit", (event) => {
         event.preventDefault();
         if (!activeShippingButton) return;
+        const button = activeShippingButton;
+        const context = checkoutContext;
         if (isPickupMode()) {
-          const button = activeShippingButton;
           closeShippingModal();
-          startMercadoPagoCheckout(button);
+          if (context?.type === "cart") startCartCheckout(button);
+          else startMercadoPagoCheckout(button);
           return;
         }
         if (!validateShippingInputs()) return;
@@ -2766,9 +3616,9 @@
           setShippingMessage("Calcule e selecione uma opcao de frete antes de continuar.", true);
           return;
         }
-        const button = activeShippingButton;
         closeShippingModal();
-        startMercadoPagoCheckout(button, shipping);
+        if (context?.type === "cart") startCartCheckout(button, shipping);
+        else startMercadoPagoCheckout(button, shipping);
       });
       document.addEventListener("keydown", (event) => {
         if (!lightbox || lightbox.hidden) return;
@@ -2782,6 +3632,20 @@
         updateCheckoutTotal(event.target.closest(".card"));
       });
 
+      const revealElements = Array.from(document.querySelectorAll(".reveal"));
+      if ("IntersectionObserver" in window) {
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          });
+        }, { threshold: 0.12 });
+        revealElements.forEach((element) => revealObserver.observe(element));
+      } else {
+        revealElements.forEach((element) => element.classList.add("is-visible"));
+      }
+
       const loadProducts = async () => {
         if (!productGrid) return;
         try {
@@ -2789,9 +3653,14 @@
           if (!response.ok) throw new Error("Nao foi possivel carregar os produtos.");
           const addonsResponse = await fetch(addonDataUrl, { cache: "no-store" }).catch(() => null);
           const globalAddons = addonsResponse?.ok ? await addonsResponse.json() : [];
-          renderProducts(await response.json(), globalAddons);
+          productStore = await response.json();
+          addonStore = Array.isArray(globalAddons) ? globalAddons : [];
+          renderProducts(productStore, addonStore);
+          loadCart();
+          renderCart();
         } catch (error) {
           productGrid.innerHTML = '<p class="empty-state">Nao foi possivel carregar os anuncios agora.</p>';
+          renderCart();
         }
       };
 

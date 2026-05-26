@@ -62,6 +62,32 @@ async function loadProducts() {
   return Array.isArray(products) ? products : [];
 }
 
+function aggregateShippingProduct(products) {
+  const packages = products.map((product) => {
+    const shipping = product.shipping || {};
+    return {
+      weight: parsePriceBRL(shipping.weightKg) || parsePriceBRL(process.env.DEFAULT_PACKAGE_WEIGHT_KG) || 0,
+      height: parsePriceBRL(shipping.heightCm) || parsePriceBRL(process.env.DEFAULT_PACKAGE_HEIGHT_CM) || 0,
+      width: parsePriceBRL(shipping.widthCm) || parsePriceBRL(process.env.DEFAULT_PACKAGE_WIDTH_CM) || 0,
+      length: parsePriceBRL(shipping.lengthCm) || parsePriceBRL(process.env.DEFAULT_PACKAGE_LENGTH_CM) || 0,
+      insuranceValue: parsePriceBRL(shipping.insuranceValue) || parsePriceBRL(product.price) || 1
+    };
+  });
+
+  return {
+    id: "mobilytech-cart",
+    title: "Carrinho MobilyTech BR",
+    price: packages.reduce((sum, item) => sum + item.insuranceValue, 0) || 1,
+    shipping: {
+      weightKg: packages.reduce((sum, item) => sum + item.weight, 0) || null,
+      heightCm: Math.max(...packages.map((item) => item.height), 0) || null,
+      widthCm: Math.max(...packages.map((item) => item.width), 0) || null,
+      lengthCm: packages.reduce((sum, item) => sum + item.length, 0) || null,
+      insuranceValue: packages.reduce((sum, item) => sum + item.insuranceValue, 0) || 1
+    }
+  };
+}
+
 function onlyDigits(value) {
   return String(value || "").replace(/\D/g, "");
 }
@@ -136,6 +162,42 @@ function normalizeSelectedAddons(product, selectedAddons, globalAddons = []) {
   });
 }
 
+function normalizeCheckoutItems(products, globalAddons, payload) {
+  const rawCartItems = Array.isArray(payload.cartItems) ? payload.cartItems : [];
+  const requestedItems = rawCartItems.length
+    ? rawCartItems
+    : [{ productId: payload.productId, selectedAddons: payload.selectedAddons }];
+
+  if (!requestedItems.length || !requestedItems[0]?.productId) {
+    const error = new Error("Produto nao informado.");
+    error.statusCode = 400;
+    throw error;
+  }
+
+  return requestedItems.map((item) => {
+    const productId = String(item?.productId || "");
+    const product = products.find((entry) => entry.id === productId && entry.active !== false);
+    if (!product) {
+      const error = new Error("Produto nao encontrado ou inativo.");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    const unitPrice = parsePriceBRL(product.price);
+    if (!Number.isFinite(unitPrice) || unitPrice <= 0) {
+      const error = new Error("Preco do produto invalido.");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    return {
+      product,
+      unitPrice,
+      addons: normalizeSelectedAddons(product, item.selectedAddons, globalAddons)
+    };
+  });
+}
+
 function splitName(name = "") {
   const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
   if (!parts.length) return { name: "", surname: "" };
@@ -199,32 +261,26 @@ module.exports = async function createPreference(request, response) {
   }
 
   try {
-    const { productId, selectedAddons, shipping } = await readJsonBody(request);
-    if (!productId) {
-      sendJson(response, 400, { error: "Produto nao informado." });
-      return;
-    }
-
+    const payload = await readJsonBody(request);
+    const { shipping } = payload;
     const [products, globalAddons] = await Promise.all([
       loadProducts(),
       loadGlobalAddons()
     ]);
-    const product = products.find((item) => item.id === productId && item.active !== false);
-    if (!product) {
-      sendJson(response, 404, { error: "Produto nao encontrado ou inativo." });
-      return;
-    }
-
-    const unitPrice = parsePriceBRL(product.price);
-    if (!Number.isFinite(unitPrice) || unitPrice <= 0) {
-      sendJson(response, 400, { error: "Preco do produto invalido." });
-      return;
-    }
-
-    const addons = normalizeSelectedAddons(product, selectedAddons, globalAddons);
-    const normalizedShipping = await normalizeShipping(product, shipping);
+    const checkoutItems = normalizeCheckoutItems(products, globalAddons, payload);
+    const shippingProduct = checkoutItems.length === 1
+      ? checkoutItems[0].product
+      : aggregateShippingProduct(checkoutItems.map((item) => item.product));
+    const normalizedShipping = await normalizeShipping(shippingProduct, shipping);
     const origin = requestOrigin(request);
-    const addonDescription = addons.map((addon) => `${addon.categoryLabel}: ${addon.label}`).join(" | ");
+    const checkoutReference = checkoutItems.length === 1
+      ? checkoutItems[0].product.id
+      : `cart-${Date.now()}`;
+    const allAddons = checkoutItems.flatMap((item) => item.addons.map((addon) => ({
+      ...addon,
+      productId: item.product.id,
+      productTitle: item.product.title
+    })));
     const shippingDescription = normalizedShipping
       ? `Frete ${normalizedShipping.carrier} ${normalizedShipping.serviceName} para CEP ${normalizedShipping.postalCode}`
       : "";
@@ -232,24 +288,29 @@ module.exports = async function createPreference(request, response) {
     const customerName = splitName(customer.name);
     const preference = {
       items: [
-        {
-          id: product.id,
-          title: product.title,
-          description: [product.tags?.filter(Boolean).join(" | "), addonDescription].filter(Boolean).join(" | ") || product.title,
-          picture_url: absoluteUrl(origin, product.image || product.cutout),
-          quantity: 1,
-          currency_id: "BRL",
-          unit_price: unitPrice
-        },
-        ...addons.map((addon) => ({
-          id: `${product.id}-${addon.category}-${addon.index}`,
-          title: `${addon.categoryLabel}: ${addon.label}`,
-          quantity: 1,
-          currency_id: "BRL",
-          unit_price: addon.price
-        })),
+        ...checkoutItems.flatMap((item) => {
+          const addonDescription = item.addons.map((addon) => `${addon.categoryLabel}: ${addon.label}`).join(" | ");
+          return [
+            {
+              id: item.product.id,
+              title: item.product.title,
+              description: [item.product.tags?.filter(Boolean).join(" | "), addonDescription].filter(Boolean).join(" | ") || item.product.title,
+              picture_url: absoluteUrl(origin, item.product.image || item.product.cutout),
+              quantity: 1,
+              currency_id: "BRL",
+              unit_price: item.unitPrice
+            },
+            ...item.addons.map((addon) => ({
+              id: `${item.product.id}-${addon.category}-${addon.index}`,
+              title: `${item.product.title} - ${addon.categoryLabel}: ${addon.label}`,
+              quantity: 1,
+              currency_id: "BRL",
+              unit_price: addon.price
+            }))
+          ];
+        }),
         ...(normalizedShipping ? [{
-          id: `${product.id}-shipping-${normalizedShipping.serviceId}`,
+          id: `${checkoutReference}-shipping-${normalizedShipping.serviceId}`,
           title: shippingDescription,
           quantity: 1,
           currency_id: "BRL",
@@ -273,11 +334,13 @@ module.exports = async function createPreference(request, response) {
         failure: `${origin}/pagamento-falha.html`
       },
       auto_return: "approved",
-      external_reference: product.id,
+      external_reference: checkoutReference,
       metadata: {
-        product_id: product.id,
-        product_title: product.title,
-        selected_addons: addons.map((addon) => `${addon.category}:${addon.label}`).join("; "),
+        checkout_type: checkoutItems.length > 1 ? "cart" : "single_product",
+        product_id: checkoutItems[0].product.id,
+        product_ids: checkoutItems.map((item) => item.product.id).join("; "),
+        product_title: checkoutItems.map((item) => item.product.title).join("; "),
+        selected_addons: allAddons.map((addon) => `${addon.productId}:${addon.category}:${addon.label}`).join("; "),
         shipping_requested: normalizedShipping ? "true" : "false",
         shipping_provider: normalizedShipping ? "melhor-envio" : "",
         shipping_service_id: normalizedShipping?.serviceId || "",

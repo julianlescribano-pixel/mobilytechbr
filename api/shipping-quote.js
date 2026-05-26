@@ -40,6 +40,26 @@ function productPackage(product) {
   };
 }
 
+function aggregatePackage(products) {
+  const packages = products.map(productPackage);
+  const weight = packages.reduce((sum, item) => sum + (item.weight || 0), 0);
+  const length = packages.reduce((sum, item) => sum + (item.length || 0), 0);
+  const height = Math.max(...packages.map((item) => item.height || 0));
+  const width = Math.max(...packages.map((item) => item.width || 0));
+  const insuranceValue = packages.reduce((sum, item) => sum + (item.insuranceValue || 0), 0);
+  return {
+    id: "mobilytech-cart",
+    price: insuranceValue || 1,
+    shipping: {
+      weightKg: weight || null,
+      heightCm: height || null,
+      widthCm: width || null,
+      lengthCm: length || null,
+      insuranceValue: insuranceValue || 1
+    }
+  };
+}
+
 function normalizeQuote(service) {
   const price = parsePositiveNumber(service.custom_price || service.price);
   if (!price || service.error) return null;
@@ -65,6 +85,12 @@ function normalizeQuote(service) {
 async function loadProducts() {
   const products = JSON.parse(await fs.readFile(PRODUCTS_FILE, "utf8"));
   return Array.isArray(products) ? products : [];
+}
+
+function productsFromCartItems(products, cartItems) {
+  if (!Array.isArray(cartItems) || cartItems.length === 0) return [];
+  const requestedIds = cartItems.map((item) => String(item?.productId || "")).filter(Boolean);
+  return requestedIds.map((id) => products.find((item) => item.id === id && item.active !== false)).filter(Boolean);
 }
 
 async function quoteMelhorEnvio(product, destinationPostalCode) {
@@ -152,9 +178,17 @@ module.exports = async function shippingQuote(request, response) {
   }
 
   try {
-    const { productId, postalCode } = await readJsonBody(request);
+    const { productId, cartItems, postalCode } = await readJsonBody(request);
     const products = await loadProducts();
-    const product = products.find((item) => item.id === productId && item.active !== false);
+    const hasCart = Array.isArray(cartItems) && cartItems.length > 0;
+    const cartProducts = productsFromCartItems(products, cartItems);
+    if (hasCart && cartProducts.length !== cartItems.length) {
+      sendJson(response, 404, { error: "Um ou mais produtos do carrinho nao estao disponiveis." });
+      return;
+    }
+    const product = cartProducts.length
+      ? aggregatePackage(cartProducts)
+      : products.find((item) => item.id === productId && item.active !== false);
     if (!product) {
       sendJson(response, 404, { error: "Produto nao encontrado ou inativo." });
       return;
@@ -167,7 +201,7 @@ module.exports = async function shippingQuote(request, response) {
     }
 
     sendJson(response, 200, {
-      productId,
+      productId: cartProducts.length ? "cart" : productId,
       postalCode: onlyDigits(postalCode),
       provider: "melhor-envio",
       quotes: result.quotes
