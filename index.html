@@ -521,7 +521,85 @@
         display: grid;
         grid-template-columns: minmax(260px, .52fr) minmax(0, 1fr);
         gap: clamp(22px, 5vw, 54px);
-        align-items: start;
+        align-items: stretch;
+      }
+      .info-disclosure {
+        display: grid;
+        gap: clamp(22px, 4vw, 36px);
+      }
+      .info-disclosure > summary {
+        display: grid;
+        justify-items: center;
+        gap: 12px;
+        width: min(900px, 100%);
+        margin: 0 auto;
+        list-style: none;
+        text-align: center;
+        cursor: pointer;
+      }
+      .info-disclosure > summary:focus {
+        outline: none;
+      }
+      .info-disclosure > summary:focus-visible {
+        outline: 2px solid rgba(34, 240, 196, .42);
+        outline-offset: 6px;
+        border-radius: 14px;
+      }
+      .info-disclosure > summary::-webkit-details-marker {
+        display: none;
+      }
+      .summary-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 42px;
+        padding: 0 16px;
+        border: 1px solid rgba(34, 240, 196, .28);
+        border-radius: 999px;
+        color: var(--green);
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .018)),
+          rgba(34, 240, 196, .055);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      .summary-toggle svg {
+        width: 18px;
+        height: 18px;
+        transition: transform .24s ease;
+      }
+      .summary-toggle svg path {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .info-disclosure[open] .summary-toggle svg {
+        transform: rotate(180deg);
+      }
+      .collapsible-content {
+        animation: sectionExpand .36s ease both;
+      }
+      @keyframes sectionExpand {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .story-aside,
+      .post-sale-aside {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+      }
+      .story-aside {
+        justify-content: flex-start;
+      }
+      .post-sale-aside {
+        justify-content: center;
       }
       .section-kicker {
         margin: 0 0 10px;
@@ -552,14 +630,14 @@
         line-height: 1.58;
       }
       .story-character {
-        width: min(390px, 100%);
-        margin: 18px auto 0;
+        width: min(430px, 100%);
+        margin: 0 auto;
         padding: 0;
       }
       .story-character img {
         width: 100%;
         height: auto;
-        max-height: 420px;
+        max-height: 450px;
         object-fit: contain;
         filter: drop-shadow(0 28px 42px rgba(0, 0, 0, .45));
       }
@@ -581,6 +659,7 @@
       .story-copy {
         display: grid;
         gap: 14px;
+        align-content: center;
         padding: clamp(20px, 3vw, 32px);
       }
       .story-copy p {
@@ -631,14 +710,24 @@
         display: grid;
         gap: 24px;
       }
+      .why-wrap,
+      .reviews-wrap {
+        justify-items: center;
+        text-align: center;
+      }
       .why-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 14px;
+        width: 100%;
       }
       .why-card {
         min-height: 142px;
         padding: 18px;
+        display: grid;
+        align-content: center;
+        justify-items: center;
+        text-align: center;
       }
       .why-card strong {
         display: block;
@@ -663,12 +752,16 @@
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 14px;
+        width: 100%;
       }
       .review-card {
         display: grid;
+        align-content: center;
+        justify-items: center;
         gap: 12px;
         min-height: 190px;
         padding: 20px;
+        text-align: center;
       }
       .review-stars {
         color: var(--yellow);
@@ -691,6 +784,7 @@
         flex-wrap: wrap;
         gap: 10px;
         align-items: center;
+        justify-content: center;
       }
       .cart-panel {
         display: grid;
@@ -827,6 +921,8 @@
           linear-gradient(180deg, #04101b, #03070d);
       }
       .post-sale-card {
+        display: grid;
+        align-content: center;
         padding: clamp(20px, 3vw, 32px);
       }
       .post-sale-card p {
@@ -835,6 +931,9 @@
         font-size: 15.5px;
         font-weight: 700;
         line-height: 1.65;
+      }
+      .post-sale-card p:last-child {
+        margin-bottom: 0;
       }
 
       .shipping-strip {
@@ -2070,7 +2169,7 @@
         justify-self: center;
         display: grid;
         place-items: center;
-        width: min(100%, 610px);
+        width: min(100%, 640px);
         min-height: clamp(500px, 39vw, 585px);
         overflow: visible;
         border: 1px solid rgba(142, 255, 214, .48);
@@ -2099,15 +2198,15 @@
       }
       .cleaning-media img {
         position: relative;
-        z-index: 1;
-        width: min(122%, 690px);
+        z-index: 2;
+        width: min(126%, 720px);
         max-width: none;
         height: auto;
-        max-height: calc(100% - 76px);
+        max-height: calc(100% - 48px);
         object-fit: contain;
         object-position: center;
         opacity: 1;
-        transform: translate(24px, -16px) scale(1.08);
+        transform: translateY(-28px) scale(1.08);
         filter:
           saturate(1.12)
           contrast(1.08)
@@ -2116,10 +2215,10 @@
       }
       .cleaning-media-badge {
         position: absolute;
-        z-index: 2;
+        z-index: 1;
         left: clamp(18px, 8%, 72px);
         right: clamp(18px, 8%, 72px);
-        bottom: clamp(14px, 4%, 28px);
+        bottom: clamp(8px, 2.4%, 18px);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2141,8 +2240,8 @@
         text-transform: uppercase;
       }
       .cleaning-media-badge svg {
-        width: 30px;
-        height: 30px;
+        width: 28px;
+        height: 28px;
         flex: 0 0 auto;
         color: var(--green);
       }
@@ -2615,14 +2714,17 @@
         </div>
       </section>
       <section id="sobre" class="story-section reveal" aria-labelledby="about-title">
-        <div class="story-wrap">
-          <div>
+        <details class="info-disclosure" id="sobre-detalhes">
+          <summary>
             <p class="section-kicker">Nossa historia</p>
             <h2 class="story-title" id="about-title">Sobre a MobilyTech BR</h2>
+            <span class="summary-toggle">Saiba mais <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></span>
+          </summary>
+          <div class="story-wrap collapsible-content">
+            <div class="story-aside">
             <figure class="story-character" aria-label="Personagem MobilyTech ao lado de um PC">
               <img src="./assets/mobilytech-character-cutout.png" alt="" loading="lazy" />
             </figure>
-            <p class="story-lead">A loja nasceu para ajudar quem quer entrar no mundo dos PCs sem cair em anuncios caros, confusos ou com pecas que nao entregam o desempenho prometido.</p>
             <div class="story-points" aria-label="Pilares da MobilyTech BR">
               <div class="story-point"><span>1</span>PCs usados em excelente estado</div>
               <div class="story-point"><span>2</span>Revisao, limpeza e testes antes da entrega</div>
@@ -2637,28 +2739,26 @@
             <p>Aqui, cada PC e preparado para chegar ao cliente funcionando corretamente, com manutencao feita, placa de video dedicada de verdade e desempenho compativel com o que e anunciado. Nao prometemos milagre, mas entregamos uma alternativa muito mais acessivel para quem quer jogar, estudar, trabalhar ou comecar no mundo dos PCs sem precisar esperar juntar dinheiro para comprar um computador novo.</p>
             <p>A MobilyTech BR trabalha com garantia, envio para todo o Brasil e vendas por canais seguros como site oficial, OLX, Facebook Marketplace, Mercado Livre e Mercado Pago. Nosso foco e entregar confianca, transparencia e computadores realmente prontos para uso.</p>
           </div>
-        </div>
+          </div>
+        </details>
       </section>
       <section id="diferenciais" class="why-section reveal" aria-labelledby="why-title">
-        <div class="why-wrap">
-          <div>
+        <details class="info-disclosure why-disclosure" id="diferenciais-detalhes">
+          <summary>
             <p class="section-kicker">Diferenciais</p>
             <h2 class="why-title" id="why-title">Por que comprar com a MobilyTech BR?</h2>
+            <span class="summary-toggle">Saiba mais <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></span>
+          </summary>
+          <div class="why-wrap collapsible-content">
             <p class="why-lead">Comprar um PC usado pode ser uma otima forma de economizar, mas tambem pode trazer riscos quando o equipamento nao e revisado. Por isso, entregamos computadores testados, limpos e prontos para uso.</p>
-          </div>
           <div class="why-grid" aria-label="Diferenciais da loja">
             <div class="why-card"><strong>Placa dedicada de verdade</strong><span>Os PCs sao anunciados com configuracoes reais e foco no desempenho que o cliente vai receber.</span></div>
             <div class="why-card"><strong>Manutencao completa</strong><span>Limpeza, revisao, testes e verificacoes basicas antes da entrega.</span></div>
             <div class="why-card"><strong>Garantia inclusa</strong><span>Mais seguranca para comprar um PC usado sem ficar sozinho depois da compra.</span></div>
             <div class="why-card"><strong>Envio para todo o Brasil</strong><span>Compra pelo site com frete calculado, retirada local ou canais seguros de venda.</span></div>
           </div>
-        </div>
-      </section>
-      <section class="trust" aria-label="Reputacao da loja">
-        <div><strong>5.0 <span class="stars" aria-label="5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</span></strong><span>avalia&ccedil;&otilde;es na OLX</span></div>
-        <div><strong>67</strong><span>avalia&ccedil;&otilde;es recebidas</span></div>
-        <div><strong>66+</strong><span>vendas conclu&iacute;das OLX + Marketplace</span></div>
-        <div><strong>4.3 <span class="stars" aria-label="4.3 estrelas">&#9733;&#9733;&#9733;&#9733;&#9734;</span></strong><span>classifica&ccedil;&atilde;o no Facebook</span></div>
+          </div>
+        </details>
       </section>
       <section id="avaliacoes" class="reviews-section reveal" aria-labelledby="reviews-title">
         <div class="reviews-wrap">
@@ -2680,6 +2780,12 @@
             <a class="button secondary" href="#catalogo">Ver PCs disponiveis</a>
           </div>
         </div>
+      </section>
+      <section class="trust" aria-label="Reputacao da loja">
+        <div><strong>5.0 <span class="stars" aria-label="5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</span></strong><span>avalia&ccedil;&otilde;es na OLX</span></div>
+        <div><strong>67</strong><span>avalia&ccedil;&otilde;es recebidas</span></div>
+        <div><strong>66+</strong><span>vendas conclu&iacute;das OLX + Marketplace</span></div>
+        <div><strong>4.3 <span class="stars" aria-label="4.3 estrelas">&#9733;&#9733;&#9733;&#9733;&#9734;</span></strong><span>classifica&ccedil;&atilde;o no Facebook</span></div>
       </section>
       <section class="shipping-strip" aria-label="Fretes pelos Correios">
         <div class="correios-logo-box"><img src="./assets/correios-logo-white.png" alt="Correios"></div>
@@ -2792,10 +2898,9 @@
 
       <section id="pos-venda" class="post-sale-section reveal" aria-labelledby="post-sale-title">
         <div class="post-sale-wrap">
-          <div>
+          <div class="post-sale-aside">
             <p class="section-kicker">Depois da compra</p>
             <h2 class="post-sale-title" id="post-sale-title">P&oacute;s-venda e acompanhamento do pedido</h2>
-            <p class="post-sale-lead">O atendimento continua depois do pagamento, com confirma&ccedil;&otilde;es, rastreamento e suporte para deixar o cliente seguro durante todo o processo.</p>
             <div class="post-sale-steps" aria-label="Etapas do pos-venda">
               <div class="post-sale-step"><span>1</span>Confirma&ccedil;&atilde;o da compra por e-mail</div>
               <div class="post-sale-step"><span>2</span>Pedido em prepara&ccedil;&atilde;o e revis&atilde;o final</div>
@@ -2816,8 +2921,8 @@
           <img id="cleaning-photo" src="./assets/pc-cleaning-service-cutout.png" alt="PC gamer limpo com acessorios para limpeza e troca de pasta termica">
           <div class="cleaning-media-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 6 9 17l-5-5"></path>
-              <path d="M21 12a9 9 0 1 1-5.1-8.1"></path>
+              <path d="M12 3 20 6v6c0 4.6-3.2 7.7-8 9-4.8-1.3-8-4.4-8-9V6l8-3Z"></path>
+              <path d="m9 12 2 2 4-5"></path>
             </svg>
             Manuten&ccedil;&atilde;o completa
           </div>
