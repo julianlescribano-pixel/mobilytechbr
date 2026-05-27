@@ -525,13 +525,13 @@
       }
       .info-disclosure {
         display: grid;
-        gap: clamp(22px, 4vw, 36px);
+        gap: clamp(12px, 2vw, 20px);
       }
       .info-disclosure > summary {
         display: grid;
         justify-items: center;
-        gap: 12px;
-        width: min(900px, 100%);
+        gap: 8px;
+        width: min(1120px, 100%);
         margin: 0 auto;
         list-style: none;
         text-align: center;
@@ -552,9 +552,9 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 9px;
-        min-height: 42px;
-        padding: 0 16px;
+        gap: 8px;
+        min-height: 34px;
+        padding: 0 14px;
         border: 1px solid rgba(34, 240, 196, .28);
         border-radius: 999px;
         color: var(--green);
@@ -562,14 +562,14 @@
           linear-gradient(135deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .018)),
           rgba(34, 240, 196, .055);
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 900;
         letter-spacing: .08em;
         text-transform: uppercase;
       }
       .summary-toggle svg {
-        width: 18px;
-        height: 18px;
+        width: 16px;
+        height: 16px;
         transition: transform .24s ease;
       }
       .summary-toggle svg path {
@@ -582,8 +582,23 @@
       .info-disclosure[open] .summary-toggle svg {
         transform: rotate(180deg);
       }
+      .compact-disclosure-section {
+        padding-block: clamp(24px, 3vw, 38px);
+      }
       .collapsible-content {
-        animation: sectionExpand .36s ease both;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-8px);
+        transition:
+          max-height .48s cubic-bezier(.22, 1, .36, 1),
+          opacity .28s ease,
+          transform .36s ease;
+      }
+      .info-disclosure[open] .collapsible-content {
+        max-height: var(--disclosure-height, 1800px);
+        opacity: 1;
+        transform: translateY(0);
       }
       @keyframes sectionExpand {
         from { opacity: 0; transform: translateY(-10px); }
@@ -602,7 +617,7 @@
         justify-content: center;
       }
       .section-kicker {
-        margin: 0 0 10px;
+        margin: 0 0 4px;
         color: var(--yellow);
         font-size: 12px;
         font-weight: 900;
@@ -617,6 +632,14 @@
         margin: 0;
         font-size: clamp(32px, 4.3vw, 52px);
         line-height: 1.04;
+      }
+      .compact-disclosure-section .story-title,
+      .compact-disclosure-section .why-title {
+        font-size: clamp(28px, 3vw, 40px);
+      }
+      .compact-disclosure-section .why-title {
+        font-size: clamp(28px, 2.85vw, 38px);
+        white-space: nowrap;
       }
       .story-lead,
       .why-lead,
@@ -703,6 +726,9 @@
       }
       .why-section {
         padding-top: clamp(46px, 5vw, 70px);
+      }
+      .why-section.compact-disclosure-section {
+        padding-top: clamp(24px, 3vw, 38px);
       }
       .why-wrap,
       .reviews-wrap,
@@ -2517,6 +2543,14 @@
         .reviews-section,
         .cart-section,
         .post-sale-section { padding-inline: 14px; }
+        .compact-disclosure-section { padding-block: 28px; }
+        .compact-disclosure-section .story-title,
+        .compact-disclosure-section .why-title {
+          font-size: clamp(30px, 10vw, 46px);
+        }
+        .compact-disclosure-section .why-title {
+          white-space: normal;
+        }
         .why-grid,
         .review-grid { grid-template-columns: 1fr; }
         .cart-item {
@@ -2713,7 +2747,7 @@
           </div>
         </div>
       </section>
-      <section id="sobre" class="story-section reveal" aria-labelledby="about-title">
+      <section id="sobre" class="story-section compact-disclosure-section reveal" aria-labelledby="about-title">
         <details class="info-disclosure" id="sobre-detalhes">
           <summary>
             <p class="section-kicker">Nossa historia</p>
@@ -2738,24 +2772,6 @@
             <p>Nosso objetivo e oferecer PCs usados, mas em excelente estado, totalmente revisados e prontos para uso. A ideia e eliminar os principais riscos de comprar um computador usado: sujeira interna, pasta termica ressecada, lentidao, falta de testes, problemas escondidos ou configuracoes anunciadas de forma enganosa.</p>
             <p>Aqui, cada PC e preparado para chegar ao cliente funcionando corretamente, com manutencao feita, placa de video dedicada de verdade e desempenho compativel com o que e anunciado. Nao prometemos milagre, mas entregamos uma alternativa muito mais acessivel para quem quer jogar, estudar, trabalhar ou comecar no mundo dos PCs sem precisar esperar juntar dinheiro para comprar um computador novo.</p>
             <p>A MobilyTech BR trabalha com garantia, envio para todo o Brasil e vendas por canais seguros como site oficial, OLX, Facebook Marketplace, Mercado Livre e Mercado Pago. Nosso foco e entregar confianca, transparencia e computadores realmente prontos para uso.</p>
-          </div>
-          </div>
-        </details>
-      </section>
-      <section id="diferenciais" class="why-section reveal" aria-labelledby="why-title">
-        <details class="info-disclosure why-disclosure" id="diferenciais-detalhes">
-          <summary>
-            <p class="section-kicker">Diferenciais</p>
-            <h2 class="why-title" id="why-title">Por que comprar com a MobilyTech BR?</h2>
-            <span class="summary-toggle">Saiba mais <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></span>
-          </summary>
-          <div class="why-wrap collapsible-content">
-            <p class="why-lead">Comprar um PC usado pode ser uma otima forma de economizar, mas tambem pode trazer riscos quando o equipamento nao e revisado. Por isso, entregamos computadores testados, limpos e prontos para uso.</p>
-          <div class="why-grid" aria-label="Diferenciais da loja">
-            <div class="why-card"><strong>Placa dedicada de verdade</strong><span>Os PCs sao anunciados com configuracoes reais e foco no desempenho que o cliente vai receber.</span></div>
-            <div class="why-card"><strong>Manutencao completa</strong><span>Limpeza, revisao, testes e verificacoes basicas antes da entrega.</span></div>
-            <div class="why-card"><strong>Garantia inclusa</strong><span>Mais seguranca para comprar um PC usado sem ficar sozinho depois da compra.</span></div>
-            <div class="why-card"><strong>Envio para todo o Brasil</strong><span>Compra pelo site com frete calculado, retirada local ou canais seguros de venda.</span></div>
           </div>
           </div>
         </details>
@@ -2786,6 +2802,24 @@
         <div><strong>67</strong><span>avalia&ccedil;&otilde;es recebidas</span></div>
         <div><strong>66+</strong><span>vendas conclu&iacute;das OLX + Marketplace</span></div>
         <div><strong>4.3 <span class="stars" aria-label="4.3 estrelas">&#9733;&#9733;&#9733;&#9733;&#9734;</span></strong><span>classifica&ccedil;&atilde;o no Facebook</span></div>
+      </section>
+      <section id="diferenciais" class="why-section compact-disclosure-section reveal" aria-labelledby="why-title">
+        <details class="info-disclosure why-disclosure" id="diferenciais-detalhes">
+          <summary>
+            <p class="section-kicker">Diferenciais</p>
+            <h2 class="why-title" id="why-title">Por que comprar com a MobilyTech BR?</h2>
+            <span class="summary-toggle">Saiba mais <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></span>
+          </summary>
+          <div class="why-wrap collapsible-content">
+            <p class="why-lead">Comprar um PC usado pode ser uma otima forma de economizar, mas tambem pode trazer riscos quando o equipamento nao e revisado. Por isso, entregamos computadores testados, limpos e prontos para uso.</p>
+            <div class="why-grid" aria-label="Diferenciais da loja">
+              <div class="why-card"><strong>Placa dedicada de verdade</strong><span>Os PCs sao anunciados com configuracoes reais e foco no desempenho que o cliente vai receber.</span></div>
+              <div class="why-card"><strong>Manutencao completa</strong><span>Limpeza, revisao, testes e verificacoes basicas antes da entrega.</span></div>
+              <div class="why-card"><strong>Garantia inclusa</strong><span>Mais seguranca para comprar um PC usado sem ficar sozinho depois da compra.</span></div>
+              <div class="why-card"><strong>Envio para todo o Brasil</strong><span>Compra pelo site com frete calculado, retirada local ou canais seguros de venda.</span></div>
+            </div>
+          </div>
+        </details>
       </section>
       <section class="shipping-strip" aria-label="Fretes pelos Correios">
         <div class="correios-logo-box"><img src="./assets/correios-logo-white.png" alt="Correios"></div>
@@ -3803,6 +3837,65 @@
       } else {
         revealElements.forEach((element) => element.classList.add("is-visible"));
       }
+
+      const setupDisclosureAnimations = () => {
+        const detailsList = Array.from(document.querySelectorAll(".info-disclosure"));
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        const setHeight = (details) => {
+          const content = details.querySelector(".collapsible-content");
+          if (!content) return;
+          details.style.setProperty("--disclosure-height", `${details.open ? content.scrollHeight : 0}px`);
+        };
+
+        detailsList.forEach((details) => {
+          const summary = details.querySelector("summary");
+          const content = details.querySelector(".collapsible-content");
+          if (!summary || !content) return;
+          setHeight(details);
+
+          summary.addEventListener("click", (event) => {
+            if (reducedMotion.matches) {
+              window.setTimeout(() => setHeight(details), 0);
+              return;
+            }
+
+            event.preventDefault();
+            const isOpening = !details.open;
+            window.clearTimeout(Number(details.dataset.animationTimer || 0));
+
+            if (isOpening) {
+              details.open = true;
+              details.style.setProperty("--disclosure-height", "0px");
+              content.style.opacity = "0";
+              content.style.transform = "translateY(-8px)";
+              requestAnimationFrame(() => {
+                details.style.setProperty("--disclosure-height", `${content.scrollHeight}px`);
+                content.style.opacity = "";
+                content.style.transform = "";
+              });
+              details.dataset.animationTimer = String(window.setTimeout(() => setHeight(details), 520));
+              return;
+            }
+
+            details.style.setProperty("--disclosure-height", `${content.scrollHeight}px`);
+            requestAnimationFrame(() => {
+              details.style.setProperty("--disclosure-height", "0px");
+              content.style.opacity = "0";
+              content.style.transform = "translateY(-8px)";
+            });
+            details.dataset.animationTimer = String(window.setTimeout(() => {
+              details.open = false;
+              content.style.opacity = "";
+              content.style.transform = "";
+            }, 480));
+          });
+        });
+
+        window.addEventListener("resize", () => detailsList.forEach(setHeight));
+      };
+
+      setupDisclosureAnimations();
 
       const loadProducts = async () => {
         if (!productGrid) return;
