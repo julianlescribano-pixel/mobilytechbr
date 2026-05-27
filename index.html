@@ -285,6 +285,17 @@
         flex: 0 0 auto;
         object-fit: contain;
       }
+      .button .abacate-pay-button-logo {
+        width: 24px;
+        height: 24px;
+        flex: 0 0 auto;
+        object-fit: contain;
+      }
+      .abacate-pay-button {
+        color: #041018;
+        background: linear-gradient(135deg, #a8f579, #62d65c 52%, #22f0c4);
+        box-shadow: 0 14px 30px rgba(98, 214, 92, .16);
+      }
       .button-symbol {
         display: inline-grid;
         place-items: center;
@@ -2124,6 +2135,127 @@
         flex-wrap: wrap;
         gap: 10px;
       }
+      .pix-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 112;
+        display: grid;
+        place-items: center;
+        padding: clamp(14px, 4vw, 34px);
+        background: rgba(0, 5, 10, .84);
+        backdrop-filter: blur(10px);
+      }
+      .pix-modal[hidden] {
+        display: none;
+      }
+      .pix-panel {
+        width: min(520px, 100%);
+        max-height: min(88vh, 720px);
+        overflow: auto;
+        border: 1px solid rgba(98, 214, 92, .36);
+        border-radius: 12px;
+        background:
+          radial-gradient(circle at 70% 12%, rgba(98, 214, 92, .2), transparent 14rem),
+          linear-gradient(180deg, rgba(7, 27, 45, .98), rgba(2, 8, 14, .99));
+        box-shadow: 0 28px 80px rgba(0, 0, 0, .48), 0 0 48px rgba(98, 214, 92, .12);
+      }
+      .pix-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 20px 22px;
+        border-bottom: 1px solid rgba(98, 214, 92, .18);
+      }
+      .pix-head h2,
+      .pix-head p {
+        margin: 0;
+      }
+      .pix-head h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 24px;
+        line-height: 1.1;
+      }
+      .pix-head h2 img {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+      }
+      .pix-head p {
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 1.45;
+      }
+      .pix-close {
+        appearance: none;
+        flex: 0 0 auto;
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(255, 255, 255, .16);
+        border-radius: 999px;
+        color: #f7fbff;
+        background: rgba(255, 255, 255, .04);
+        font-size: 22px;
+        cursor: pointer;
+      }
+      .pix-content {
+        display: grid;
+        gap: 14px;
+        padding: 22px;
+      }
+      .pix-qr-frame {
+        display: grid;
+        place-items: center;
+        min-height: 238px;
+        border: 1px solid rgba(98, 214, 92, .3);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, .92);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .24);
+      }
+      .pix-qr-frame img {
+        width: min(220px, 74vw);
+        height: min(220px, 74vw);
+        object-fit: contain;
+      }
+      .pix-copy-area {
+        display: grid;
+        gap: 8px;
+      }
+      .pix-copy-area label {
+        color: var(--subtle);
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: .07em;
+        text-transform: uppercase;
+      }
+      .pix-copy-area textarea {
+        min-height: 92px;
+        resize: vertical;
+        border: 1px solid rgba(4, 183, 255, .2);
+        border-radius: 8px;
+        padding: 11px;
+        color: var(--text);
+        background: rgba(255, 255, 255, .045);
+        font: inherit;
+        font-size: 12px;
+        font-weight: 800;
+        line-height: 1.45;
+      }
+      .pix-info {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 1.45;
+      }
+      .pix-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
       .marketplace-actions {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
@@ -2597,6 +2729,8 @@
         }
         .cart-actions .button,
         .cart-actions { width: 100%; }
+        .pix-actions .button,
+        .pix-actions { width: 100%; }
         .fulfillment { padding-inline: 14px; }
         .fulfillment-heading h2 { font-size: clamp(32px, 10vw, 50px); }
         .fulfillment-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -2877,7 +3011,7 @@
           <div>
             <p class="section-kicker">Loja online</p>
             <h2 class="cart-title" id="cart-title">Carrinho</h2>
-            <p class="cart-lead">Adicione um ou mais produtos, revise os opcionais e finalize a compra com seguran&ccedil;a pelo Mercado Pago. Dentro do carrinho, a finaliza&ccedil;&atilde;o e feita somente pelo Mercado Pago.</p>
+            <p class="cart-lead">Adicione um ou mais produtos, revise os opcionais e finalize a compra com seguran&ccedil;a pelo Mercado Pago ou por Pix via Abacate Pay.</p>
           </div>
           <div class="cart-panel" aria-live="polite">
             <div class="cart-items" id="cart-items">
@@ -2891,9 +3025,10 @@
               <div class="cart-actions">
                 <a class="button secondary" href="#catalogo">Continuar comprando</a>
                 <button class="button primary" id="cart-checkout" type="button" disabled><img class="mercado-pago-button-icon" src="./assets/mercado-pago-icon.png" alt="" aria-hidden="true">Finalizar compra pelo Mercado Pago</button>
+                <button class="button abacate-pay-button" id="cart-checkout-abacate" type="button" disabled><img class="abacate-pay-button-logo" src="./assets/abacate-pay-logo.svg" alt="" aria-hidden="true">Pagar com Pix Abacate Pay</button>
               </div>
             </div>
-            <p class="cart-checkout-note">PIX, cart&atilde;o de cr&eacute;dito e demais op&ccedil;&otilde;es aparecem diretamente no ambiente seguro do Mercado Pago, conforme disponibilidade da plataforma.</p>
+            <p class="cart-checkout-note">Mercado Pago libera PIX, cart&atilde;o e demais op&ccedil;&otilde;es dispon&iacute;veis na plataforma. Abacate Pay gera Pix copia-e-cola e QR Code diretamente no site.</p>
           </div>
         </div>
       </section>
@@ -2903,8 +3038,8 @@
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 20 6v6c0 4.6-3.2 7.7-8 9-4.8-1.3-8-4.4-8-9V6l8-3Z"></path><path d="m9 12 2 2 4-5"></path></svg>
             Compra segura, do seu jeito
           </p>
-          <h2>Finaliza&ccedil;&atilde;o pelo Mercado Pago</h2>
-          <p>O carrinho do site e finalizado pelo Mercado Pago. OLX, Facebook Marketplace e Mercado Livre seguem como canais onde a MobilyTech BR tamb&eacute;m vende.</p>
+          <h2>Finaliza&ccedil;&atilde;o pelo site</h2>
+          <p>O carrinho do site pode ser finalizado pelo Mercado Pago ou por Pix via Abacate Pay. OLX, Facebook Marketplace e Mercado Livre seguem como canais onde a MobilyTech BR tamb&eacute;m vende.</p>
         </div>
         <div class="fulfillment-grid">
           <article class="ship-card ship-card-shipping">
@@ -2928,9 +3063,9 @@
             <div class="ship-visual payment-visual" aria-hidden="true">
               <span class="visual-tile glass-photo-tile payment-logo-tile"><img class="glass-art" src="./assets/mercado-pago-glass.png" alt=""></span>
             </div>
-            <h3>Venda direta aqui no site com Mercado Pago</h3>
+            <h3>Venda direta aqui no site</h3>
             <span class="ship-accent" aria-hidden="true"></span>
-            <p>Pagamento 100% seguro, com parcelamento facilitado e aprova&ccedil;&atilde;o imediata. Compre com tranquilidade e praticidade!</p>
+            <p>Finalize pelo Mercado Pago ou gere um Pix via Abacate Pay. Compre com tranquilidade e praticidade!</p>
             <div class="feature-row" aria-label="Beneficios do Mercado Pago">
               <div class="feature-item"><span class="feature-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg></span>Pagamento<br>100% seguro</div>
               <div class="feature-item"><span class="feature-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 10h18M7 15h5"></path></svg></span>Parcelamento<br>facilitado</div>
@@ -2938,7 +3073,7 @@
             </div>
             <div class="ship-card-foot">
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 20 6v6c0 4.6-3.2 7.7-8 9-4.8-1.3-8-4.4-8-9V6l8-3Z"></path><path d="m9 12 2 2 4-5"></path></svg>
-              Seguran&ccedil;a garantida com Mercado Pago
+              Seguran&ccedil;a no Mercado Pago e Pix Abacate Pay
             </div>
           </article>
           <article class="ship-card ship-card-facebook">
@@ -3065,7 +3200,7 @@
         <div class="shipping-head">
           <div>
             <h2 id="shipping-title">Entrega ou retirada</h2>
-            <p>Escolha como quer receber o PC e finalize pelo Mercado Pago.</p>
+            <p id="shipping-subtitle">Escolha como quer receber o PC e finalize pelo metodo escolhido.</p>
           </div>
           <button class="shipping-close" type="button" aria-label="Fechar">&times;</button>
         </div>
@@ -3105,6 +3240,32 @@
         </form>
       </section>
     </div>
+    <div class="pix-modal" id="pix-modal" hidden>
+      <section class="pix-panel" role="dialog" aria-modal="true" aria-labelledby="pix-title">
+        <div class="pix-head">
+          <div>
+            <h2 id="pix-title"><img src="./assets/abacate-pay-logo.svg" alt="" aria-hidden="true">Pix Abacate Pay</h2>
+            <p>Escaneie o QR Code ou copie o codigo Pix para pagar no app do seu banco.</p>
+          </div>
+          <button class="pix-close" type="button" aria-label="Fechar">&times;</button>
+        </div>
+        <div class="pix-content">
+          <div class="pix-qr-frame">
+            <img id="pix-qr-image" src="" alt="QR Code Pix Abacate Pay">
+          </div>
+          <p class="pix-info" id="pix-amount"></p>
+          <div class="pix-copy-area">
+            <label for="pix-copy-code">Codigo copia-e-cola</label>
+            <textarea id="pix-copy-code" readonly></textarea>
+          </div>
+          <p class="pix-info">Depois do pagamento, a confirma&ccedil;&atilde;o do pedido segue pelo atendimento da MobilyTech BR.</p>
+          <div class="pix-actions">
+            <button class="button abacate-pay-button" type="button" id="pix-copy-button">Copiar codigo Pix</button>
+            <button class="button secondary" type="button" id="pix-close-button">Fechar</button>
+          </div>
+        </div>
+      </section>
+    </div>
     <script>
       const icons = {
         "Processador": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M4 9h3M4 15h3M17 9h3M17 15h3M9 4v3M15 4v3M9 17v3M15 17v3"/></svg>',
@@ -3127,6 +3288,7 @@
       const cartItemsContainer = document.getElementById("cart-items");
       const cartTotalOutput = document.getElementById("cart-total");
       const cartCheckoutButton = document.getElementById("cart-checkout");
+      const cartAbacateButton = document.getElementById("cart-checkout-abacate");
       const cartCountBadge = document.getElementById("cart-count-badge");
       const lightbox = document.getElementById("media-lightbox");
       const lightboxImage = document.getElementById("lightbox-image");
@@ -3140,6 +3302,14 @@
       const shippingMessage = document.getElementById("shipping-message");
       const shippingQuoteButton = document.getElementById("shipping-quote-button");
       const shippingPayButton = document.getElementById("shipping-pay-button");
+      const shippingSubtitle = document.getElementById("shipping-subtitle");
+      const pixModal = document.getElementById("pix-modal");
+      const pixQrImage = document.getElementById("pix-qr-image");
+      const pixCopyCode = document.getElementById("pix-copy-code");
+      const pixAmount = document.getElementById("pix-amount");
+      const pixCopyButton = document.getElementById("pix-copy-button");
+      const pixCloseButton = document.getElementById("pix-close-button");
+      const pixClose = pixModal?.querySelector(".pix-close");
       const shippingInputs = shippingForm ? Array.from(shippingForm.querySelectorAll(".shipping-fields input")) : [];
       const deliveryModeInputs = shippingForm ? Array.from(shippingForm.querySelectorAll("input[name='deliveryMode']")) : [];
       const pickupNote = document.getElementById("pickup-note");
@@ -3372,6 +3542,7 @@
           cartCountBadge.hidden = count === 0;
         }
         if (cartCheckoutButton) cartCheckoutButton.disabled = count === 0;
+        if (cartAbacateButton) cartAbacateButton.disabled = count === 0;
         const total = cart.reduce((sum, item) => sum + cartItemTotal(item), 0);
         if (cartTotalOutput) cartTotalOutput.textContent = formatCurrency(total);
         if (!cartItemsContainer) return;
@@ -3508,7 +3679,7 @@
         const pickup = isPickupMode();
         shippingForm?.classList.toggle("shipping-mode-pickup", pickup);
         if (pickupNote) pickupNote.hidden = !pickup;
-        if (shippingPayButton) shippingPayButton.textContent = pickup ? "Pagar e retirar no local" : "Pagar";
+        updateCheckoutProviderCopy();
         if (pickup) {
           activeShippingQuotes = [];
           renderShippingQuotes([]);
@@ -3553,6 +3724,25 @@
         };
       };
 
+      const checkoutProviderName = (context = checkoutContext) => (
+        context?.provider === "abacate" ? "Pix Abacate Pay" : "Mercado Pago"
+      );
+
+      const updateCheckoutProviderCopy = () => {
+        const provider = checkoutProviderName();
+        const pickup = isPickupMode();
+        if (shippingSubtitle) {
+          shippingSubtitle.textContent = `Escolha como quer receber o PC e finalize por ${provider}.`;
+        }
+        if (shippingPayButton) {
+          if (checkoutContext?.provider === "abacate") {
+            shippingPayButton.textContent = pickup ? "Gerar Pix para retirada" : "Gerar Pix com frete";
+          } else {
+            shippingPayButton.textContent = pickup ? "Pagar e retirar no local" : "Pagar";
+          }
+        }
+      };
+
       const openShippingModal = (button, context = { type: "product" }) => {
         if (!shippingModal || !shippingForm) return;
         activeShippingButton = button;
@@ -3564,6 +3754,7 @@
         renderShippingQuotes([]);
         setShippingMessage("");
         updateDeliveryMode();
+        updateCheckoutProviderCopy();
         shippingModal.hidden = false;
         document.body.style.overflow = "hidden";
         shippingForm.querySelector("input[name='name']")?.focus();
@@ -3715,6 +3906,99 @@
         }
       };
 
+      const normalizeQrCodeImage = (value = "") => {
+        if (!value) return "";
+        return String(value).startsWith("data:") ? value : `data:image/png;base64,${value}`;
+      };
+
+      const showPixPayment = (data = {}) => {
+        if (!pixModal || !pixQrImage || !pixCopyCode) return;
+        pixQrImage.src = normalizeQrCodeImage(data.qr_code_base64);
+        pixCopyCode.value = data.copy_code || "";
+        if (pixAmount) {
+          const total = Number.isFinite(Number(data.amount_brl))
+            ? Number(data.amount_brl)
+            : Number(data.amount || 0) / 100;
+          const expires = data.expires_at ? ` Expira em ${new Date(data.expires_at).toLocaleString("pt-BR")}.` : "";
+          pixAmount.textContent = `Valor do Pix: ${formatCurrency(total)}.${expires}`;
+        }
+        pixModal.hidden = false;
+        document.body.style.overflow = "hidden";
+        pixCopyButton?.focus();
+      };
+
+      const closePixModal = () => {
+        if (!pixModal || pixModal.hidden) return;
+        pixModal.hidden = true;
+        pixQrImage?.removeAttribute("src");
+        if (pixCopyCode) pixCopyCode.value = "";
+        document.body.style.overflow = "";
+      };
+
+      const startAbacatePayCheckout = async (button, shipping = null) => {
+        const productId = button.dataset.productId;
+        if (!productId) return;
+        const card = button.closest(".card");
+        const selectedAddons = selectedAddonsForCard(card);
+        const originalText = button.textContent;
+        button.disabled = true;
+        button.textContent = "Gerando Pix...";
+
+        try {
+          const response = await fetch("/api/create-abacate-pix", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ productId, selectedAddons, shipping })
+          });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || !data.copy_code) {
+            throw new Error(data.error || "Nao foi possivel gerar o Pix.");
+          }
+          showPixPayment(data);
+        } catch (error) {
+          alert(error.message || "Nao foi possivel gerar o Pix Abacate Pay agora.");
+        } finally {
+          button.disabled = false;
+          button.textContent = originalText;
+        }
+      };
+
+      const startCartAbacateCheckout = async (button, shipping = null) => {
+        if (!button || cart.length === 0) return;
+        const originalHtml = button.innerHTML;
+        button.disabled = true;
+        button.textContent = "Gerando Pix...";
+
+        try {
+          const response = await fetch("/api/create-abacate-pix", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cartItems: cart, shipping })
+          });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || !data.copy_code) {
+            throw new Error(data.error || "Nao foi possivel gerar o Pix.");
+          }
+          showPixPayment(data);
+        } catch (error) {
+          alert(error.message || "Nao foi possivel gerar o Pix Abacate Pay agora.");
+        } finally {
+          button.disabled = cart.length === 0;
+          button.innerHTML = originalHtml;
+        }
+      };
+
+      const continueCheckout = (context, button, shipping = null) => {
+        if (context?.provider === "abacate") {
+          if (context?.type === "cart") startCartAbacateCheckout(button, shipping);
+          else startAbacatePayCheckout(button, shipping);
+          return;
+        }
+
+        if (context?.type === "cart") startCartCheckout(button, shipping);
+        else startMercadoPagoCheckout(button, shipping);
+      };
+
       productGrid?.addEventListener("click", (event) => {
         const mediaButton = event.target.closest("[data-lightbox-gallery]");
         if (mediaButton) {
@@ -3737,7 +4021,7 @@
         const button = event.target.closest("[data-product-id]");
         if (!button) return;
         if (shippingEnabled) {
-          openShippingModal(button, { type: "product" });
+          openShippingModal(button, { type: "product", provider: "mercado" });
           return;
         }
         startMercadoPagoCheckout(button);
@@ -3755,10 +4039,19 @@
       cartCheckoutButton?.addEventListener("click", () => {
         if (!cart.length) return;
         if (shippingEnabled) {
-          openShippingModal(cartCheckoutButton, { type: "cart" });
+          openShippingModal(cartCheckoutButton, { type: "cart", provider: "mercado" });
           return;
         }
         startCartCheckout(cartCheckoutButton);
+      });
+
+      cartAbacateButton?.addEventListener("click", () => {
+        if (!cart.length) return;
+        if (shippingEnabled) {
+          openShippingModal(cartAbacateButton, { type: "cart", provider: "abacate" });
+          return;
+        }
+        startCartAbacateCheckout(cartAbacateButton);
       });
 
       lightboxClose?.addEventListener("click", closeLightboxView);
@@ -3766,6 +4059,22 @@
       lightboxNext?.addEventListener("click", () => moveLightbox(1));
       lightbox?.addEventListener("click", (event) => {
         if (event.target === lightbox) closeLightboxView();
+      });
+      pixClose?.addEventListener("click", closePixModal);
+      pixCloseButton?.addEventListener("click", closePixModal);
+      pixModal?.addEventListener("click", (event) => {
+        if (event.target === pixModal) closePixModal();
+      });
+      pixCopyButton?.addEventListener("click", async () => {
+        if (!pixCopyCode?.value) return;
+        try {
+          await navigator.clipboard.writeText(pixCopyCode.value);
+          cartToast("Codigo Pix copiado.");
+        } catch (_error) {
+          pixCopyCode.select();
+          document.execCommand("copy");
+          cartToast("Codigo Pix copiado.");
+        }
       });
       shippingClose?.addEventListener("click", closeShippingModal);
       shippingModal?.addEventListener("click", (event) => {
@@ -3822,8 +4131,7 @@
         const context = checkoutContext;
         if (isPickupMode()) {
           closeShippingModal();
-          if (context?.type === "cart") startCartCheckout(button);
-          else startMercadoPagoCheckout(button);
+          continueCheckout(context, button);
           return;
         }
         if (!validateShippingInputs()) return;
@@ -3833,12 +4141,14 @@
           return;
         }
         closeShippingModal();
-        if (context?.type === "cart") startCartCheckout(button, shipping);
-        else startMercadoPagoCheckout(button, shipping);
+        continueCheckout(context, button, shipping);
       });
       document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeLightboxView();
+          closePixModal();
+        }
         if (!lightbox || lightbox.hidden) return;
-        if (event.key === "Escape") closeLightboxView();
         if (event.key === "ArrowLeft") moveLightbox(-1);
         if (event.key === "ArrowRight") moveLightbox(1);
       });
