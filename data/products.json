@@ -120,7 +120,8 @@
     "cutout": "./assets/generated/pc-amdlx-cutout.png",
     "gallery": [
       {
-        "image": "./assets/img2810.jpeg"
+        "image": "./assets/img2810.jpeg",
+        "cutout": "./assets/generated/pc-amdlx-gallery-1-cutout.png"
       },
       {
         "image": "./assets/img2808.jpeg",
