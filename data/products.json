@@ -30,7 +30,7 @@
     "id": "pc-gamer-xeon-gtx-750",
     "active": true,
     "title": "PC Gamer Xeon GTX 750 Ti",
-    "price": 1000,
+    "price": 950,
     "badge": "Com SDD",
     "image": "./assets/chatgpt-image-20-de-mai-de-2026-161636-1.png",
     "cutout": "./assets/generated/pc-gamer-xeon-gtx-650-cutout.png",
@@ -57,7 +57,7 @@
     "id": "pc-gamer-amd-fx",
     "active": true,
     "title": "PC GAMER AMD FX",
-    "price": 1050,
+    "price": 1000,
     "badge": "Novo",
     "image": "./assets/chatgpt-image-20-de-mai-de-2026-160505.png",
     "cutout": "./assets/generated/pc-gamer-amd-fx-cutout.png",
@@ -79,33 +79,10 @@
     "featured": true
   },
   {
-    "id": "pc-gamer-xeon-gtx550ti-gb",
-    "active": true,
-    "title": "PC GAMER E3-1220V1 e GTX 550 TI",
-    "price": 820,
-    "old": 900,
-    "badge": "BARATO!",
-    "image": "./assets/captura-de-tela-2026-05-18-170822.png",
-    "cutout": "./assets/generated/pc-gamer-xeon-gtx550ti-gb-cutout.png",
-    "photo": "square",
-    "specs": {
-      "processor": "Xeon E3-1220 V1",
-      "memory": "8GB DDR3",
-      "gpu": "GTX 550 TI",
-      "powerSupply": "500W",
-      "storage": "SSD 128GB"
-    },
-    "links": {
-      "olx": "https://sp.olx.com.br/sao-paulo-e-regiao/informatica/computadores-e-desktops/pc-gamer-xeon-placa-de-video-gtx-550-ti-1490418005?",
-      "facebook": "https://www.facebook.com/share/1FjoTCHZoy/"
-    },
-    "featured": true
-  },
-  {
     "id": "pc-gamer-gtx550tigbnv",
     "active": true,
     "title": "PC GAMER E3-1220V1 / 8GB RAM / GTX 550 Ti / SSD 128GB",
-    "price": 950,
+    "price": 900,
     "badge": "NOVO!",
     "image": "./assets/img2768-1.jpeg",
     "cutout": "./assets/generated/pc-gamer-gtx550tigbnv-cutout.png",
@@ -137,13 +114,13 @@
     "id": "pc-amdlx",
     "active": true,
     "title": "PC GAMER FX 6300 / 8GB RAM / GTX 550 Ti + SSD 128GB",
-    "price": 1000,
+    "price": 900,
     "badge": "NOVO!",
     "image": "./assets/img2807.jpeg",
+    "cutout": "./assets/generated/pc-amdlx-cutout.png",
     "gallery": [
       {
-        "image": "./assets/img2810.jpeg",
-        "cutout": "./assets/generated/pc-amdlx-gallery-1-cutout.png"
+        "image": "./assets/img2810.jpeg"
       },
       {
         "image": "./assets/img2808.jpeg",
@@ -162,7 +139,6 @@
       "olx": "https://olx.com.br/vi/1505253492?utm_source=social_media_ad_share&utm_medium=instagram_stories",
       "facebook": "https://www.facebook.com/marketplace/item/1891906721500389/?mibextid=6ojiHh"
     },
-    "featured": true,
-    "cutout": "./assets/generated/pc-amdlx-cutout.png"
+    "featured": true
   }
 ]
