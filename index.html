@@ -921,6 +921,10 @@
         flex-wrap: wrap;
         gap: 10px;
       }
+      .cart-actions .button {
+        flex: 1 1 100%;
+        justify-content: center;
+      }
       .cart-checkout-note {
         margin: 0;
         color: var(--muted);
@@ -2256,6 +2260,154 @@
         flex-wrap: wrap;
         gap: 10px;
       }
+      .payment-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 111;
+        display: grid;
+        place-items: center;
+        padding: clamp(14px, 4vw, 34px);
+        background: rgba(0, 5, 10, .84);
+        backdrop-filter: blur(10px);
+      }
+      .payment-modal[hidden] {
+        display: none;
+      }
+      .payment-panel {
+        width: min(760px, 100%);
+        max-height: min(88vh, 780px);
+        overflow: auto;
+        border: 1px solid rgba(4, 183, 255, .32);
+        border-radius: 12px;
+        background:
+          radial-gradient(circle at 78% 8%, rgba(34, 240, 196, .12), transparent 18rem),
+          radial-gradient(circle at 12% 0%, rgba(4, 183, 255, .18), transparent 18rem),
+          linear-gradient(180deg, rgba(7, 27, 45, .98), rgba(2, 8, 14, .99));
+        box-shadow: 0 28px 80px rgba(0, 0, 0, .48);
+      }
+      .payment-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 20px 22px;
+        border-bottom: 1px solid rgba(4, 183, 255, .16);
+      }
+      .payment-head h2,
+      .payment-head p {
+        margin: 0;
+      }
+      .payment-head h2 {
+        font-size: 24px;
+        line-height: 1.1;
+      }
+      .payment-head p {
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 1.45;
+      }
+      .payment-close {
+        appearance: none;
+        flex: 0 0 auto;
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(255, 255, 255, .16);
+        border-radius: 999px;
+        color: #f7fbff;
+        background: rgba(255, 255, 255, .04);
+        font-size: 22px;
+        cursor: pointer;
+      }
+      .payment-content {
+        display: grid;
+        gap: 14px;
+        padding: 22px;
+      }
+      .payment-total-card {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 15px 16px;
+        border: 1px solid rgba(34, 240, 196, .2);
+        border-radius: 10px;
+        background: rgba(34, 240, 196, .06);
+      }
+      .payment-total-card span {
+        color: var(--subtle);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      .payment-total-card strong {
+        color: var(--green);
+        font-size: 26px;
+        line-height: 1;
+      }
+      .payment-options {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .payment-option {
+        display: grid;
+        gap: 12px;
+        align-content: start;
+        min-height: 240px;
+        padding: 16px;
+        border: 1px solid rgba(255, 255, 255, .12);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, .045);
+      }
+      .payment-option.featured {
+        border-color: rgba(34, 240, 196, .42);
+        background: rgba(34, 240, 196, .06);
+      }
+      .payment-option h3,
+      .payment-option p {
+        margin: 0;
+      }
+      .payment-option h3 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 17px;
+        line-height: 1.2;
+      }
+      .payment-option h3 img {
+        width: 26px;
+        height: 26px;
+        object-fit: contain;
+      }
+      .payment-option p {
+        color: var(--muted);
+        font-size: 12.5px;
+        font-weight: 800;
+        line-height: 1.45;
+      }
+      .payment-price {
+        display: grid;
+        gap: 3px;
+        margin-top: auto;
+      }
+      .payment-price span {
+        color: var(--subtle);
+        font-size: 10.5px;
+        font-weight: 900;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+      }
+      .payment-price strong {
+        color: var(--green);
+        font-size: 20px;
+      }
+      .payment-option .button {
+        width: 100%;
+        justify-content: center;
+      }
       .marketplace-actions {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
@@ -2731,6 +2883,8 @@
         .cart-actions { width: 100%; }
         .pix-actions .button,
         .pix-actions { width: 100%; }
+        .payment-options { grid-template-columns: 1fr; }
+        .payment-option { min-height: auto; }
         .fulfillment { padding-inline: 14px; }
         .fulfillment-heading h2 { font-size: clamp(32px, 10vw, 50px); }
         .fulfillment-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -3011,7 +3165,7 @@
           <div>
             <p class="section-kicker">Loja online</p>
             <h2 class="cart-title" id="cart-title">Carrinho</h2>
-            <p class="cart-lead">Adicione um ou mais produtos, revise os opcionais e finalize a compra com seguran&ccedil;a pelo Mercado Pago ou por Pix via Abacate Pay.</p>
+            <p class="cart-lead">Adicione um ou mais produtos, revise os opcionais e finalize a compra com seguran&ccedil;a pelo m&eacute;todo que preferir.</p>
           </div>
           <div class="cart-panel" aria-live="polite">
             <div class="cart-items" id="cart-items">
@@ -3023,12 +3177,10 @@
                 <strong id="cart-total">R$ 0,00</strong>
               </div>
               <div class="cart-actions">
-                <a class="button secondary" href="#catalogo">Continuar comprando</a>
-                <button class="button primary" id="cart-checkout" type="button" disabled><img class="mercado-pago-button-icon" src="./assets/mercado-pago-icon.png" alt="" aria-hidden="true">Finalizar compra pelo Mercado Pago</button>
-                <button class="button abacate-pay-button" id="cart-checkout-abacate" type="button" disabled><img class="abacate-pay-button-logo" src="./assets/abacate-pay-logo.svg" alt="" aria-hidden="true">Pagar com Pix Abacate Pay</button>
+                <button class="button primary" id="cart-checkout" type="button" disabled>Finalizar compra</button>
               </div>
             </div>
-            <p class="cart-checkout-note">Mercado Pago libera PIX, cart&atilde;o e demais op&ccedil;&otilde;es dispon&iacute;veis na plataforma. Abacate Pay gera Pix copia-e-cola e QR Code diretamente no site.</p>
+            <p class="cart-checkout-note">Depois da entrega ou retirada, voc&ecirc; escolhe entre Mercado Pago, checkout Abacate Pay ou Pix com QR Code e copia-e-cola.</p>
           </div>
         </div>
       </section>
@@ -3039,7 +3191,7 @@
             Compra segura, do seu jeito
           </p>
           <h2>Finaliza&ccedil;&atilde;o pelo site</h2>
-          <p>O carrinho do site pode ser finalizado pelo Mercado Pago ou por Pix via Abacate Pay. OLX, Facebook Marketplace e Mercado Livre seguem como canais onde a MobilyTech BR tamb&eacute;m vende.</p>
+          <p>O carrinho do site pode ser finalizado pelo Mercado Pago, pelo checkout Abacate Pay ou por Pix com QR Code. OLX, Facebook Marketplace e Mercado Livre seguem como canais onde a MobilyTech BR tamb&eacute;m vende.</p>
         </div>
         <div class="fulfillment-grid">
           <article class="ship-card ship-card-shipping">
@@ -3065,7 +3217,7 @@
             </div>
             <h3>Venda direta aqui no site</h3>
             <span class="ship-accent" aria-hidden="true"></span>
-            <p>Finalize pelo Mercado Pago ou gere um Pix via Abacate Pay. Compre com tranquilidade e praticidade!</p>
+            <p>Finalize pelo Mercado Pago ou pelo Abacate Pay. No Pix direto, o site gera QR Code e c&oacute;digo copia-e-cola.</p>
             <div class="feature-row" aria-label="Beneficios do Mercado Pago">
               <div class="feature-item"><span class="feature-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg></span>Pagamento<br>100% seguro</div>
               <div class="feature-item"><span class="feature-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 10h18M7 15h5"></path></svg></span>Parcelamento<br>facilitado</div>
@@ -3073,7 +3225,7 @@
             </div>
             <div class="ship-card-foot">
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 20 6v6c0 4.6-3.2 7.7-8 9-4.8-1.3-8-4.4-8-9V6l8-3Z"></path><path d="m9 12 2 2 4-5"></path></svg>
-              Seguran&ccedil;a no Mercado Pago e Pix Abacate Pay
+              Seguran&ccedil;a no Mercado Pago e Abacate Pay
             </div>
           </article>
           <article class="ship-card ship-card-facebook">
@@ -3235,9 +3387,46 @@
           <p class="shipping-message" id="shipping-message"></p>
           <div class="shipping-actions">
             <button class="button secondary" type="button" id="shipping-quote-button">Calcular frete</button>
-            <button class="button primary" type="submit" id="shipping-pay-button">Pagar</button>
+            <button class="button primary" type="submit" id="shipping-pay-button">Continuar para pagamento</button>
           </div>
         </form>
+      </section>
+    </div>
+    <div class="payment-modal" id="payment-modal" hidden>
+      <section class="payment-panel" role="dialog" aria-modal="true" aria-labelledby="payment-title">
+        <div class="payment-head">
+          <div>
+            <h2 id="payment-title">Escolha o pagamento</h2>
+            <p>Confira o valor final e escolha como deseja concluir a compra.</p>
+          </div>
+          <button class="payment-close" type="button" aria-label="Fechar">&times;</button>
+        </div>
+        <div class="payment-content">
+          <div class="payment-total-card">
+            <span>Valor do pedido</span>
+            <strong id="payment-base-total">R$ 0,00</strong>
+          </div>
+          <div class="payment-options">
+            <article class="payment-option">
+              <h3><img src="./assets/mercado-pago-icon.png" alt="" aria-hidden="true">Mercado Pago</h3>
+              <p>Checkout seguro com PIX, cart&atilde;o e demais op&ccedil;&otilde;es liberadas pelo Mercado Pago. Inclui ajuste para cobrir a taxa da plataforma.</p>
+              <div class="payment-price"><span>Total pelo Mercado Pago</span><strong id="payment-mercado-total">R$ 0,00</strong></div>
+              <button class="button primary" type="button" id="payment-mercado-button"><img class="mercado-pago-button-icon" src="./assets/mercado-pago-icon.png" alt="" aria-hidden="true">Pagar pelo Mercado Pago</button>
+            </article>
+            <article class="payment-option featured">
+              <h3><img src="./assets/abacate-pay-logo.svg" alt="" aria-hidden="true">Abacate Pay</h3>
+              <p>Checkout do Abacate Pay com Pix, cart&atilde;o e as formas dispon&iacute;veis na plataforma, mantendo o valor original do pedido.</p>
+              <div class="payment-price"><span>Total pelo Abacate Pay</span><strong id="payment-abacate-total">R$ 0,00</strong></div>
+              <button class="button abacate-pay-button" type="button" id="payment-abacate-checkout-button"><img class="abacate-pay-button-logo" src="./assets/abacate-pay-logo.svg" alt="" aria-hidden="true">Pagar pelo Abacate Pay</button>
+            </article>
+            <article class="payment-option">
+              <h3><img src="./assets/abacate-pay-logo.svg" alt="" aria-hidden="true">Pix direto</h3>
+              <p>Gere o QR Code Pix e o c&oacute;digo copia-e-cola para pagar pelo app do banco, tamb&eacute;m pelo Abacate Pay.</p>
+              <div class="payment-price"><span>Total no Pix</span><strong id="payment-pix-total">R$ 0,00</strong></div>
+              <button class="button abacate-pay-button" type="button" id="payment-abacate-pix-button"><img class="abacate-pay-button-logo" src="./assets/abacate-pay-logo.svg" alt="" aria-hidden="true">Gerar QR Code Pix</button>
+            </article>
+          </div>
+        </div>
       </section>
     </div>
     <div class="pix-modal" id="pix-modal" hidden>
@@ -3288,7 +3477,6 @@
       const cartItemsContainer = document.getElementById("cart-items");
       const cartTotalOutput = document.getElementById("cart-total");
       const cartCheckoutButton = document.getElementById("cart-checkout");
-      const cartAbacateButton = document.getElementById("cart-checkout-abacate");
       const cartCountBadge = document.getElementById("cart-count-badge");
       const lightbox = document.getElementById("media-lightbox");
       const lightboxImage = document.getElementById("lightbox-image");
@@ -3303,6 +3491,15 @@
       const shippingQuoteButton = document.getElementById("shipping-quote-button");
       const shippingPayButton = document.getElementById("shipping-pay-button");
       const shippingSubtitle = document.getElementById("shipping-subtitle");
+      const paymentModal = document.getElementById("payment-modal");
+      const paymentClose = paymentModal?.querySelector(".payment-close");
+      const paymentBaseTotal = document.getElementById("payment-base-total");
+      const paymentMercadoTotal = document.getElementById("payment-mercado-total");
+      const paymentAbacateTotal = document.getElementById("payment-abacate-total");
+      const paymentPixTotal = document.getElementById("payment-pix-total");
+      const paymentMercadoButton = document.getElementById("payment-mercado-button");
+      const paymentAbacateCheckoutButton = document.getElementById("payment-abacate-checkout-button");
+      const paymentAbacatePixButton = document.getElementById("payment-abacate-pix-button");
       const pixModal = document.getElementById("pix-modal");
       const pixQrImage = document.getElementById("pix-qr-image");
       const pixCopyCode = document.getElementById("pix-copy-code");
@@ -3333,7 +3530,10 @@
       let activeShippingQuotes = [];
       let shippingValidationStarted = false;
       let lastCepLookup = "";
+      let pendingPayment = null;
       const cartStorageKey = "mobilytech-cart-v1";
+      const mercadoPagoFeePercent = 4.99;
+      const mercadoPagoFixedFee = 0;
 
       const escapeHtml = (value = "") => String(value)
         .replace(/&/g, "&amp;")
@@ -3542,7 +3742,6 @@
           cartCountBadge.hidden = count === 0;
         }
         if (cartCheckoutButton) cartCheckoutButton.disabled = count === 0;
-        if (cartAbacateButton) cartAbacateButton.disabled = count === 0;
         const total = cart.reduce((sum, item) => sum + cartItemTotal(item), 0);
         if (cartTotalOutput) cartTotalOutput.textContent = formatCurrency(total);
         if (!cartItemsContainer) return;
@@ -3724,22 +3923,13 @@
         };
       };
 
-      const checkoutProviderName = (context = checkoutContext) => (
-        context?.provider === "abacate" ? "Pix Abacate Pay" : "Mercado Pago"
-      );
-
       const updateCheckoutProviderCopy = () => {
-        const provider = checkoutProviderName();
         const pickup = isPickupMode();
         if (shippingSubtitle) {
-          shippingSubtitle.textContent = `Escolha como quer receber o PC e finalize por ${provider}.`;
+          shippingSubtitle.textContent = "Escolha como quer receber o PC. Depois disso, voce escolhe a forma de pagamento.";
         }
         if (shippingPayButton) {
-          if (checkoutContext?.provider === "abacate") {
-            shippingPayButton.textContent = pickup ? "Gerar Pix para retirada" : "Gerar Pix com frete";
-          } else {
-            shippingPayButton.textContent = pickup ? "Pagar e retirar no local" : "Pagar";
-          }
+          shippingPayButton.textContent = pickup ? "Continuar para pagamento" : "Continuar para pagamento";
         }
       };
 
@@ -3872,7 +4062,7 @@
           });
           const data = await response.json().catch(() => ({}));
           if (!response.ok || !data.checkout_url) {
-            throw new Error(data.error || "Nao foi possivel abrir o checkout.");
+            throw new Error(providerErrorMessage(data, "Mercado Pago recusou o checkout."));
           }
           window.location.href = data.checkout_url;
         } catch (error) {
@@ -3896,7 +4086,7 @@
           });
           const data = await response.json().catch(() => ({}));
           if (!response.ok || !data.checkout_url) {
-            throw new Error(data.error || "Nao foi possivel abrir o checkout.");
+            throw new Error(providerErrorMessage(data, "Mercado Pago recusou o checkout."));
           }
           window.location.href = data.checkout_url;
         } catch (error) {
@@ -3904,6 +4094,55 @@
           button.disabled = cart.length === 0;
           button.innerHTML = originalHtml;
         }
+      };
+
+      const cartBaseTotal = (shipping = null) => {
+        const itemsTotal = cart.reduce((sum, item) => sum + cartItemTotal(item), 0);
+        const shippingTotal = shipping ? parseCurrency(shipping.price || 0) : 0;
+        return itemsTotal + (Number.isFinite(shippingTotal) ? shippingTotal : 0);
+      };
+
+      const mercadoPagoGrossTotal = (value) => {
+        const net = parseCurrency(value);
+        const rate = Math.max(0, mercadoPagoFeePercent) / 100;
+        const fixed = Math.max(0, mercadoPagoFixedFee);
+        if (!Number.isFinite(net) || net <= 0 || rate >= 1) return net;
+        return Math.ceil(((net + fixed) / (1 - rate)) * 100) / 100;
+      };
+
+      const openPaymentModal = (context, button, shipping = null) => {
+        if (!paymentModal || !button) return;
+        pendingPayment = { context, button, shipping };
+        const baseTotal = cartBaseTotal(shipping);
+        const mercadoTotal = mercadoPagoGrossTotal(baseTotal);
+        if (paymentBaseTotal) paymentBaseTotal.textContent = formatCurrency(baseTotal);
+        if (paymentMercadoTotal) paymentMercadoTotal.textContent = formatCurrency(mercadoTotal);
+        if (paymentAbacateTotal) paymentAbacateTotal.textContent = formatCurrency(baseTotal);
+        if (paymentPixTotal) paymentPixTotal.textContent = formatCurrency(baseTotal);
+        paymentModal.hidden = false;
+        document.body.style.overflow = "hidden";
+        paymentMercadoButton?.focus();
+      };
+
+      const closePaymentModal = () => {
+        if (!paymentModal || paymentModal.hidden) return;
+        paymentModal.hidden = true;
+        document.body.style.overflow = "";
+        pendingPayment?.button?.focus();
+        pendingPayment = null;
+      };
+
+      const providerErrorMessage = (data = {}, fallback) => {
+        const cause = Array.isArray(data.details?.cause) ? data.details.cause[0] : null;
+        const detail = data.details?.message
+          || data.details?.error
+          || data.details?.errors?.[0]?.message
+          || cause?.description
+          || cause?.message
+          || data.message
+          || data.error;
+        if (!detail || detail === fallback) return fallback;
+        return `${fallback} (${detail})`;
       };
 
       const normalizeQrCodeImage = (value = "") => {
@@ -3952,7 +4191,7 @@
           });
           const data = await response.json().catch(() => ({}));
           if (!response.ok || !data.copy_code) {
-            throw new Error(data.error || "Nao foi possivel gerar o Pix.");
+            throw new Error(providerErrorMessage(data, "Abacate Pay recusou a criacao do Pix."));
           }
           showPixPayment(data);
         } catch (error) {
@@ -3967,7 +4206,7 @@
         if (!button || cart.length === 0) return;
         const originalHtml = button.innerHTML;
         button.disabled = true;
-        button.textContent = "Gerando Pix...";
+        button.textContent = "Gerando QR Code...";
 
         try {
           const response = await fetch("/api/create-abacate-pix", {
@@ -3977,7 +4216,7 @@
           });
           const data = await response.json().catch(() => ({}));
           if (!response.ok || !data.copy_code) {
-            throw new Error(data.error || "Nao foi possivel gerar o Pix.");
+            throw new Error(providerErrorMessage(data, "Abacate Pay recusou a criacao do Pix."));
           }
           showPixPayment(data);
         } catch (error) {
@@ -3988,15 +4227,37 @@
         }
       };
 
+      const startCartAbacateHostedCheckout = async (button, shipping = null) => {
+        if (!button || cart.length === 0) return;
+        const originalHtml = button.innerHTML;
+        button.disabled = true;
+        button.textContent = "Abrindo Abacate Pay...";
+
+        try {
+          const response = await fetch("/api/create-abacate-checkout", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cartItems: cart, shipping })
+          });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || !data.checkout_url) {
+            throw new Error(providerErrorMessage(data, "Abacate Pay recusou o checkout."));
+          }
+          window.location.href = data.checkout_url;
+        } catch (error) {
+          alert(error.message || "Nao foi possivel abrir o Abacate Pay agora.");
+        } finally {
+          button.disabled = cart.length === 0;
+          button.innerHTML = originalHtml;
+        }
+      };
+
       const continueCheckout = (context, button, shipping = null) => {
-        if (context?.provider === "abacate") {
-          if (context?.type === "cart") startCartAbacateCheckout(button, shipping);
-          else startAbacatePayCheckout(button, shipping);
+        if (context?.type === "cart") {
+          openPaymentModal(context, button, shipping);
           return;
         }
-
-        if (context?.type === "cart") startCartCheckout(button, shipping);
-        else startMercadoPagoCheckout(button, shipping);
+        startMercadoPagoCheckout(button, shipping);
       };
 
       productGrid?.addEventListener("click", (event) => {
@@ -4039,19 +4300,33 @@
       cartCheckoutButton?.addEventListener("click", () => {
         if (!cart.length) return;
         if (shippingEnabled) {
-          openShippingModal(cartCheckoutButton, { type: "cart", provider: "mercado" });
+          openShippingModal(cartCheckoutButton, { type: "cart" });
           return;
         }
-        startCartCheckout(cartCheckoutButton);
+        openPaymentModal({ type: "cart" }, cartCheckoutButton);
       });
 
-      cartAbacateButton?.addEventListener("click", () => {
-        if (!cart.length) return;
-        if (shippingEnabled) {
-          openShippingModal(cartAbacateButton, { type: "cart", provider: "abacate" });
-          return;
-        }
-        startCartAbacateCheckout(cartAbacateButton);
+      paymentClose?.addEventListener("click", closePaymentModal);
+      paymentModal?.addEventListener("click", (event) => {
+        if (event.target === paymentModal) closePaymentModal();
+      });
+      paymentMercadoButton?.addEventListener("click", () => {
+        if (!pendingPayment) return;
+        const { shipping } = pendingPayment;
+        closePaymentModal();
+        startCartCheckout(paymentMercadoButton, shipping);
+      });
+      paymentAbacateCheckoutButton?.addEventListener("click", () => {
+        if (!pendingPayment) return;
+        const { shipping } = pendingPayment;
+        closePaymentModal();
+        startCartAbacateHostedCheckout(paymentAbacateCheckoutButton, shipping);
+      });
+      paymentAbacatePixButton?.addEventListener("click", () => {
+        if (!pendingPayment) return;
+        const { shipping } = pendingPayment;
+        closePaymentModal();
+        startCartAbacateCheckout(paymentAbacatePixButton, shipping);
       });
 
       lightboxClose?.addEventListener("click", closeLightboxView);
@@ -4146,6 +4421,7 @@
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
           closeLightboxView();
+          closePaymentModal();
           closePixModal();
         }
         if (!lightbox || lightbox.hidden) return;

@@ -3,7 +3,8 @@ const path = require("path");
 
 const PRODUCTS_FILE = path.join(process.cwd(), "data", "products.json");
 const ADDONS_FILE = path.join(process.cwd(), "data", "addons.json");
-const ABACATE_PIX_API = "https://api.abacatepay.com/v2/transparents/create";
+const ABACATE_PRODUCTS_CREATE_API = "https://api.abacatepay.com/v2/products/create";
+const ABACATE_CHECKOUT_API = "https://api.abacatepay.com/v2/checkouts/create";
 const { quoteMelhorEnvio } = require("./shipping-quote");
 
 const ADDON_CATEGORIES = {
@@ -23,9 +24,7 @@ async function readJsonBody(request) {
   if (typeof request.body === "string") return JSON.parse(request.body);
 
   let raw = "";
-  for await (const chunk of request) {
-    raw += chunk;
-  }
+  for await (const chunk of request) raw += chunk;
   return raw ? JSON.parse(raw) : {};
 }
 
@@ -33,37 +32,58 @@ function parsePriceBRL(value) {
   if (typeof value === "number") return value;
   const raw = String(value || "").replace(/[^\d,.-]/g, "");
   if (!raw) return NaN;
-
-  if (raw.includes(",")) {
-    return Number(raw.replace(/\./g, "").replace(",", "."));
-  }
-
+  if (raw.includes(",")) return Number(raw.replace(/\./g, "").replace(",", "."));
   const parts = raw.split(".");
-  if (parts.length > 1 && parts[parts.length - 1].length === 3) {
-    return Number(parts.join(""));
-  }
-
+  if (parts.length > 1 && parts[parts.length - 1].length === 3) return Number(parts.join(""));
   return Number(raw);
+}
+
+function toCents(value) {
+  return Math.round(Number(value || 0) * 100);
 }
 
 function onlyDigits(value) {
   return String(value || "").replace(/\D/g, "");
 }
 
-function abacateCustomerFromShipping(shipping) {
-  const customer = shipping?.customer || {};
-  const taxId = onlyDigits(customer.taxId || customer.document || customer.cpfCnpj);
-  const name = String(customer.name || "").trim();
-  const email = String(customer.email || "").trim();
-  const cellphone = String(customer.phone || customer.cellphone || "").trim();
-  if (!name || !taxId || !email || !cellphone) return undefined;
+function requestOrigin(request) {
+  const host = request.headers["x-forwarded-host"] || request.headers.host;
+  const protocol = request.headers["x-forwarded-proto"] || "https";
+  return process.env.SITE_URL || `${protocol}://${host}`;
+}
 
-  return {
-    name,
-    taxId,
-    email,
-    cellphone
-  };
+function absoluteUrl(origin, value) {
+  if (!value) return undefined;
+  if (/^https?:\/\//.test(value)) return value;
+  return new URL(String(value).replace(/^\.\//, "/"), origin).toString();
+}
+
+function normalizeApiKey(value) {
+  return String(value || "")
+    .trim()
+    .replace(/^["']|["']$/g, "")
+    .replace(/^Bearer\s+/i, "")
+    .trim();
+}
+
+function slug(value = "") {
+  return String(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 70) || "item";
+}
+
+function paymentMethods() {
+  const raw = process.env.ABACATE_PAY_METHODS || "PIX,CARD";
+  const allowed = new Set(["PIX", "CARD"]);
+  const methods = raw
+    .split(",")
+    .map((method) => method.trim().toUpperCase())
+    .filter((method) => allowed.has(method));
+  return methods.length ? [...new Set(methods)] : ["PIX", "CARD"];
 }
 
 async function loadProducts() {
@@ -84,9 +104,7 @@ async function loadGlobalAddons() {
 function normalizeAddonOption(option) {
   const label = option?.label || option?.name || "";
   const price = parsePriceBRL(option?.price);
-  if (!option || option.active === false || !label || !Number.isFinite(price) || price <= 0) {
-    return null;
-  }
+  if (!option || option.active === false || !label || !Number.isFinite(price) || price <= 0) return null;
   return { ...option, label, price };
 }
 
@@ -97,9 +115,7 @@ function productAddonGroups(product, globalAddons = []) {
       ? globalAddons.filter((option) => option?.category === category)
       : [];
     const productOptions = Array.isArray(source[category]) ? source[category] : [];
-    const activeOptions = [...globalOptions, ...productOptions]
-      .map(normalizeAddonOption)
-      .filter(Boolean);
+    const activeOptions = [...globalOptions, ...productOptions].map(normalizeAddonOption).filter(Boolean);
     return [category, activeOptions];
   }));
 }
@@ -226,34 +242,88 @@ async function normalizeShipping(product, shipping) {
   };
 }
 
-function totalFromCheckoutItems(checkoutItems, normalizedShipping) {
-  const productsTotal = checkoutItems.reduce((sum, item) => {
-    const addonsTotal = item.addons.reduce((addonSum, addon) => addonSum + addon.price, 0);
-    return sum + item.unitPrice + addonsTotal;
-  }, 0);
-  return productsTotal + (normalizedShipping ? normalizedShipping.price : 0);
-}
-
-function toCents(value) {
-  return Math.round(Number(value || 0) * 100);
-}
-
-function buildDescription(checkoutItems) {
-  if (checkoutItems.length === 1) {
-    return String(checkoutItems[0].product.title || "Pedido MobilyTech BR").slice(0, 37);
+async function abacateRequest(apiKey, url, options = {}) {
+  const apiResponse = await fetch(url, {
+    ...options,
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+      ...(options.headers || {})
+    }
+  });
+  const data = await apiResponse.json().catch(() => ({}));
+  if (!apiResponse.ok || data.success === false || data.error) {
+    const detail = typeof data.error === "string"
+      ? data.error
+      : data.error?.message || data.message;
+    const message = [401, 403].includes(apiResponse.status)
+      ? "Abacate Pay nao autorizou a chave configurada. Confira se ABACATE_PAY_API_KEY esta correta e com permissoes de Produtos e Checkout."
+      : detail || "Abacate Pay recusou a operacao.";
+    const error = new Error(message);
+    error.statusCode = apiResponse.status || 500;
+    error.details = data.error || data;
+    throw error;
   }
-  return "Carrinho MobilyTech BR";
+  return data;
 }
 
-function normalizeApiKey(value) {
-  return String(value || "")
-    .trim()
-    .replace(/^["']|["']$/g, "")
-    .replace(/^Bearer\s+/i, "")
-    .trim();
+async function ensureAbacateProduct(apiKey, line) {
+  const payload = {
+    externalId: line.externalId,
+    name: String(line.name || "Item MobilyTech BR").slice(0, 100),
+    description: String(line.description || line.name || "Item MobilyTech BR").slice(0, 300),
+    price: toCents(line.price),
+    currency: "BRL"
+  };
+  if (line.imageUrl) payload.imageUrl = line.imageUrl;
+
+  const data = await abacateRequest(apiKey, ABACATE_PRODUCTS_CREATE_API, {
+    method: "POST",
+    body: JSON.stringify(payload)
+  });
+  const product = data.data || data;
+  if (!product?.id) {
+    const error = new Error("Abacate Pay criou o produto, mas nao retornou o ID.");
+    error.statusCode = 500;
+    throw error;
+  }
+  return product.id;
 }
 
-module.exports = async function createAbacatePix(request, response) {
+function checkoutLines(checkoutItems, normalizedShipping, origin) {
+  const runId = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+  const lines = checkoutItems.flatMap((item) => {
+    const productImage = absoluteUrl(origin, item.product.image || item.product.cutout);
+    return [
+      {
+        externalId: `mobilytech-${runId}-product-${slug(item.product.id)}-${toCents(item.unitPrice)}`,
+        name: item.product.title || "PC MobilyTech BR",
+        description: item.product.tags?.filter(Boolean).join(" | ") || item.product.title || "PC MobilyTech BR",
+        price: item.unitPrice,
+        imageUrl: productImage
+      },
+      ...item.addons.map((addon) => ({
+        externalId: `mobilytech-${runId}-addon-${slug(item.product.id)}-${slug(addon.category)}-${slug(addon.label)}-${toCents(addon.price)}`,
+        name: `${addon.categoryLabel}: ${addon.label}`,
+        description: `${item.product.title} - ${addon.categoryLabel}: ${addon.label}`,
+        price: addon.price
+      }))
+    ];
+  });
+
+  if (normalizedShipping) {
+    lines.push({
+      externalId: `mobilytech-${runId}-shipping-${slug(normalizedShipping.carrier)}-${slug(normalizedShipping.serviceName)}-${toCents(normalizedShipping.price)}`,
+      name: `Frete ${normalizedShipping.carrier} ${normalizedShipping.serviceName}`,
+      description: `Entrega para CEP ${normalizedShipping.postalCode}`,
+      price: normalizedShipping.price
+    });
+  }
+
+  return lines;
+}
+
+module.exports = async function createAbacateCheckout(request, response) {
   response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   response.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
@@ -277,92 +347,63 @@ module.exports = async function createAbacatePix(request, response) {
   try {
     const payload = await readJsonBody(request);
     const { shipping } = payload;
-    const [products, globalAddons] = await Promise.all([
-      loadProducts(),
-      loadGlobalAddons()
-    ]);
+    const [products, globalAddons] = await Promise.all([loadProducts(), loadGlobalAddons()]);
     const checkoutItems = normalizeCheckoutItems(products, globalAddons, payload);
     const shippingProduct = checkoutItems.length === 1
       ? checkoutItems[0].product
       : aggregateShippingProduct(checkoutItems.map((item) => item.product));
     const normalizedShipping = await normalizeShipping(shippingProduct, shipping);
-    const total = totalFromCheckoutItems(checkoutItems, normalizedShipping);
-    const amount = toCents(total);
+    const origin = requestOrigin(request);
+    const lines = checkoutLines(checkoutItems, normalizedShipping, origin);
 
-    if (!Number.isInteger(amount) || amount <= 0) {
-      sendJson(response, 400, { error: "Valor do pedido invalido." });
-      return;
+    const productIds = [];
+    for (const line of lines) {
+      productIds.push(await ensureAbacateProduct(apiKey, line));
     }
 
-    const externalId = `mobilytech-${Date.now()}`;
-    const selectedAddons = checkoutItems.flatMap((item) => item.addons.map((addon) => `${item.product.id}:${addon.category}:${addon.label}`));
-    const pixPayload = {
-      method: "PIX",
-      data: {
-        amount,
-        externalId,
-        expiresIn: Number(process.env.ABACATE_PAY_PIX_EXPIRES_IN_SECONDS || 3600),
-        description: buildDescription(checkoutItems),
-        customer: abacateCustomerFromShipping(normalizedShipping),
-        metadata: {
-          externalId,
-          checkoutType: checkoutItems.length > 1 ? "cart" : "single_product",
-          productIds: checkoutItems.map((item) => item.product.id).join("; "),
-          productTitles: checkoutItems.map((item) => item.product.title).join("; "),
-          selectedAddons: selectedAddons.join("; "),
-          shippingRequested: normalizedShipping ? "true" : "false",
-          shippingProvider: normalizedShipping ? "melhor-envio" : "",
-          shippingServiceId: normalizedShipping?.serviceId || "",
-          shippingServiceName: normalizedShipping?.serviceName || "",
-          shippingCarrier: normalizedShipping?.carrier || "",
-          shippingPrice: normalizedShipping ? String(normalizedShipping.price) : "",
-          shippingPostalCode: normalizedShipping?.postalCode || "",
-          shippingCustomer: normalizedShipping ? JSON.stringify(normalizedShipping.customer || {}) : ""
-        }
+    const externalId = `mobilytech-checkout-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+    const checkoutPayload = {
+      externalId,
+      items: productIds.map((productId) => ({ id: productId, quantity: 1 })),
+      methods: paymentMethods(),
+      card: {
+        maxInstallments: Number(process.env.ABACATE_PAY_MAX_INSTALLMENTS || 12)
+      },
+      returnUrl: `${origin}/pagamento-pendente.html`,
+      completionUrl: `${origin}/pagamento-sucesso.html`,
+      metadata: {
+        checkoutType: checkoutItems.length > 1 ? "cart" : "single_product",
+        productIds: checkoutItems.map((item) => item.product.id).join("; "),
+        productTitles: checkoutItems.map((item) => item.product.title).join("; "),
+        shippingRequested: normalizedShipping ? "true" : "false",
+        shippingServiceName: normalizedShipping?.serviceName || "",
+        shippingCarrier: normalizedShipping?.carrier || "",
+        shippingPrice: normalizedShipping ? String(normalizedShipping.price) : "",
+        shippingPostalCode: normalizedShipping?.postalCode || "",
+        shippingCustomer: normalizedShipping ? JSON.stringify(normalizedShipping.customer || {}) : ""
       }
     };
 
-    const abacateResponse = await fetch(ABACATE_PIX_API, {
+    const data = await abacateRequest(apiKey, ABACATE_CHECKOUT_API, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(pixPayload)
+      body: JSON.stringify(checkoutPayload)
     });
-
-    const data = await abacateResponse.json().catch(() => ({}));
-    const pixData = data.data || data;
-    const copyCode = pixData.brCode || pixData.copyPaste || pixData.pixCopyPaste || pixData.payload;
-    const qrCodeBase64 = pixData.brCodeBase64 || pixData.qrCodeBase64 || pixData.qrCode;
-    if (!abacateResponse.ok || data.success === false || data.error || !copyCode) {
-      if ([401, 403].includes(abacateResponse.status)) {
-        sendJson(response, 401, {
-          error: "Abacate Pay nao autorizou a chave configurada. Confira se ABACATE_PAY_API_KEY esta com o token correto, sem aspas, sem Bearer e com permissao de checkout transparente."
-        });
-        return;
-      }
-
-      const detail = typeof data.error === "string"
-        ? data.error
-        : data.error?.message || data.message;
-      sendJson(response, abacateResponse.status || 500, {
-        error: detail || "Abacate Pay recusou a criacao do Pix.",
-        details: data.error || data
-      });
+    const checkout = data.data || data;
+    const checkoutUrl = checkout.url || checkout.checkoutUrl || checkout.initPoint;
+    if (!checkoutUrl) {
+      sendJson(response, 500, { error: "Abacate Pay nao retornou a URL do checkout.", details: checkout });
       return;
     }
 
     sendJson(response, 200, {
-      id: pixData.id,
-      amount: pixData.amount,
-      amount_brl: total,
-      copy_code: copyCode,
-      qr_code_base64: qrCodeBase64,
-      expires_at: pixData.expiresAt,
+      id: checkout.id,
+      checkout_url: checkoutUrl,
       external_id: externalId
     });
   } catch (error) {
-    sendJson(response, error.statusCode || 500, { error: error.message || "Erro ao criar Pix Abacate Pay." });
+    sendJson(response, error.statusCode || 500, {
+      error: error.message || "Erro ao criar checkout Abacate Pay.",
+      details: error.details
+    });
   }
 };

@@ -92,6 +92,34 @@ function onlyDigits(value) {
   return String(value || "").replace(/\D/g, "");
 }
 
+function envNumber(name, fallback) {
+  const raw = String(process.env[name] || "").trim();
+  if (!raw) return fallback;
+  const value = Number(raw.replace(",", "."));
+  return Number.isFinite(value) ? value : fallback;
+}
+
+function toMoney(value) {
+  return Math.round(Number(value || 0) * 100) / 100;
+}
+
+function mercadoPagoGrossUp(netValue) {
+  const net = Number(netValue || 0);
+  const enabled = String(process.env.MERCADO_PAGO_GROSS_UP_ENABLED || "true").toLowerCase() !== "false";
+  if (!enabled || !Number.isFinite(net) || net <= 0) return { gross: toMoney(net), fee: 0 };
+
+  const percent = envNumber("MERCADO_PAGO_FEE_PERCENT", 4.99);
+  const fixed = envNumber("MERCADO_PAGO_FIXED_FEE_BRL", 0);
+  const rate = Math.max(0, percent) / 100;
+  if (rate >= 1) return { gross: toMoney(net), fee: 0 };
+
+  const gross = Math.ceil(((net + Math.max(0, fixed)) / (1 - rate)) * 100) / 100;
+  return {
+    gross: toMoney(gross),
+    fee: toMoney(Math.max(0, gross - net))
+  };
+}
+
 async function loadGlobalAddons() {
   try {
     const addons = JSON.parse(await fs.readFile(ADDONS_FILE, "utf8"));
@@ -286,6 +314,11 @@ module.exports = async function createPreference(request, response) {
       : "";
     const customer = normalizedShipping?.customer || {};
     const customerName = splitName(customer.name);
+    const baseCheckoutTotal = checkoutItems.reduce((sum, item) => {
+      const addonsTotal = item.addons.reduce((addonSum, addon) => addonSum + addon.price, 0);
+      return sum + item.unitPrice + addonsTotal;
+    }, 0) + (normalizedShipping ? normalizedShipping.price : 0);
+    const mercadoFeeAdjustment = mercadoPagoGrossUp(baseCheckoutTotal).fee;
     const preference = {
       items: [
         ...checkoutItems.flatMap((item) => {
@@ -315,6 +348,13 @@ module.exports = async function createPreference(request, response) {
           quantity: 1,
           currency_id: "BRL",
           unit_price: normalizedShipping.price
+        }] : []),
+        ...(mercadoFeeAdjustment > 0 ? [{
+          id: `${checkoutReference}-mercado-pago-processing-adjustment`,
+          title: "Ajuste de processamento Mercado Pago",
+          quantity: 1,
+          currency_id: "BRL",
+          unit_price: mercadoFeeAdjustment
         }] : [])
       ],
       payer: normalizedShipping ? {
@@ -347,6 +387,7 @@ module.exports = async function createPreference(request, response) {
         shipping_service_name: normalizedShipping?.serviceName || "",
         shipping_carrier: normalizedShipping?.carrier || "",
         shipping_price: normalizedShipping ? String(normalizedShipping.price) : "",
+        mercado_pago_fee_adjustment: String(mercadoFeeAdjustment),
         shipping_postal_code: normalizedShipping?.postalCode || "",
         shipping_customer: normalizedShipping ? JSON.stringify(customer) : ""
       },
@@ -367,10 +408,10 @@ module.exports = async function createPreference(request, response) {
       body: JSON.stringify(preference)
     });
 
-    const data = await mercadoPagoResponse.json();
+    const data = await mercadoPagoResponse.json().catch(() => ({}));
     if (!mercadoPagoResponse.ok) {
       sendJson(response, mercadoPagoResponse.status, {
-        error: data.message || "Mercado Pago recusou a criacao do checkout.",
+        error: data.message || data.error || "Mercado Pago recusou a criacao do checkout.",
         details: data.error || data.cause
       });
       return;
