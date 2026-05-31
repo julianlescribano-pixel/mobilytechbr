@@ -6,6 +6,56 @@ media:
   rename: safe
 
 content:
+  - name: automationSettings
+    label: Automacoes do site
+    type: file
+    path: data/automation-settings.json
+    format: json
+    fields:
+      - name: postSaleEmailsEnabled
+        label: Ativar e-mails de pos-venda
+        type: boolean
+        default: true
+      - name: postSalePollMinutes
+        label: Intervalo dos e-mails de pos-venda em minutos
+        type: number
+        default: 5
+        description: "Recomendado: 5 minutos."
+      - name: sellerNotificationsEnabled
+        label: Enviar e-mail interno quando vender
+        type: boolean
+        default: true
+      - name: sellerEmail
+        label: E-mail que recebe avisos internos
+        type: string
+        default: mobilytechbr@gmail.com
+      - name: marketplacePriceSyncEnabled
+        label: Ativar verificacao de precos OLX/Facebook
+        type: boolean
+        default: false
+        description: "Comece desligado. Ligue quando a planilha/script estiver configurado."
+      - name: marketplacePriceSyncMode
+        label: Modo da verificacao de precos
+        type: select
+        default: review
+        options:
+          values:
+            - review
+            - auto
+        description: "Review cria sugestoes para conferir. Auto so deve ser usado depois de testes."
+      - name: marketplacePriceSyncIntervalMinutes
+        label: Intervalo da verificacao de precos em minutos
+        type: number
+        default: 360
+        description: "Recomendado: 360 minutos, ou seja, a cada 6 horas."
+      - name: marketplacePriceSyncRequireManualApproval
+        label: Exigir aprovacao manual antes de atualizar preco
+        type: boolean
+        default: true
+      - name: marketplacePriceSyncApplyOnlyHighConfidence
+        label: Aplicar somente quando a confianca for alta
+        type: boolean
+        default: true
   - name: globalAddons
     label: Adicionais globais
     type: file

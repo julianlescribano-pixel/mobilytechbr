@@ -52,6 +52,27 @@ async function fetchPayment(paymentId) {
   return data;
 }
 
+async function assertPaymentConfirmed(payload) {
+  if (payload.paymentProvider === "abacate") {
+    if (payload.paymentStatus !== "approved") {
+      throw new Error("Pagamento Abacate Pay ainda nao confirmado.");
+    }
+    return {
+      id: payload.paymentId,
+      status: "approved",
+      provider: "abacate"
+    };
+  }
+
+  const payment = await fetchPayment(payload.paymentId);
+  if (payment.status !== "approved") {
+    const error = new Error(`Pagamento nao aprovado. Status atual: ${payment.status || "desconhecido"}.`);
+    error.statusCode = 409;
+    throw error;
+  }
+  return payment;
+}
+
 function productPackage(product) {
   const shipping = product.shipping || {};
   return {
@@ -161,11 +182,7 @@ module.exports = async function shippingConfirm(request, response) {
       return;
     }
 
-    const payment = await fetchPayment(payload.paymentId);
-    if (payment.status !== "approved") {
-      html(response, 409, "Pagamento nao aprovado", `<p>Status atual: ${payment.status || "desconhecido"}.</p>`);
-      return;
-    }
+    await assertPaymentConfirmed(payload);
 
     if (process.env.MELHOR_ENVIO_ENABLE_LABEL_PURCHASE !== "true") {
       html(response, 200, "Confirmacao pronta", "<p>O pedido foi validado, mas a compra automatica da etiqueta ainda esta desativada.</p><p>Ative <strong>MELHOR_ENVIO_ENABLE_LABEL_PURCHASE=true</strong> na Vercel quando quiser permitir que este botao compre a etiqueta de verdade.</p>");
@@ -187,6 +204,6 @@ module.exports = async function shippingConfirm(request, response) {
 
     html(response, 200, "Etiqueta comprada", `<p>A compra da etiqueta foi enviada ao Melhor Envio.</p><code>${JSON.stringify({ orderId, checkoutData, generateData, printData }, null, 2)}</code>`);
   } catch (error) {
-    html(response, 500, "Erro ao comprar etiqueta", `<p>Confira os dados e variaveis da Vercel.</p><code>${String(error.message || error)}</code>`);
+    html(response, error.statusCode || 500, "Erro ao comprar etiqueta", `<p>Confira os dados e variaveis da Vercel.</p><code>${String(error.message || error)}</code>`);
   }
 };

@@ -373,9 +373,13 @@ module.exports = async function createAbacateCheckout(request, response) {
       completionUrl: `${origin}/pagamento-sucesso.html`,
       metadata: {
         checkoutType: checkoutItems.length > 1 ? "cart" : "single_product",
+        productId: checkoutItems[0].product.id,
         productIds: checkoutItems.map((item) => item.product.id).join("; "),
         productTitles: checkoutItems.map((item) => item.product.title).join("; "),
+        selectedAddons: checkoutItems.flatMap((item) => item.addons.map((addon) => `${item.product.id}:${addon.category}:${addon.label}`)).join("; "),
         shippingRequested: normalizedShipping ? "true" : "false",
+        shippingProvider: normalizedShipping ? "melhor-envio" : "",
+        shippingServiceId: normalizedShipping?.serviceId || "",
         shippingServiceName: normalizedShipping?.serviceName || "",
         shippingCarrier: normalizedShipping?.carrier || "",
         shippingPrice: normalizedShipping ? String(normalizedShipping.price) : "",

@@ -29,6 +29,30 @@ function parsePositiveNumber(value) {
   return Number.isFinite(number) && number > 0 ? number : null;
 }
 
+function normalizeText(value = "") {
+  return String(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
+function allowedCarrierNames() {
+  const raw = process.env.SHIPPING_ALLOWED_CARRIERS || "correios,jadlog,loggi";
+  return raw.split(",").map(normalizeText).map((item) => item.trim()).filter(Boolean);
+}
+
+function isAllowedCarrier(company) {
+  const allowed = allowedCarrierNames();
+  if (!allowed.length) return true;
+  const normalized = normalizeText(company);
+  return allowed.some((name) => normalized.includes(name));
+}
+
+function isPreferredCarrier(company) {
+  const preferred = normalizeText(process.env.SHIPPING_PREFERRED_CARRIER || "correios");
+  return preferred ? normalizeText(company).includes(preferred) : false;
+}
+
 function productPackage(product) {
   const shipping = product.shipping || {};
   return {
@@ -64,12 +88,14 @@ function normalizeQuote(service) {
   const price = parsePositiveNumber(service.custom_price || service.price);
   if (!price || service.error) return null;
   const company = service.company?.name || service.company_name || "";
+  if (!isAllowedCarrier(company)) return null;
   return {
     id: String(service.id || service.service_id || ""),
     name: service.name || service.service || "Frete",
     company,
     price,
     deliveryTime: service.custom_delivery_time || service.delivery_time || null,
+    recommended: isPreferredCarrier(company),
     raw: {
       id: service.id,
       name: service.name,
@@ -156,8 +182,10 @@ async function quoteMelhorEnvio(product, destinationPostalCode) {
   const quotes = (Array.isArray(data) ? data : [])
     .map(normalizeQuote)
     .filter(Boolean)
-    .filter((quote) => quote.company.toLowerCase().includes("correios"))
-    .sort((a, b) => a.price - b.price);
+    .sort((a, b) => {
+      if (a.recommended !== b.recommended) return a.recommended ? -1 : 1;
+      return a.price - b.price;
+    });
 
   return { quotes, package: pkg };
 }
@@ -196,7 +224,7 @@ module.exports = async function shippingQuote(request, response) {
 
     const result = await quoteMelhorEnvio(product, postalCode);
     if (!result.quotes.length) {
-      sendJson(response, 404, { error: "Nenhuma opcao dos Correios disponivel para esse CEP." });
+      sendJson(response, 404, { error: "Nenhuma opcao de frete disponivel para esse CEP." });
       return;
     }
 

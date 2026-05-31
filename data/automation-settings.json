@@ -1,0 +1,11 @@
+{
+  "postSaleEmailsEnabled": true,
+  "postSalePollMinutes": 5,
+  "sellerNotificationsEnabled": true,
+  "sellerEmail": "mobilytechbr@gmail.com",
+  "marketplacePriceSyncEnabled": false,
+  "marketplacePriceSyncMode": "review",
+  "marketplacePriceSyncIntervalMinutes": 360,
+  "marketplacePriceSyncRequireManualApproval": true,
+  "marketplacePriceSyncApplyOnlyHighConfidence": true
+}

@@ -25,7 +25,8 @@ module.exports = async function shippingConfig(_request, response) {
   sendJson(response, 200, {
     enabled,
     provider: "melhor-envio",
-    preferredCarrier: "Correios",
+    preferredCarrier: process.env.SHIPPING_PREFERRED_CARRIER || "Correios",
+    allowedCarriers: process.env.SHIPPING_ALLOWED_CARRIERS || "correios,jadlog,loggi",
     requires: missing
   });
 };
